@@ -42,9 +42,7 @@ javafx {
 }
 
 dependencies {
-
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.7.20'
 }
 
 test {
