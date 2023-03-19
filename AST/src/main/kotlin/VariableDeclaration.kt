@@ -10,9 +10,8 @@ class VariableDeclaration: ASTNode {
     var name: String
     var type: String //TODO move to an enum??
 
+
     override fun accept(visitor: ASTNodeVisitor) {
-        visitor.visitNode(this)
+        visitor.visitDeclaration(this)
     }
-
-
 }
