@@ -17,6 +17,14 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/AST" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/AST" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/interpreter" />
         <option name="gradleHome" value="/usr/local/Cellar/gradle/8.0.2/libexec" />
         <option name="modules">
@@ -49,6 +57,22 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$/parser" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/parser/src/main/test" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/parser/src/main/test" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/parser/src/test" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/parser/src/test" />
           </set>
         </option>
       </GradleProjectSettings>
