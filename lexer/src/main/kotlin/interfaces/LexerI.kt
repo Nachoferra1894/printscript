@@ -2,6 +2,6 @@ package lexer.interfaces
 
 import lexer.Token
 
-interface Lexer {
+interface LexerI {
     fun getTokens(code: String): ArrayList<Token>
 }

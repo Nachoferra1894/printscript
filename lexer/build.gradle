@@ -42,11 +42,15 @@ javafx {
 }
 
 dependencies {
-    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit:1.7.20'
+    testImplementation(kotlin("test"))
 }
 
-test {
+tasks.test {
     useJUnitPlatform()
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions.jvmTarget = "1.8"
 }
 
 jlink {

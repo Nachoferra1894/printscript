@@ -1,0 +1,37 @@
+package lexer
+
+class TokenStrategy {
+    companion object {
+        fun letStrategy(line: String, index: Int ) : Boolean {
+                return line.subSequence(index, index + 3 ) == "let"
+            }
+        fun identifierStrategy(line: String, index: Int ) : Boolean {
+            var lastIndex : Int = index
+            while (lastIndex < line.length && line[lastIndex] != ' '){
+                lastIndex = lastIndex.plus(1)
+            }
+            return line[lastIndex - 1] == ':'
+        }
+        fun valueStrategy(line:String, index: Int) : Boolean {
+            return line[index] == '"' || line[index].isDigit()
+        }
+        fun finalStrategy(line: String, index: Int ) : Boolean {
+            return line[index] == ';'
+        }
+
+        fun operationStrategy(line: String, index: Int) : Boolean {
+            val pattern = Regex("=|-|/|\\+|\\.")
+            return pattern.matches(line[index].toString())
+        }
+
+        fun typeStrategy(line: String, index: Int ) : Boolean {
+            return line[index] != '"' && (isTypeString(line, index) ||
+                    isTypeNumber(line, index))
+        }
+
+        private fun isTypeNumber(line: String, index: Int) = line.subSequence(index, index + 6) == "number"
+
+        private fun isTypeString(line: String, index: Int) = line.subSequence(index, index + 6) == "string"
+    }
+
+}
