@@ -1,17 +1,18 @@
 package lexer
 
-import lexer.TokenGenerator.Companion.getFinalToken
-import lexer.TokenGenerator.Companion.getIdentifierToken
-import lexer.TokenGenerator.Companion.getLetToken
-import lexer.TokenGenerator.Companion.getOperationStrategy
-import lexer.TokenGenerator.Companion.getTypeStrategy
-import lexer.TokenGenerator.Companion.getValueToken
-import lexer.TokenStrategy.Companion.finalStrategy
-import lexer.TokenStrategy.Companion.identifierStrategy
-import lexer.TokenStrategy.Companion.letStrategy
-import lexer.TokenStrategy.Companion.operationStrategy
-import lexer.TokenStrategy.Companion.typeStrategy
-import lexer.TokenStrategy.Companion.valueStrategy
+import lexer.generators.TokenGenerator.Companion.getFinalToken
+import lexer.generators.TokenGenerator.Companion.getIdentifierToken
+import lexer.generators.TokenGenerator.Companion.getLetToken
+import lexer.generators.TokenGenerator.Companion.getOperationStrategy
+import lexer.generators.TokenGenerator.Companion.getTypeStrategy
+import lexer.generators.TokenGenerator.Companion.getValueToken
+import lexer.strategies.TokenStrategy.Companion.finalStrategy
+import lexer.strategies.TokenStrategy.Companion.identifierStrategy
+import lexer.strategies.TokenStrategy.Companion.letStrategy
+import lexer.strategies.TokenStrategy.Companion.operationStrategy
+import lexer.strategies.TokenStrategy.Companion.typeStrategy
+import lexer.strategies.TokenStrategy.Companion.valueStrategy
+import lexer.exceptions.NoTokenException
 import lexer.interfaces.LexerI
 class Lexer: LexerI {
 

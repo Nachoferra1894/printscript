@@ -1,4 +1,4 @@
-package lexer
+package lexer.strategies
 
 class TokenStrategy {
     companion object {

@@ -26,8 +26,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-    mainModule = 'com.example.lexer'
-    mainClass = 'com.example.lexer.HelloApplication'
+    mainModule = 'com.example.parser'
+    mainClass = 'com.example.parser.HelloApplication'
 }
 
 [compileKotlin, compileTestKotlin].forEach {
@@ -42,15 +42,14 @@ javafx {
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
 
-tasks.test {
+test {
     useJUnitPlatform()
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
 }
 
 jlink {

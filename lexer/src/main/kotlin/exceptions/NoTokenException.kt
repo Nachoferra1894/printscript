@@ -1,4 +1,4 @@
-package lexer
+package lexer.exceptions
 
  class NoTokenException: Exception {
      constructor() : super()

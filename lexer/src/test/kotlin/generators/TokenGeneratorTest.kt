@@ -1,5 +1,11 @@
-import org.junit.Test
-import kotlin.test.assertEquals
+package generators
+
+import lexer.PrototypeType
+import lexer.Token
+import lexer.generators.TokenGenerator
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+
 
 class TokenGeneratorTest {
     private val numberLine = "let a: number = 12;"

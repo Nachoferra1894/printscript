@@ -1,13 +1,15 @@
-import lexer.TokenStrategy.Companion.finalStrategy
-import lexer.TokenStrategy.Companion.identifierStrategy
-import lexer.TokenStrategy.Companion.letStrategy
-import lexer.TokenStrategy.Companion.operationStrategy
-import lexer.TokenStrategy.Companion.typeStrategy
-import lexer.TokenStrategy.Companion.valueStrategy
-import org.junit.Test
+package strategies
 
-import kotlin.test.assertFalse
-import kotlin.test.assertTrue
+import lexer.strategies.TokenStrategy.Companion.finalStrategy
+import lexer.strategies.TokenStrategy.Companion.identifierStrategy
+import lexer.strategies.TokenStrategy.Companion.letStrategy
+import lexer.strategies.TokenStrategy.Companion.operationStrategy
+import lexer.strategies.TokenStrategy.Companion.typeStrategy
+import lexer.strategies.TokenStrategy.Companion.valueStrategy
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Test
+
 
 class StrategyTest {
     private val numberLine = "let a: number = 12;"

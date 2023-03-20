@@ -1,4 +1,9 @@
-package lexer
+package lexer.generators
+
+import lexer.PrototypeType
+import lexer.Token
+import lexer.strategies.TokenStrategy
+import lexer.exceptions.NoTokenException
 
 class TokenGenerator {
     companion object {
@@ -20,9 +25,10 @@ class TokenGenerator {
 
         private fun valueNumber(line: String, index: Int): Token {
             var number: String = line[index].toString()
-            while (index < line.length && line[index] != ' ' && !TokenStrategy.finalStrategy(line, index)) {
-                number.plus(line[index].toString())
-                index.plus(1)
+            var actualIndex : Int = index
+            while (actualIndex < line.length && line[index] != ' ' && !TokenStrategy.finalStrategy(line, index)) {
+                var also = number.plus(line[index].toString()).also { number = it }
+                actualIndex = actualIndex.plus(1)
             }
             return Token(PrototypeType.NUMBER, number)
         }
@@ -33,7 +39,7 @@ class TokenGenerator {
 
             while (index < line.length && !TokenStrategy.finalStrategy(line, index) && !isClosed) {
                 if (line[index] == '"') isClosed = true
-                value.plus(line[index])
+                value.plus(line[index]).also { value = it }
             }
             if (!isClosed)
                 NoTokenException("No value exists with this operator " + line[index])
