@@ -1,6 +1,5 @@
 package lexer
 
-
 import lexer.lexer.Lexer
 import org.junit.jupiter.api.Test
 
@@ -9,7 +8,6 @@ class LexerTest {
     private val lexer = Lexer()
 
     @Test
-    fun testNumberLine(){
-
+    fun testNumberLine() {
     }
 }

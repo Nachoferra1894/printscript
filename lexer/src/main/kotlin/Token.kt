@@ -4,7 +4,7 @@ data class Token(val prototypeType: PrototypeType, val value: String?)
 
 enum class PrototypeType {
     ASSIGNATION,
-    SEMICOLON ,
+    SEMICOLON,
     STRING_TYPE,
     NUMBER_TYPE,
     IDENTIFIER,
@@ -16,8 +16,5 @@ enum class PrototypeType {
     NUMBER,
     STRING,
     SPACE,
-    OPERATOR,
+    OPERATOR
 }
-
-
-

@@ -6,7 +6,6 @@ import lexer.generators.TokenGenerator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 
-
 class TokenGeneratorTest {
     private val numberLine = "let a: number = 12;"
     private val stringLine = "let a: string = \"HI!\";"
@@ -14,67 +13,67 @@ class TokenGeneratorTest {
     private val plusOperation = "a + a"
     private val subtractOperation = "a - a"
     private val multiplicationOperation = "a . a"
-    private val divisionOperation= "a / a"
-
+    private val divisionOperation = "a / a"
 
     @Test
-    fun testGetValueTokenNumber(){
+    fun testGetValueTokenNumber() {
         val indexCorrect = 16
-        val generatedToken : Token = TokenGenerator.getValueToken(numberLine, indexCorrect)
+        val generatedToken: Token = TokenGenerator.getValueToken(numberLine, indexCorrect)
         assertEquals(PrototypeType.NUMBER, generatedToken.prototypeType)
         assertEquals("12", generatedToken.value)
     }
 
     @Test
-    fun testGetValueTokenString(){
+    fun testGetValueTokenString() {
         val indexCorrect = 16
-        val generatedToken : Token = TokenGenerator.getValueToken(stringLine, indexCorrect)
+        val generatedToken: Token = TokenGenerator.getValueToken(stringLine, indexCorrect)
         assertEquals(PrototypeType.STRING, generatedToken.prototypeType)
     }
 
     @Test
-    fun testGetLetToken(){
-        val generatedToken : Token = TokenGenerator.getLetToken()
+    fun testGetLetToken() {
+        val generatedToken: Token = TokenGenerator.getLetToken()
         assertEquals(PrototypeType.LET, generatedToken.prototypeType)
     }
 
     @Test
-    fun testGetTypeStrategyString(){
+    fun testGetTypeStrategyString() {
         val indexCorrect = 7
-        val generatedToken : Token = TokenGenerator.getTypeStrategy(stringLine, indexCorrect)
+        val generatedToken: Token = TokenGenerator.getTypeStrategy(stringLine, indexCorrect)
         assertEquals(PrototypeType.STRING_TYPE, generatedToken.prototypeType)
     }
 
     @Test
-    fun testGetTypeStrategyNumber(){
+    fun testGetTypeStrategyNumber() {
         val indexCorrect = 7
-        val generatedToken : Token = TokenGenerator.getTypeStrategy(numberLine, indexCorrect)
+        val generatedToken: Token = TokenGenerator.getTypeStrategy(numberLine, indexCorrect)
         assertEquals(PrototypeType.NUMBER_TYPE, generatedToken.prototypeType)
     }
 
     @Test
-    fun testGetFinalStrategy(){
-        val generatedToken : Token = TokenGenerator.getFinalToken()
+    fun testGetFinalStrategy() {
+        val generatedToken: Token = TokenGenerator.getFinalToken()
         assertEquals(PrototypeType.SEMICOLON, generatedToken.prototypeType)
     }
 
     @Test
-    fun testGetIndentifierStrategy(){
+    fun testGetIndentifierStrategy() {
         val indexCorrect = 4
-        val generatedToken : Token = TokenGenerator.getIdentifierToken(numberLine, indexCorrect)
+        val generatedToken: Token = TokenGenerator.getIdentifierToken(numberLine, indexCorrect)
         assertEquals(PrototypeType.IDENTIFIER, generatedToken.prototypeType)
         assertEquals("a", generatedToken.value)
     }
+
     @Test
-    fun testGetIndentifierStrategyLong(){
+    fun testGetIndentifierStrategyLong() {
         val indexCorrect = 4
-        val generatedToken : Token = TokenGenerator.getIdentifierToken(longIdentifier, indexCorrect)
+        val generatedToken: Token = TokenGenerator.getIdentifierToken(longIdentifier, indexCorrect)
         assertEquals(PrototypeType.IDENTIFIER, generatedToken.prototypeType)
         assertEquals("asa_.asa", generatedToken.value)
     }
 
     @Test
-    fun testGetOperationStrategy(){
+    fun testGetOperationStrategy() {
         val indexAssignation = 14
         assertEquals(PrototypeType.ASSIGNATION, TokenGenerator.getOperationStrategy(numberLine, indexAssignation).prototypeType)
         val indexPlus = 2
@@ -86,6 +85,4 @@ class TokenGeneratorTest {
         val indexDivision = 2
         assertEquals(PrototypeType.DIVISION, TokenGenerator.getOperationStrategy(divisionOperation, indexDivision).prototypeType)
     }
-
-
 }

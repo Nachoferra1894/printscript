@@ -4,7 +4,7 @@ import expresions.Expression
 import expresions.ExpressionVisitor
 import expresions.Operator
 
-class Operation: Expression {
+class Operation : Expression {
     private var l: Expression?
     private var operator: Operator? = null
     private var r: Expression? = null
@@ -23,6 +23,6 @@ class Operation: Expression {
     }
 
     override fun addMember(operator: Operator, newMember: Expression): Expression {
-        return Operation(this,operator,newMember);
+        return Operation(this, operator, newMember)
     }
 }

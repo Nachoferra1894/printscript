@@ -6,10 +6,9 @@ import lexer.strategies.TokenStrategy.Companion.letStrategy
 import lexer.strategies.TokenStrategy.Companion.operationStrategy
 import lexer.strategies.TokenStrategy.Companion.typeStrategy
 import lexer.strategies.TokenStrategy.Companion.valueStrategy
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-
 
 class StrategyTest {
     private val numberLine = "let a: number = 12;"
@@ -20,93 +19,92 @@ class StrategyTest {
     private val stringLine = "let a: string = \"HI!\";"
 
     @Test
-    fun testLetStrategy(){
+    fun testLetStrategy() {
         val indexCorrect = 0
         val indexIncorrect = 1
         assertTrue(letStrategy(numberLine, indexCorrect))
-        assertFalse(letStrategy(numberLine,indexIncorrect))
+        assertFalse(letStrategy(numberLine, indexIncorrect))
     }
 
     @Test
-    fun testIdentifierStrategy(){
+    fun testIdentifierStrategy() {
         val indexIncorrect = 0
         val indexCorrect = 4
         assertTrue(identifierStrategy(numberLine, indexCorrect))
-        assertFalse(identifierStrategy(numberLine,indexIncorrect))
+        assertFalse(identifierStrategy(numberLine, indexIncorrect))
     }
 
     @Test
-    fun testValueStrategy(){
+    fun testValueStrategy() {
         val indexIncorrect = 0
         val indexCorrect = 16
         assertTrue(valueStrategy(numberLine, indexCorrect))
-        assertFalse(valueStrategy(numberLine,indexIncorrect))
+        assertFalse(valueStrategy(numberLine, indexIncorrect))
         assertTrue(valueStrategy(stringLine, indexCorrect))
-        assertFalse(valueStrategy(stringLine,indexIncorrect))
+        assertFalse(valueStrategy(stringLine, indexIncorrect))
     }
 
     @Test
-    fun testFinalStrategy(){
+    fun testFinalStrategy() {
         val indexIncorrect = 0
         val indexCorrect = 18
         assertTrue(finalStrategy(numberLine, indexCorrect))
-        assertFalse(finalStrategy(numberLine,indexIncorrect))
+        assertFalse(finalStrategy(numberLine, indexIncorrect))
     }
 
     @Test
-    fun testOperationStrategyAssignation(){
+    fun testOperationStrategyAssignation() {
         val indexIncorrect = 0
         val indexCorrect = 14
         assertTrue(operationStrategy(numberLine, indexCorrect))
-        assertFalse(operationStrategy(numberLine,indexIncorrect))
+        assertFalse(operationStrategy(numberLine, indexIncorrect))
     }
 
     @Test
-    fun testOperationStrategyPlus(){
+    fun testOperationStrategyPlus() {
         val indexIncorrect = 0
         val indexCorrect = 2
         assertTrue(operationStrategy(plusOperationStrategy, indexCorrect))
-        assertFalse(operationStrategy(plusOperationStrategy,indexIncorrect))
+        assertFalse(operationStrategy(plusOperationStrategy, indexIncorrect))
     }
 
     @Test
-    fun testOperationStrategySubtract(){
+    fun testOperationStrategySubtract() {
         val indexIncorrect = 0
         val indexCorrect = 2
         assertTrue(operationStrategy(subtractOperationStrategy, indexCorrect))
-        assertFalse(operationStrategy(subtractOperationStrategy,indexIncorrect))
+        assertFalse(operationStrategy(subtractOperationStrategy, indexIncorrect))
     }
 
     @Test
-    fun testOperationStrategyMultiplication(){
+    fun testOperationStrategyMultiplication() {
         val indexIncorrect = 0
         val indexCorrect = 2
         assertTrue(operationStrategy(multiplicationOperationStrategy, indexCorrect))
-        assertFalse(operationStrategy(multiplicationOperationStrategy,indexIncorrect))
+        assertFalse(operationStrategy(multiplicationOperationStrategy, indexIncorrect))
     }
 
     @Test
-    fun testOperationStrategyDivision(){
+    fun testOperationStrategyDivision() {
         val indexIncorrect = 0
         val indexCorrect = 2
         assertTrue(operationStrategy(divisionOperationStrategy, indexCorrect))
-        assertFalse(operationStrategy(divisionOperationStrategy,indexIncorrect))
+        assertFalse(operationStrategy(divisionOperationStrategy, indexIncorrect))
     }
 
     @Test
-    fun testOperationStrategyNumberType(){
+    fun testOperationStrategyNumberType() {
         val indexIncorrect = 0
         val indexCorrect = 7
         assertTrue(typeStrategy(numberLine, indexCorrect))
-        assertFalse(typeStrategy(numberLine,indexIncorrect))
+        assertFalse(typeStrategy(numberLine, indexIncorrect))
     }
 
     @Test
-    fun testOperationStrategyStringType(){
+    fun testOperationStrategyStringType() {
         val indexIncorrect = 0
         val indexCorrect = 7
         assertTrue(typeStrategy(stringLine, indexCorrect))
-        assertFalse(typeStrategy(stringLine,indexIncorrect))
+        assertFalse(typeStrategy(stringLine, indexIncorrect))
     }
-
 }
