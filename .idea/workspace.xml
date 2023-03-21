@@ -5,69 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="954f6e56-dbed-429a-ad86-bb5863b542df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/generators/IndexGenerator.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lexer/src/test/kotlin/lexer/LexerTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/lexer.test.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ast/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/kotlin/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/kotlin/expresions/Expression.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/expresions/Expression.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/kotlin/expresions/ExpressionVisitor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/expresions/ExpressionVisitor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/kotlin/expresions/Operator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/expresions/Operator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/kotlin/expresions/types/Operation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/expresions/types/Operation.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/kotlin/expresions/types/Variable.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/expresions/types/Variable.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/kotlin/interfaces/ASTNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/interfaces/ASTNode.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/kotlin/interfaces/ASTNodeVisitor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/interfaces/ASTNodeVisitor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/kotlin/types/AssignmentExpression.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/types/AssignmentExpression.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/kotlin/types/ParentNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/types/ParentNode.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/kotlin/types/PrintExpression.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/types/PrintExpression.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AST/src/main/kotlin/types/VariableDeclaration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/types/VariableDeclaration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpreter/.gitignore" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/buildSrc/settings.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/groovy/kotlin-conventions.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ast/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/ast/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/interpreter/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/interpreter/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpreter/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpreter/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpreter/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpreter/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/interpreter/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lexer/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/Lexer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexer/Lexer.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/Token.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/Token.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/generators/TokenGenerator.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/generators/TokenGenerator.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/languageDefinitions/LanguageDefinitions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/languageDefinitions/LanguageDefinitions.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/strategies/TokenStrategy.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/strategies/TokenStrategy.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lexer/src/test/kotlin/generators/TokenGeneratorTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/test/kotlin/generators/TokenGeneratorTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/lib/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/parser/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/parser/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,12 +78,14 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "/Users/mdominguez/faculty/cuarto/printscript/settings.gradle",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.0"
@@ -201,7 +149,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679425520328</updated>
-      <workItem from="1679425521826" duration="1215000" />
+      <workItem from="1679425521826" duration="2198000" />
     </task>
     <servers />
   </component>
