@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="954f6e56-dbed-429a-ad86-bb5863b542df" name="Changes" comment="added linter">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/interfaces/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/kotlin/interfaces/Parser.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -285,7 +286,7 @@
       <workItem from="1679427843461" duration="1229000" />
       <workItem from="1679429078360" duration="46000" />
       <workItem from="1679429146867" duration="1048000" />
-      <workItem from="1679440993586" duration="444000" />
+      <workItem from="1679440993586" duration="746000" />
     </task>
     <task id="LOCAL-00001" summary="added ktlint">
       <created>1679428127274</created>
