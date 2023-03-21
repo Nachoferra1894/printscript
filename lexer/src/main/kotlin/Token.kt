@@ -14,7 +14,9 @@ enum class PrototypeType {
     DIVISION,
     LET,
     NUMBER,
-    STRING
+    STRING,
+    SPACE,
+    OPERATOR,
 }
 
 

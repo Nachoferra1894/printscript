@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'printscript'
-include('lib','lexer','parser','interpreter')
+include('lib','lexer','parser','interpreter', 'ast')

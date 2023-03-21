@@ -22,6 +22,7 @@ class TokenGeneratorTest {
         val indexCorrect = 16
         val generatedToken : Token = TokenGenerator.getValueToken(numberLine, indexCorrect)
         assertEquals(PrototypeType.NUMBER, generatedToken.prototypeType)
+        assertEquals("12", generatedToken.value)
     }
 
     @Test
