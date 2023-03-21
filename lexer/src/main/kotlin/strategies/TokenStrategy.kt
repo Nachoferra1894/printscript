@@ -1,4 +1,6 @@
 package lexer.strategies
+import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeNumber
+import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeString
 
 class TokenStrategy {
     companion object {
@@ -29,9 +31,6 @@ class TokenStrategy {
                     isTypeNumber(line, index))
         }
 
-        private fun isTypeNumber(line: String, index: Int) = line.subSequence(index, index + 6) == "number"
-
-        private fun isTypeString(line: String, index: Int) = line.subSequence(index, index + 6) == "string"
     }
 
 }
