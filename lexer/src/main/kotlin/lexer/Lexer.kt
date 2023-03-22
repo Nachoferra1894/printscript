@@ -1,6 +1,6 @@
 package lexer.lexer
 
-import lexer.Token
+import Token
 import lexer.exceptions.NoTokenException
 import lexer.generators.IndexGenerator.Companion.defineIndex
 import lexer.generators.TokenGenerator.Companion.getFinalToken

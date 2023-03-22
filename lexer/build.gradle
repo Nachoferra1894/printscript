@@ -2,5 +2,6 @@ plugins {
     id 'kotlin-conventions'
 }
 
-// Apply the pre-commit.gradle script
-apply from: '../buildSrc/src/main/groovy/pre-commit.gradle'
+dependencies {
+    implementation project(':lib')
+}

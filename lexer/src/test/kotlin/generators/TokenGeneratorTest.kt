@@ -1,7 +1,6 @@
 package generators
 
-import lexer.PrototypeType
-import lexer.Token
+import Token
 import lexer.generators.TokenGenerator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test

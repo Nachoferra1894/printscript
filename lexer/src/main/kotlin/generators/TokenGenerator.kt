@@ -1,7 +1,7 @@
 package lexer.generators
 
-import lexer.PrototypeType
-import lexer.Token
+import PrototypeType
+import Token
 import lexer.exceptions.NoTokenException
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeNumber
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeString
