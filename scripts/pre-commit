@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# Run the ktlint linter
+./gradlew ktlintFormat
+
+# If the linter fails, exit with a non-zero status code to prevent the commit
+if [ $? -ne 0 ]; then
+    echo "Linter failed. Aborting commit."
+    exit 1
+fi
+

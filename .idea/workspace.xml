@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="954f6e56-dbed-429a-ad86-bb5863b542df" name="Changes" comment="added linter">
+      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/groovy/pre-commit.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/pre-commit" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/groovy/kotlin-conventions.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/groovy/kotlin-conventions.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lexer/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/interfaces/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/kotlin/interfaces/Parser.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -96,6 +101,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/scripts" />
+    </key>
+  </component>
   <component name="RunManager" selected="Gradle.printscript:interpreter [build]">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="printscript" />
@@ -286,7 +296,7 @@
       <workItem from="1679427843461" duration="1229000" />
       <workItem from="1679429078360" duration="46000" />
       <workItem from="1679429146867" duration="1048000" />
-      <workItem from="1679440993586" duration="746000" />
+      <workItem from="1679440993586" duration="3767000" />
     </task>
     <task id="LOCAL-00001" summary="added ktlint">
       <created>1679428127274</created>
