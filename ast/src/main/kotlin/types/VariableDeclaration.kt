@@ -29,4 +29,12 @@ class VariableDeclaration : ASTNode {
     override fun accept(visitor: ASTNodeVisitor) {
         visitor.visitDeclaration(this)
     }
+
+    override fun toString(): String {
+        return if (value !== null){
+            "let ${name}: ${type} = ${value.toString()}"
+        } else {
+            "let ${name}: ${type}"
+        }
+    }
 }

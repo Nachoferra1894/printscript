@@ -13,4 +13,8 @@ class ParentNode : ASTNode {
     override fun accept(visitor: ASTNodeVisitor) {
         visitor.visitParentNode(this)
     }
+
+    override fun toString(): String {
+        return children.map { it.toString() }.toString()
+    }
 }

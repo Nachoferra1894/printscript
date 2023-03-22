@@ -9,4 +9,10 @@ class AssignmentNode(val name: String, val value: Expression) : ASTNode {
     override fun accept(visitor: ASTNodeVisitor) {
         visitor.visitAssignment(this)
     }
+
+    override fun toString(): String {
+        return "$name = $value"
+    }
+
+
 }

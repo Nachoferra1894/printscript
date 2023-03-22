@@ -66,7 +66,7 @@ class TokenGenerator {
                 '/' -> return Token(PrototypeType.DIVISION, null)
                 '+' -> return Token(PrototypeType.PLUS, null)
                 '-' -> return Token(PrototypeType.SUBTRACTION, null)
-                ':' -> return Token(PrototypeType.OPERATOR, null)
+                ':' -> return Token(PrototypeType.COLON, null)
             }
             throw NoTokenException("No operation exists with this operator " + line[index])
         }

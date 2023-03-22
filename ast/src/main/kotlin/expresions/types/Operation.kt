@@ -18,11 +18,18 @@ class Operation : Expression {
         this.operator = operator
         this.r = r
     }
+
     override fun accept(visitor: ExpressionVisitor) {
         visitor.visitOperation(this)
     }
 
     override fun addMember(operator: Operator, newMember: Expression): Expression {
         return Operation(this, operator, newMember)
+    }
+
+    override fun toString(): String {
+        return if (r !== null) {
+            "${l} ${operator} ${r}"
+        } else l.toString()
     }
 }

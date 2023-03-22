@@ -23,7 +23,7 @@ class IndexGenerator {
         }
 
         private fun operations(prototypeType: PrototypeType): Boolean {
-            return prototypeType == PrototypeType.OPERATOR ||
+            return prototypeType == PrototypeType.COLON ||
                 prototypeType == PrototypeType.SUBTRACTION ||
                 prototypeType == PrototypeType.ASSIGNATION ||
                 prototypeType == PrototypeType.SEMICOLON ||
