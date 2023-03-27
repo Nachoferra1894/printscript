@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="954f6e56-dbed-429a-ad86-bb5863b542df" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/expresions/types/Operation.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/expresions/types/Operation.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/types/AssignmentNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/types/AssignmentNode.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/types/PrintNode.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/types/PrintNode.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/types/VariableDeclaration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/types/VariableDeclaration.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/ParserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/ParserTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/fixtures/ParserData.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/fixtures/ParserData.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/fixtures/Tokens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/fixtures/Tokens.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -359,6 +355,7 @@
       <workItem from="1679440993586" duration="5054000" />
       <workItem from="1679509149258" duration="8300000" />
       <workItem from="1679863180190" duration="994000" />
+      <workItem from="1679952656114" duration="679000" />
     </task>
     <task id="LOCAL-00001" summary="added ktlint">
       <created>1679428127274</created>
