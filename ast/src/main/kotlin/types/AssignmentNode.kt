@@ -13,6 +13,4 @@ class AssignmentNode(val name: String, val value: Expression) : ASTNode {
     override fun toString(): String {
         return "$name = $value"
     }
-
-
 }

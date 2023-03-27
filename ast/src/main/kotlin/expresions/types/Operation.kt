@@ -29,7 +29,9 @@ class Operation : Expression {
 
     override fun toString(): String {
         return if (r !== null) {
-            "${l} ${operator} ${r}"
-        } else l.toString()
+            "$l $operator $r"
+        } else {
+            l.toString()
+        }
     }
 }

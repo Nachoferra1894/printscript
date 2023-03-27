@@ -10,6 +10,6 @@ class PrintNode(val content: Expression) : ASTNode {
     }
 
     override fun toString(): String {
-        return "println(${content.toString()})"
+        return "println($content)"
     }
 }

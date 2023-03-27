@@ -31,10 +31,10 @@ class VariableDeclaration : ASTNode {
     }
 
     override fun toString(): String {
-        return if (value !== null){
-            "let ${name}: ${type} = ${value.toString()}"
+        return if (value !== null) {
+            "let $name: $type = $value"
         } else {
-            "let ${name}: ${type}"
+            "let $name: $type"
         }
     }
 }

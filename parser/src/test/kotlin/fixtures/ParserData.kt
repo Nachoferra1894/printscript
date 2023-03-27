@@ -56,9 +56,9 @@ val tokenList7 = listOf(
     Token(PrototypeType.NUMBER_TYPE, null),
     Token(PrototypeType.ASSIGNATION, null),
     Token(PrototypeType.NUMBER, "1"),
-    Token(PrototypeType.SUBTRACTION,null),
+    Token(PrototypeType.SUBTRACTION, null),
     Token(PrototypeType.NUMBER, "2"),
-    Token(PrototypeType.SUBTRACTION,null),
+    Token(PrototypeType.SUBTRACTION, null),
     Token(PrototypeType.NUMBER, "3"),
-    Token(PrototypeType.SEMICOLON,null)
+    Token(PrototypeType.SEMICOLON, null)
 )
