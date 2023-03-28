@@ -1,7 +1,5 @@
 package lexer.strategies
 
-import PrototypeType
-import Token
 import lexer.exceptions.NoTokenException
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeNumber
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeString
@@ -19,13 +17,14 @@ class TokenStrategy {
                 var lastIndex: Int = index
                 for (i in index until line.length) {
                     if (line[lastIndex] == ' ' || line[lastIndex] == ':') return true
-                    if (!line[lastIndex].isDigit() && !line[lastIndex].isLetter())
+                    if (!line[lastIndex].isDigit() && !line[lastIndex].isLetter()) {
                         throw NoTokenException(
                             "No token with this expression " + line.subSequence(
                                 index,
                                 lastIndex + 1
                             )
                         )
+                    }
                     lastIndex = lastIndex.plus(1)
                 }
                 return true
