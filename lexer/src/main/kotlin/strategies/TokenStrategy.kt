@@ -13,24 +13,7 @@ class TokenStrategy {
             return line[index] == ' '
         }
         fun identifierStrategy(line: String, index: Int): Boolean {
-            if (line[index].isLetter()) {
-                var lastIndex: Int = index
-                for (i in index until line.length) {
-                    if (line[lastIndex] == ' ' || line[lastIndex] == ':') return true
-                    if (!line[lastIndex].isDigit() && !line[lastIndex].isLetter()) {
-                        throw NoTokenException(
-                            "No token with this expression " + line.subSequence(
-                                index,
-                                lastIndex + 1
-                            )
-                        )
-                    }
-                    lastIndex = lastIndex.plus(1)
-                }
-                return true
-            } else {
-                return false
-            }
+            return line[index].isLetter()
         }
 
         fun valueStrategy(line: String, index: Int): Boolean {
@@ -41,7 +24,7 @@ class TokenStrategy {
         }
 
         fun operationStrategy(line: String, index: Int): Boolean {
-            val pattern = Regex("=|-|/|\\+|\\.|:|")
+            val pattern = Regex("=|-|/|\\+|\\*|:|")
             return pattern.matches(line[index].toString())
         }
 

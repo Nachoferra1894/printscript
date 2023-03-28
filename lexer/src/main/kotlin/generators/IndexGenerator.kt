@@ -10,7 +10,10 @@ class IndexGenerator {
             if (token.prototypeType == PrototypeType.LET) return (index + 3)
             if (token.prototypeType == PrototypeType.IDENTIFIER || token.prototypeType == PrototypeType.STRING || token.prototypeType == PrototypeType.NUMBER) {
                 if (token.value != null) {
-                    return (index + token.value!!.length)
+                    return if(token.prototypeType == PrototypeType.STRING)
+                        (index + token.value!!.length + 2)
+                    else
+                        (index + token.value!!.length )
                 }
             }
             if (operations(token.prototypeType)) return (index + 1)

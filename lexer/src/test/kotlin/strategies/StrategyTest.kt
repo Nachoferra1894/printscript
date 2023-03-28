@@ -14,7 +14,7 @@ class StrategyTest {
     private val numberLine = "let a: number = 12;"
     private val plusOperationStrategy = "a + a"
     private val subtractOperationStrategy = "a - a"
-    private val multiplicationOperationStrategy = "a . a"
+    private val multiplicationOperationStrategy = "a * a"
     private val divisionOperationStrategy = "a / a"
     private val stringLine = "let a: string = \"HI!\";"
 
