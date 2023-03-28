@@ -4,7 +4,7 @@ import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitor
 
-class VariableDeclaration : ASTNode {
+class VariableDeclarationNode : ASTNode {
 //    Declaration can be:
 //    let a: number;
 //    let b: String = "4";

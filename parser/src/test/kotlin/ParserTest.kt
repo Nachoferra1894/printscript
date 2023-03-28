@@ -1,3 +1,9 @@
+import org.junit.jupiter.api.Test
 
-
-class ParserTest
+class ParserTest {
+    @Test
+    fun testSimpleSumToken(){
+        // Statement: a = 42;
+        
+    }
+}

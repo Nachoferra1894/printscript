@@ -3,10 +3,10 @@ package interfaces
 import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
-import types.VariableDeclaration
+import types.VariableDeclarationNode
 
 interface ASTNodeVisitor {
-    fun visitDeclaration(variableDeclaration: VariableDeclaration)
+    fun visitDeclaration(variableDeclaration: VariableDeclarationNode)
     fun visitAssignment(assignmentNode: AssignmentNode)
     fun visitPrint(printNode: PrintNode)
     fun visitParentNode(parentNode: ParentNode)

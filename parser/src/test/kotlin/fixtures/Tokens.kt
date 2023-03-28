@@ -1,12 +1,11 @@
 package fixtures
 
 import Token
-import expresions.Expression
 import expresions.Operator
 import expresions.types.Operation
 import expresions.types.Variable
 import types.AssignmentNode
-import types.VariableDeclaration
+import types.VariableDeclarationNode
 
 // Statement: a = 42;
 val tokenList0 = listOf(
@@ -34,7 +33,7 @@ val tokenList2 = listOf(
     Token(PrototypeType.STRING, "Hello, world!"),
     Token(PrototypeType.SEMICOLON, null)
 )
-val node2 = VariableDeclaration("b", "string", Variable("Hello, world!"))
+val node2 = VariableDeclarationNode("b", "string", Variable("Hello, world!"))
 
 // Statement: let c: number = 3 + 4 * 5;
 val tokenList3 = listOf(
@@ -50,7 +49,7 @@ val tokenList3 = listOf(
     Token(PrototypeType.NUMBER, "5"),
     Token(PrototypeType.SEMICOLON, null)
 )
-val node3 = VariableDeclaration(
+val node3 = VariableDeclarationNode(
     "c",
     "number",
     Operation(Variable("3"), Operator.SUM, Operation(Variable("3"), Operator.MUL, Variable("5")))
