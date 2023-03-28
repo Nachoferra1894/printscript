@@ -69,6 +69,5 @@ class LexerTest {
         expectedTokens.add(Token(PrototypeType.METHOD_PRINT, "\"HI!\" + a"))
         expectedTokens.add(Token(PrototypeType.SEMICOLON, null))
         assertEquals(expectedTokens, actualTokens)
-
     }
 }

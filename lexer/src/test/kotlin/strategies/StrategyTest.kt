@@ -22,8 +22,6 @@ class StrategyTest {
     private val printLineWithCorrectParenthesis = "print(\"(HI!)\" + a);"
     private val printLineWithInCorrectParenthesis = "print(\"(HI!\" + a);"
 
-
-
     @Test
     fun testLetStrategy() {
         val indexCorrect = 0
@@ -111,6 +109,7 @@ class StrategyTest {
         assertTrue(typeStrategy(stringLine, indexCorrect))
         assertFalse(typeStrategy(stringLine, indexIncorrect))
     }
+
     @Test
     fun testPrintStrategy() {
         val indexCorrect = 0

@@ -47,7 +47,7 @@ class Lexer : LexerI {
         if (typeStrategy(line, index)) return getTypeStrategy(line, index)
         if (operationStrategy(line, index)) return getOperationStrategy(line, index)
         if (finalStrategy(line, index)) return getFinalToken()
-        if(printStrategy(line, index)) return getMethodPrintToken(line, index)
+        if (printStrategy(line, index)) return getMethodPrintToken(line, index)
         if (valueStrategy(line, index)) return getValueToken(line, index)
         if (identifierStrategy(line, index)) return getIdentifierToken(line, index)
         throw NoTokenException("No token with this expression " + line[index])

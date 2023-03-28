@@ -15,7 +15,6 @@ class TokenGeneratorTest {
     private val divisionOperation = "a / a"
     private val printLine = "print(\"HI!\" + a);"
 
-
     @Test
     fun testGetValueTokenNumber() {
         val indexCorrect = 16
