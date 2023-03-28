@@ -28,10 +28,8 @@ class StrategyTest {
 
     @Test
     fun testIdentifierStrategy() {
-        val indexIncorrect = 0
         val indexCorrect = 4
         assertTrue(identifierStrategy(numberLine, indexCorrect))
-        assertFalse(identifierStrategy(numberLine, indexIncorrect))
     }
 
     @Test

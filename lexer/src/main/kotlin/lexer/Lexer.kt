@@ -36,7 +36,6 @@ class Lexer : LexerI {
             tokens.add(defineToken(line, index))
             index = defineIndex(tokens, index)
         }
-        println(tokens)
         return tokens
     }
 
