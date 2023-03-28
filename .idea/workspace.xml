@@ -4,17 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="954f6e56-dbed-429a-ad86-bb5863b542df" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/parsers/AssignmentParser.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/parsers/CodeParser.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/parsers/DeclarationParser.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/parsers/PrintParser.kt" afterDir="false" />
+    <list default="true" id="954f6e56-dbed-429a-ad86-bb5863b542df" name="Changes" comment="fixed pre-commit hook">
+      <change afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/interfaces/ASTNodeVisitor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/interfaces/ASTNodeVisitor.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/types/VariableDeclaration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/types/VariableDeclarationNode.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/interfaces/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/kotlin/interfaces/Parser.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/ParserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/ParserTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/fixtures/Tokens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/fixtures/Tokens.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/groovy/kotlin-conventions.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/groovy/kotlin-conventions.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/groovy/pre-commit.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/lib/build.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,23 +40,26 @@
         <task path="$PROJECT_DIR$/interpreter">
           <activation />
         </task>
+        <task path="$PROJECT_DIR$/lib">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="interpreter" type="f1a62948:ProjectNode" />
+                <item name="printscript" type="f1a62948:ProjectNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="interpreter" type="f1a62948:ProjectNode" />
+                <item name="printscript" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="interpreter" type="f1a62948:ProjectNode" />
+                <item name="printscript" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
+                <item name="other" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -91,28 +90,28 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "corretto-18",
-    "last_opened_file_path": "/Users/nachoferrari/Desktop/facu/ingsis/printscript/parser/src/main/kotlin/parsers",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "ruby.rails.projectView.checked": "true",
-    "settings.editor.selected.configurable": "build.tools",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-18&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/nachoferrari/Desktop/facu/ingsis/printscript/parser/src/main/kotlin/parsers&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;ruby.rails.projectView.checked&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;build.tools&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/parser/src/main/kotlin/parsers" />
@@ -145,7 +144,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.printscript:parser [dependencies]">
+  <component name="RunManager" selected="Gradle.printscript [installLocalGitHook]">
     <configuration default="true" type="DjangoTestsConfigurationType">
       <module name="printscript" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -272,52 +271,48 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="TokenGeneratorTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="printscript [installLocalGitHook]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/lexer" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":lexer:test" />
-            <option value="--tests" />
-            <option value="&quot;generators.TokenGeneratorTest&quot;" />
+            <option value="installLocalGitHook" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>true</ForceTestExec>
+      <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
-    <configuration name="TokenGeneratorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="printscript:lib [installLocalGitHook]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/lexer" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/lib" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
         <option name="taskNames">
           <list>
-            <option value=":test" />
-            <option value="--tests" />
-            <option value="&quot;generators.TokenGeneratorTest&quot;" />
+            <option value="installLocalGitHook" />
           </list>
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
       <DebugAllEnabled>false</DebugAllEnabled>
-      <ForceTestExec>true</ForceTestExec>
+      <ForceTestExec>false</ForceTestExec>
       <method v="2" />
     </configuration>
     <configuration name="printscript:parser [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
@@ -344,11 +339,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.printscript [installLocalGitHook]" />
+        <item itemvalue="Gradle.printscript:lib [installLocalGitHook]" />
         <item itemvalue="Gradle.printscript:parser [dependencies]" />
         <item itemvalue="Gradle.Tests in 'lexer.test'" />
         <item itemvalue="Gradle.LexerTest (1)" />
-        <item itemvalue="Gradle.TokenGeneratorTest (1)" />
-        <item itemvalue="Gradle.TokenGeneratorTest" />
       </list>
     </recent_temporary>
   </component>
@@ -368,7 +363,8 @@
       <workItem from="1679509149258" duration="8300000" />
       <workItem from="1679863180190" duration="994000" />
       <workItem from="1679952656114" duration="1983000" />
-      <workItem from="1679966003235" duration="1278000" />
+      <workItem from="1679966003235" duration="1344000" />
+      <workItem from="1680025408770" duration="2168000" />
     </task>
     <task id="LOCAL-00001" summary="added ktlint">
       <created>1679428127274</created>
@@ -419,7 +415,21 @@
       <option name="project" value="LOCAL" />
       <updated>1679953533233</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="added parsers">
+      <created>1679967492762</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1679967492762</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added parsers">
+      <created>1679967522542</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1679967522542</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -444,6 +454,8 @@
     <MESSAGE value="fixed nodes bug" />
     <MESSAGE value="add toString methods, started adding tests" />
     <MESSAGE value="finished parser tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="finished parser tests" />
+    <MESSAGE value="added parsers" />
+    <MESSAGE value="fixed pre-commit hook" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed pre-commit hook" />
   </component>
 </project>

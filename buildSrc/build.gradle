@@ -15,6 +15,3 @@ dependencies {
     implementation 'org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.20'
     implementation 'org.jlleitschuh.gradle:ktlint-gradle:11.3.1'
 }
-
-check.dependsOn 'ktlintFormat'
-// Ad a git hook to lint
