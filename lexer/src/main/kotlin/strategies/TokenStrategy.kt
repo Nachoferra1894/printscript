@@ -1,5 +1,6 @@
 package lexer.strategies
 
+import lexer.languageDefinitions.LanguageDefinitions.Companion.isPrintString
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeNumber
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeString
 
@@ -32,6 +33,9 @@ class TokenStrategy {
                 isTypeString(line, index) ||
                     isTypeNumber(line, index)
                 )
+        }
+        fun printStrategy(line: String, index: Int): Boolean {
+            return isPrintString(line, index)
         }
     }
 }

@@ -14,5 +14,6 @@ enum class PrototypeType {
     NUMBER,
     STRING,
     SPACE,
-    COLON
+    COLON,
+    METHOD_PRINT,
 }

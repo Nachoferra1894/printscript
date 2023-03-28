@@ -9,7 +9,7 @@ class LexerTest {
     private val numberLine = "let a: number = 12;"
     private val stringLine = "let aS12 : string = \"HI!\";"
     private val expression = "a/b ; "
-
+    private val printLine = "print(\"HI!\" + a);"
     private val lexer = Lexer()
 
     @Test
@@ -60,5 +60,15 @@ class LexerTest {
         expectedTokens.add(Token(PrototypeType.SEMICOLON, null))
         expectedTokens.add(Token(PrototypeType.SPACE, null))
         assertEquals(expectedTokens, actualTokens)
+    }
+
+    @Test
+    fun testPrintLine() {
+        var actualTokens: ArrayList<Token> = lexer.defineTokens(printLine)
+        var expectedTokens: ArrayList<Token> = ArrayList()
+        expectedTokens.add(Token(PrototypeType.METHOD_PRINT, "\"HI!\" + a"))
+        expectedTokens.add(Token(PrototypeType.SEMICOLON, null))
+        assertEquals(expectedTokens, actualTokens)
+
     }
 }

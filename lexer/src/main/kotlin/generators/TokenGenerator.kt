@@ -76,5 +76,20 @@ class TokenGenerator {
         fun getFinalToken(): Token {
             return Token(PrototypeType.SEMICOLON, null)
         }
+        fun getMethodPrintToken(line: String, index: Int): Token {
+            var value = ""
+            if(line.length > (index + 6) && line.subSequence(index, index + 6) == "print(" ){
+                var isOpen = false
+                var value = ""
+                for (i in index + 6 until line.length) {
+                    if (line[i] == '"' && !isOpen) isOpen = true
+                    if(line[i] == '"' && isOpen) isOpen = false
+                    if(line[i] == ')' && !isOpen)
+                        return Token(PrototypeType.METHOD_PRINT, value)
+                    value = value.plus(line[i])
+                }
+            }
+            return Token(PrototypeType.METHOD_PRINT, value)
+        }
     }
 }
