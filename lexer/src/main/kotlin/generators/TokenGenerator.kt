@@ -12,8 +12,9 @@ class TokenGenerator {
         fun getIdentifierToken(line: String, index: Int): Token {
             var value = ""
             for (i in index until line.length) {
-                if(TokenStrategy.operationStrategy(line, i) || TokenStrategy.spaceStrategy(line, i))
+                if (TokenStrategy.operationStrategy(line, i) || TokenStrategy.spaceStrategy(line, i)) {
                     return Token(PrototypeType.IDENTIFIER, value)
+                }
                 value = value.plus(line[i])
             }
             return Token(PrototypeType.IDENTIFIER, value)
@@ -42,11 +43,13 @@ class TokenGenerator {
             var isClosed = false
             for (i in index + 1 until line.length) {
                 if (line[i] == '"') isClosed = true
-                if(isClosed) break
-                if(TokenStrategy.finalStrategy(line, i) && !isClosed)
+                if (isClosed) break
+                if (TokenStrategy.finalStrategy(line, i) && !isClosed) {
                     throw NoTokenException("No value exists with this operator " + line[i])
-                if(TokenStrategy.finalStrategy(line, i))
+                }
+                if (TokenStrategy.finalStrategy(line, i)) {
                     return Token(PrototypeType.STRING, value)
+                }
                 value = value.plus(line[i])
             }
             return Token(PrototypeType.STRING, value)

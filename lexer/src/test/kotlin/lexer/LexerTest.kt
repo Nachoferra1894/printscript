@@ -4,7 +4,6 @@ import Token
 import lexer.lexer.Lexer
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import kotlin.math.exp
 
 class LexerTest {
     private val numberLine = "let a: number = 12;"
@@ -16,9 +15,9 @@ class LexerTest {
     @Test
     fun testNumberLine() {
         var actualTokens: ArrayList<Token> = lexer.defineTokens(numberLine)
-        var expectedTokens : ArrayList<Token> = ArrayList()
-        expectedTokens.add(Token(PrototypeType.LET, null) )
-        expectedTokens.add(Token(PrototypeType.SPACE, null) )
+        var expectedTokens: ArrayList<Token> = ArrayList()
+        expectedTokens.add(Token(PrototypeType.LET, null))
+        expectedTokens.add(Token(PrototypeType.SPACE, null))
         expectedTokens.add(Token(PrototypeType.IDENTIFIER, "a"))
         expectedTokens.add(Token(PrototypeType.COLON, null))
         expectedTokens.add(Token(PrototypeType.SPACE, null))
@@ -34,11 +33,11 @@ class LexerTest {
     @Test
     fun testStringLine() {
         var actualTokens: ArrayList<Token> = lexer.defineTokens(stringLine)
-        var expectedTokens : ArrayList<Token> = ArrayList()
-        expectedTokens.add(Token(PrototypeType.LET, null) )
-        expectedTokens.add(Token(PrototypeType.SPACE, null) )
+        var expectedTokens: ArrayList<Token> = ArrayList()
+        expectedTokens.add(Token(PrototypeType.LET, null))
+        expectedTokens.add(Token(PrototypeType.SPACE, null))
         expectedTokens.add(Token(PrototypeType.IDENTIFIER, "aS12"))
-        expectedTokens.add(Token(PrototypeType.SPACE, null) )
+        expectedTokens.add(Token(PrototypeType.SPACE, null))
         expectedTokens.add(Token(PrototypeType.COLON, null))
         expectedTokens.add(Token(PrototypeType.SPACE, null))
         expectedTokens.add(Token(PrototypeType.STRING_TYPE, null))
@@ -53,9 +52,9 @@ class LexerTest {
     @Test
     fun testExpressionLine() {
         var actualTokens: ArrayList<Token> = lexer.defineTokens(expression)
-        var expectedTokens : ArrayList<Token> = ArrayList()
+        var expectedTokens: ArrayList<Token> = ArrayList()
         expectedTokens.add(Token(PrototypeType.IDENTIFIER, "a"))
-        expectedTokens.add(Token(PrototypeType.DIVISION, null) )
+        expectedTokens.add(Token(PrototypeType.DIVISION, null))
         expectedTokens.add(Token(PrototypeType.IDENTIFIER, "b"))
         expectedTokens.add(Token(PrototypeType.SPACE, null))
         expectedTokens.add(Token(PrototypeType.SEMICOLON, null))

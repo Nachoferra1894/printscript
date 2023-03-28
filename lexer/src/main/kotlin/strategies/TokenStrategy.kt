@@ -1,6 +1,5 @@
 package lexer.strategies
 
-import lexer.exceptions.NoTokenException
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeNumber
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeString
 
