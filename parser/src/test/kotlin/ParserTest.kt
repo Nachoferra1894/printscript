@@ -4,5 +4,6 @@ class ParserTest {
     @Test
     fun testSimpleSumToken() {
         // Statement: a = 42;
+
     }
 }
