@@ -73,9 +73,16 @@ class TokenGenerator {
             }
             throw NoTokenException("No operation exists with this operator " + line[index])
         }
+
         fun getFinalToken(): Token {
             return Token(PrototypeType.SEMICOLON, null)
         }
+
+        fun getParenthesisToken(line: String, index: Int) : Token {
+            return if(line[index] == ')') Token(PrototypeType.OPEN_PARENTHESIS, null)
+            else Token(PrototypeType.CLOSE_PARENTHESIS, null)
+        }
+
         fun getMethodPrintToken(line: String, index: Int): Token {
             var value = ""
             if (line.length > (index + 6) && line.subSequence(index, index + 6) == "print(") {

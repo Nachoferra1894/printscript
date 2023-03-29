@@ -8,6 +8,7 @@ import lexer.generators.TokenGenerator.Companion.getIdentifierToken
 import lexer.generators.TokenGenerator.Companion.getLetToken
 import lexer.generators.TokenGenerator.Companion.getMethodPrintToken
 import lexer.generators.TokenGenerator.Companion.getOperationStrategy
+import lexer.generators.TokenGenerator.Companion.getParenthesisToken
 import lexer.generators.TokenGenerator.Companion.getSpaceToken
 import lexer.generators.TokenGenerator.Companion.getTypeStrategy
 import lexer.generators.TokenGenerator.Companion.getValueToken
@@ -16,6 +17,7 @@ import lexer.strategies.TokenStrategy.Companion.finalStrategy
 import lexer.strategies.TokenStrategy.Companion.identifierStrategy
 import lexer.strategies.TokenStrategy.Companion.letStrategy
 import lexer.strategies.TokenStrategy.Companion.operationStrategy
+import lexer.strategies.TokenStrategy.Companion.parenthesisStrategy
 import lexer.strategies.TokenStrategy.Companion.printStrategy
 import lexer.strategies.TokenStrategy.Companion.spaceStrategy
 import lexer.strategies.TokenStrategy.Companion.typeStrategy
@@ -50,6 +52,7 @@ class Lexer : LexerI {
         if (printStrategy(line, index)) return getMethodPrintToken(line, index)
         if (valueStrategy(line, index)) return getValueToken(line, index)
         if (identifierStrategy(line, index)) return getIdentifierToken(line, index)
+        if (parenthesisStrategy(line, index)) return getParenthesisToken(line, index)
         throw NoTokenException("No token with this expression " + line[index])
     }
 }

@@ -15,7 +15,9 @@ enum class PrototypeType {
     STRING,
     SPACE,
     COLON,
-    METHOD_PRINT
+    METHOD_PRINT,
+    OPEN_PARENTHESIS,
+    CLOSE_PARENTHESIS
 }
 
 val dataTypes = listOf(PrototypeType.STRING_TYPE, PrototypeType.NUMBER_TYPE)

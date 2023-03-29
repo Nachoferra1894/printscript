@@ -37,5 +37,9 @@ class TokenStrategy {
         fun printStrategy(line: String, index: Int): Boolean {
             return isPrintString(line, index)
         }
+
+        fun parenthesisStrategy(line: String, index: Int): Boolean {
+            return line[index] == '(' || line[index] == ')'
+        }
     }
 }
