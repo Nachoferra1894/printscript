@@ -78,9 +78,12 @@ class TokenGenerator {
             return Token(PrototypeType.SEMICOLON, null)
         }
 
-        fun getParenthesisToken(line: String, index: Int) : Token {
-            return if(line[index] == ')') Token(PrototypeType.OPEN_PARENTHESIS, null)
-            else Token(PrototypeType.CLOSE_PARENTHESIS, null)
+        fun getParenthesisToken(line: String, index: Int): Token {
+            return if (line[index] == ')') {
+                Token(PrototypeType.OPEN_PARENTHESIS, null)
+            } else {
+                Token(PrototypeType.CLOSE_PARENTHESIS, null)
+            }
         }
 
         fun getMethodPrintToken(line: String, index: Int): Token {
