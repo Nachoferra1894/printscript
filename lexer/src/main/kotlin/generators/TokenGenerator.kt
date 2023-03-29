@@ -1,6 +1,5 @@
-package lexer.generators
+package generators
 
-import PrototypeType
 import Token
 import lexer.exceptions.NoTokenException
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeNumber

@@ -3,6 +3,7 @@ package expresions.types
 import expresions.Expression
 import expresions.ExpressionVisitor
 import expresions.Operator
+import interfaces.ASTNodeVisitor
 
 class Operation : Expression {
     private var l: Expression?
@@ -21,6 +22,10 @@ class Operation : Expression {
 
     override fun accept(visitor: ExpressionVisitor) {
         visitor.visitOperation(this)
+    }
+
+    override fun accept(visitor: ASTNodeVisitor) {
+
     }
 
     override fun addMember(operator: Operator, newMember: Expression): Expression {

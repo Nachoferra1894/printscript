@@ -1,17 +1,17 @@
 package lexer.lexer
 
 import Token
+import generators.TokenGenerator.Companion.getFinalToken
+import generators.TokenGenerator.Companion.getIdentifierToken
+import generators.TokenGenerator.Companion.getLetToken
+import generators.TokenGenerator.Companion.getMethodPrintToken
+import generators.TokenGenerator.Companion.getOperationStrategy
+import generators.TokenGenerator.Companion.getParenthesisToken
+import generators.TokenGenerator.Companion.getSpaceToken
+import generators.TokenGenerator.Companion.getTypeStrategy
+import generators.TokenGenerator.Companion.getValueToken
 import lexer.exceptions.NoTokenException
 import lexer.generators.IndexGenerator.Companion.defineIndex
-import lexer.generators.TokenGenerator.Companion.getFinalToken
-import lexer.generators.TokenGenerator.Companion.getIdentifierToken
-import lexer.generators.TokenGenerator.Companion.getLetToken
-import lexer.generators.TokenGenerator.Companion.getMethodPrintToken
-import lexer.generators.TokenGenerator.Companion.getOperationStrategy
-import lexer.generators.TokenGenerator.Companion.getParenthesisToken
-import lexer.generators.TokenGenerator.Companion.getSpaceToken
-import lexer.generators.TokenGenerator.Companion.getTypeStrategy
-import lexer.generators.TokenGenerator.Companion.getValueToken
 import lexer.interfaces.LexerI
 import lexer.strategies.TokenStrategy.Companion.finalStrategy
 import lexer.strategies.TokenStrategy.Companion.identifierStrategy
