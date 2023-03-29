@@ -17,3 +17,7 @@ enum class PrototypeType {
     COLON,
     METHOD_PRINT
 }
+
+val dataTypes = listOf(PrototypeType.STRING_TYPE, PrototypeType.NUMBER_TYPE)
+val variableTypes = listOf(PrototypeType.STRING, PrototypeType.NUMBER)
+val operatorTypes = listOf(PrototypeType.PLUS, PrototypeType.SUBTRACTION, PrototypeType.MULTIPLICATION, PrototypeType.DIVISION)

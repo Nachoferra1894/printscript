@@ -1,9 +1,7 @@
 package interfaces
 
-import exceptions.WrongTokenException
-import kotlin.jvm.Throws
+import Token
 
-interface Parser<T : ASTNode> {
-    @Throws(WrongTokenException::class)
-    fun getASTTree(): T
+interface Parser {
+    fun parseTokens(tokens: List<Token>): ASTNode
 }
