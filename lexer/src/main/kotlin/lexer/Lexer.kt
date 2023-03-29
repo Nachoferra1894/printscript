@@ -6,6 +6,7 @@ import lexer.generators.IndexGenerator.Companion.defineIndex
 import lexer.generators.TokenGenerator.Companion.getFinalToken
 import lexer.generators.TokenGenerator.Companion.getIdentifierToken
 import lexer.generators.TokenGenerator.Companion.getLetToken
+import lexer.generators.TokenGenerator.Companion.getMethodPrintToken
 import lexer.generators.TokenGenerator.Companion.getOperationStrategy
 import lexer.generators.TokenGenerator.Companion.getSpaceToken
 import lexer.generators.TokenGenerator.Companion.getTypeStrategy
@@ -15,6 +16,7 @@ import lexer.strategies.TokenStrategy.Companion.finalStrategy
 import lexer.strategies.TokenStrategy.Companion.identifierStrategy
 import lexer.strategies.TokenStrategy.Companion.letStrategy
 import lexer.strategies.TokenStrategy.Companion.operationStrategy
+import lexer.strategies.TokenStrategy.Companion.printStrategy
 import lexer.strategies.TokenStrategy.Companion.spaceStrategy
 import lexer.strategies.TokenStrategy.Companion.typeStrategy
 import lexer.strategies.TokenStrategy.Companion.valueStrategy
@@ -36,7 +38,6 @@ class Lexer : LexerI {
             tokens.add(defineToken(line, index))
             index = defineIndex(tokens, index)
         }
-        println(tokens)
         return tokens
     }
 
@@ -46,6 +47,7 @@ class Lexer : LexerI {
         if (typeStrategy(line, index)) return getTypeStrategy(line, index)
         if (operationStrategy(line, index)) return getOperationStrategy(line, index)
         if (finalStrategy(line, index)) return getFinalToken()
+        if (printStrategy(line, index)) return getMethodPrintToken(line, index)
         if (valueStrategy(line, index)) return getValueToken(line, index)
         if (identifierStrategy(line, index)) return getIdentifierToken(line, index)
         throw NoTokenException("No token with this expression " + line[index])

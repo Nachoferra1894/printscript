@@ -4,6 +4,7 @@ import lexer.strategies.TokenStrategy.Companion.finalStrategy
 import lexer.strategies.TokenStrategy.Companion.identifierStrategy
 import lexer.strategies.TokenStrategy.Companion.letStrategy
 import lexer.strategies.TokenStrategy.Companion.operationStrategy
+import lexer.strategies.TokenStrategy.Companion.printStrategy
 import lexer.strategies.TokenStrategy.Companion.typeStrategy
 import lexer.strategies.TokenStrategy.Companion.valueStrategy
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -14,9 +15,12 @@ class StrategyTest {
     private val numberLine = "let a: number = 12;"
     private val plusOperationStrategy = "a + a"
     private val subtractOperationStrategy = "a - a"
-    private val multiplicationOperationStrategy = "a . a"
+    private val multiplicationOperationStrategy = "a * a"
     private val divisionOperationStrategy = "a / a"
     private val stringLine = "let a: string = \"HI!\";"
+    private val printLine = "print(\"HI!\" + a);"
+    private val printLineWithCorrectParenthesis = "print(\"(HI!)\" + a);"
+    private val printLineWithInCorrectParenthesis = "print(\"(HI!\" + a);"
 
     @Test
     fun testLetStrategy() {
@@ -28,10 +32,8 @@ class StrategyTest {
 
     @Test
     fun testIdentifierStrategy() {
-        val indexIncorrect = 0
         val indexCorrect = 4
         assertTrue(identifierStrategy(numberLine, indexCorrect))
-        assertFalse(identifierStrategy(numberLine, indexIncorrect))
     }
 
     @Test
@@ -106,5 +108,13 @@ class StrategyTest {
         val indexCorrect = 7
         assertTrue(typeStrategy(stringLine, indexCorrect))
         assertFalse(typeStrategy(stringLine, indexIncorrect))
+    }
+
+    @Test
+    fun testPrintStrategy() {
+        val indexCorrect = 0
+        assertTrue(printStrategy(printLine, indexCorrect))
+        assertTrue(printStrategy(printLineWithCorrectParenthesis, indexCorrect))
+        assertFalse(printStrategy(printLineWithInCorrectParenthesis, indexCorrect))
     }
 }

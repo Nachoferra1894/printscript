@@ -8,11 +8,12 @@ import org.junit.jupiter.api.Test
 class TokenGeneratorTest {
     private val numberLine = "let a: number = 12;"
     private val stringLine = "let a: string = \"HI!\";"
-    private val longIdentifier = "let asa_.asa: string = \"HI!\";"
+    private val longIdentifier = "let asasasa: string = \"HI!\";"
     private val plusOperation = "a + a"
     private val subtractOperation = "a - a"
-    private val multiplicationOperation = "a . a"
+    private val multiplicationOperation = "a * a"
     private val divisionOperation = "a / a"
+    private val printLine = "print(\"HI!\" + a);"
 
     @Test
     fun testGetValueTokenNumber() {
@@ -27,6 +28,7 @@ class TokenGeneratorTest {
         val indexCorrect = 16
         val generatedToken: Token = TokenGenerator.getValueToken(stringLine, indexCorrect)
         assertEquals(PrototypeType.STRING, generatedToken.prototypeType)
+        assertEquals("HI!", generatedToken.value)
     }
 
     @Test
@@ -68,7 +70,7 @@ class TokenGeneratorTest {
         val indexCorrect = 4
         val generatedToken: Token = TokenGenerator.getIdentifierToken(longIdentifier, indexCorrect)
         assertEquals(PrototypeType.IDENTIFIER, generatedToken.prototypeType)
-        assertEquals("asa_.asa", generatedToken.value)
+        assertEquals("asasasa", generatedToken.value)
     }
 
     @Test
@@ -83,5 +85,13 @@ class TokenGeneratorTest {
         assertEquals(PrototypeType.MULTIPLICATION, TokenGenerator.getOperationStrategy(multiplicationOperation, indexMultiplication).prototypeType)
         val indexDivision = 2
         assertEquals(PrototypeType.DIVISION, TokenGenerator.getOperationStrategy(divisionOperation, indexDivision).prototypeType)
+    }
+
+    @Test
+    fun testGetPrintStrategy() {
+        val indexCorrect = 0
+        val generatedToken: Token = TokenGenerator.getMethodPrintToken(printLine, indexCorrect)
+        assertEquals(PrototypeType.METHOD_PRINT, generatedToken.prototypeType)
+        assertEquals("\"HI!\" + a", generatedToken.value)
     }
 }

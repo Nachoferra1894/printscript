@@ -1,0 +1,307 @@
+Index: lexer/src/main/kotlin/lexer/Lexer.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package lexer.lexer\n\nimport Token\nimport lexer.exceptions.NoTokenException\nimport lexer.generators.IndexGenerator.Companion.defineIndex\nimport lexer.generators.TokenGenerator.Companion.getFinalToken\nimport lexer.generators.TokenGenerator.Companion.getIdentifierToken\nimport lexer.generators.TokenGenerator.Companion.getLetToken\nimport lexer.generators.TokenGenerator.Companion.getOperationStrategy\nimport lexer.generators.TokenGenerator.Companion.getSpaceToken\nimport lexer.generators.TokenGenerator.Companion.getTypeStrategy\nimport lexer.generators.TokenGenerator.Companion.getValueToken\nimport lexer.interfaces.LexerI\nimport lexer.strategies.TokenStrategy.Companion.finalStrategy\nimport lexer.strategies.TokenStrategy.Companion.identifierStrategy\nimport lexer.strategies.TokenStrategy.Companion.letStrategy\nimport lexer.strategies.TokenStrategy.Companion.operationStrategy\nimport lexer.strategies.TokenStrategy.Companion.spaceStrategy\nimport lexer.strategies.TokenStrategy.Companion.typeStrategy\nimport lexer.strategies.TokenStrategy.Companion.valueStrategy\n\nclass Lexer : LexerI {\n\n    override fun getTokens(code: String): ArrayList<Token> {\n        var tokens: ArrayList<Token> = ArrayList()\n        var lines = code.lines()\n        lines.forEach {\n            tokens.addAll(defineTokens(it))\n        }\n        return tokens\n    }\n    fun defineTokens(line: String): ArrayList<Token> {\n        val tokens: ArrayList<Token> = ArrayList()\n        var index = 0\n        while (index <= line.length - 1) {\n            tokens.add(defineToken(line, index))\n            index = defineIndex(tokens, index)\n        }\n        println(tokens)\n        return tokens\n    }\n\n    private fun defineToken(line: String, index: Int): Token {\n        if (spaceStrategy(line, index)) return getSpaceToken()\n        if (letStrategy(line, index)) return getLetToken()\n        if (typeStrategy(line, index)) return getTypeStrategy(line, index)\n        if (operationStrategy(line, index)) return getOperationStrategy(line, index)\n        if (finalStrategy(line, index)) return getFinalToken()\n        if (valueStrategy(line, index)) return getValueToken(line, index)\n        if (identifierStrategy(line, index)) return getIdentifierToken(line, index)\n        throw NoTokenException(\"No token with this expression \" + line[index])\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lexer/src/main/kotlin/lexer/Lexer.kt b/lexer/src/main/kotlin/lexer/Lexer.kt
+--- a/lexer/src/main/kotlin/lexer/Lexer.kt	(revision d17a85de1839cab1cd1a9c86d53ca63f9f4dfcae)
++++ b/lexer/src/main/kotlin/lexer/Lexer.kt	(date 1680027446556)
+@@ -36,7 +36,6 @@
+             tokens.add(defineToken(line, index))
+             index = defineIndex(tokens, index)
+         }
+-        println(tokens)
+         return tokens
+     }
+ 
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"954f6e56-dbed-429a-ad86-bb5863b542df\" name=\"Changes\" comment=\"\">\n      <change afterPath=\"$PROJECT_DIR$/parser/src/main/kotlin/parsers/AssignmentParser.kt\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/parser/src/main/kotlin/parsers/CodeParser.kt\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/parser/src/main/kotlin/parsers/DeclarationParser.kt\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/parser/src/main/kotlin/parsers/PrintParser.kt\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/ast/src/main/kotlin/interfaces/ASTNodeVisitor.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/ast/src/main/kotlin/interfaces/ASTNodeVisitor.kt\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/ast/src/main/kotlin/types/VariableDeclaration.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/ast/src/main/kotlin/types/VariableDeclarationNode.kt\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/parser/src/main/kotlin/interfaces/Parser.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/parser/src/main/kotlin/interfaces/Parser.kt\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/parser/src/test/kotlin/ParserTest.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/parser/src/test/kotlin/ParserTest.kt\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/parser/src/test/kotlin/fixtures/Tokens.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/parser/src/test/kotlin/fixtures/Tokens.kt\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ComposerSettings\">\n    <execution />\n  </component>\n  <component name=\"ExternalProjectsData\">\n    <projectState path=\"$PROJECT_DIR$\">\n      <ProjectState />\n    </projectState>\n  </component>\n  <component name=\"ExternalProjectsManager\">\n    <system id=\"GRADLE\">\n      <state>\n        <task path=\"$PROJECT_DIR$/lexer\">\n          <activation />\n        </task>\n        <task path=\"$PROJECT_DIR$/parser\">\n          <activation />\n        </task>\n        <task path=\"$PROJECT_DIR$\">\n          <activation />\n        </task>\n        <task path=\"$PROJECT_DIR$/interpreter\">\n          <activation />\n        </task>\n        <projects_view>\n          <tree_state>\n            <expand>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"interpreter\" type=\"f1a62948:ProjectNode\" />\n              </path>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"interpreter\" type=\"f1a62948:ProjectNode\" />\n                <item name=\"Tasks\" type=\"e4a08cd1:TasksNode\" />\n              </path>\n              <path>\n                <item name=\"\" type=\"6a2764b6:ExternalProjectsStructure$RootNode\" />\n                <item name=\"interpreter\" type=\"f1a62948:ProjectNode\" />\n                <item name=\"Tasks\" type=\"e4a08cd1:TasksNode\" />\n                <item name=\"build\" type=\"c8890929:TasksNode$1\" />\n              </path>\n            </expand>\n            <select />\n          </tree_state>\n        </projects_view>\n      </state>\n    </system>\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Kotlin Class\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"MacroExpansionManager\">\n    <option name=\"directoryName\" value=\"wzlwbr7k\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectId\" id=\"2NKvK3dPBSorB5Kxuxk0T2tBz7A\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n    <option name=\"showMembers\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\n    \"WebServerToolWindowFactoryState\": \"false\",\n    \"git-widget-placeholder\": \"master\",\n    \"jdk.selected.JAVA_MODULE\": \"corretto-18\",\n    \"last_opened_file_path\": \"/Users/nachoferrari/Desktop/facu/ingsis/printscript/parser/src/main/kotlin/parsers\",\n    \"node.js.detected.package.eslint\": \"true\",\n    \"node.js.detected.package.tslint\": \"true\",\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\n    \"nodejs_package_manager_path\": \"npm\",\n    \"project.structure.last.edited\": \"Modules\",\n    \"project.structure.proportion\": \"0.0\",\n    \"project.structure.side.proportion\": \"0.0\",\n    \"ruby.rails.projectView.checked\": \"true\",\n    \"settings.editor.selected.configurable\": \"build.tools\",\n    \"vue.rearranger.settings.migration\": \"true\"\n  }\n}]]></component>\n  <component name=\"RecentsManager\">\n    <key name=\"CopyFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/parser/src/main/kotlin/parsers\" />\n    </key>\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/lib/src/main/kotlin\" />\n      <recent name=\"$PROJECT_DIR$/scripts\" />\n    </key>\n    <key name=\"MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY\">\n      <recent name=\"parsers\" />\n    </key>\n  </component>\n  <component name=\"RubyModuleManagerSettings\">\n    <option name=\"blackListedRootsPaths\">\n      <list>\n        <option value=\"$PROJECT_DIR$/parser\" />\n        <option value=\"$PROJECT_DIR$/ast\" />\n        <option value=\"$PROJECT_DIR$/lexer\" />\n        <option value=\"$PROJECT_DIR$/buildSrc/src/main\" />\n        <option value=\"$PROJECT_DIR$\" />\n        <option value=\"$PROJECT_DIR$/interpreter/src/main\" />\n        <option value=\"$PROJECT_DIR$/lib/src/main\" />\n        <option value=\"$PROJECT_DIR$/lib\" />\n        <option value=\"$PROJECT_DIR$/interpreter\" />\n        <option value=\"$PROJECT_DIR$/lexer/src/test\" />\n        <option value=\"$PROJECT_DIR$/ast/src/main\" />\n        <option value=\"$PROJECT_DIR$/parser/src/main\" />\n        <option value=\"$PROJECT_DIR$/lexer/src/main\" />\n        <option value=\"$PROJECT_DIR$/buildSrc/build/groovy-dsl-plugins/output/adapter-src\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"RunManager\" selected=\"Gradle.printscript:parser [dependencies]\">\n    <configuration default=\"true\" type=\"DjangoTestsConfigurationType\">\n      <module name=\"printscript\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"TARGET\" value=\"\" />\n      <option name=\"SETTINGS_FILE\" value=\"\" />\n      <option name=\"CUSTOM_SETTINGS\" value=\"false\" />\n      <option name=\"USE_OPTIONS\" value=\"false\" />\n      <option name=\"OPTIONS\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration default=\"true\" type=\"PyBehaveRunConfigurationType\" factoryName=\"Behave\">\n      <module name=\"printscript\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\n      <option name=\"IS_MODULE_SDK\" value=\"true\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"ADDITIONAL_ARGS\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration default=\"true\" type=\"PythonConfigurationType\" factoryName=\"Python\">\n      <module name=\"printscript\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <envs>\n        <env name=\"PYTHONUNBUFFERED\" value=\"1\" />\n      </envs>\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"SCRIPT_NAME\" value=\"\" />\n      <option name=\"PARAMETERS\" value=\"\" />\n      <option name=\"SHOW_COMMAND_LINE\" value=\"false\" />\n      <option name=\"EMULATE_TERMINAL\" value=\"false\" />\n      <option name=\"MODULE_MODE\" value=\"false\" />\n      <option name=\"REDIRECT_INPUT\" value=\"false\" />\n      <option name=\"INPUT_FILE\" value=\"\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration default=\"true\" type=\"Python.FlaskServer\">\n      <module name=\"printscript\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <option name=\"launchJavascriptDebuger\" value=\"false\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration default=\"true\" type=\"Tox\" factoryName=\"Tox\">\n      <module name=\"printscript\" />\n      <option name=\"INTERPRETER_OPTIONS\" value=\"\" />\n      <option name=\"PARENT_ENVS\" value=\"true\" />\n      <option name=\"SDK_HOME\" value=\"\" />\n      <option name=\"WORKING_DIRECTORY\" value=\"\" />\n      <option name=\"IS_MODULE_SDK\" value=\"false\" />\n      <option name=\"ADD_CONTENT_ROOTS\" value=\"true\" />\n      <option name=\"ADD_SOURCE_ROOTS\" value=\"true\" />\n      <EXTENSION ID=\"PythonCoverageRunConfigurationExtension\" runner=\"coverage.py\" />\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"LexerTest (1)\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$/lexer\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" value=\"\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\":lexer:test\" />\n            <option value=\"--tests\" />\n            <option value=\"&quot;lexer.LexerTest&quot;\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <ForceTestExec>true</ForceTestExec>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"Tests in 'lexer.test'\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$/lexer\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" value=\"\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\":lexer:test\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <ForceTestExec>true</ForceTestExec>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"TokenGeneratorTest (1)\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$/lexer\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" value=\"\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\":lexer:test\" />\n            <option value=\"--tests\" />\n            <option value=\"&quot;generators.TokenGeneratorTest&quot;\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <ForceTestExec>true</ForceTestExec>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"TokenGeneratorTest\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$/lexer\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" value=\"\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\":test\" />\n            <option value=\"--tests\" />\n            <option value=\"&quot;generators.TokenGeneratorTest&quot;\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <ForceTestExec>true</ForceTestExec>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"printscript:parser [dependencies]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$/parser\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\"dependencies\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <ForceTestExec>false</ForceTestExec>\n      <method v=\"2\" />\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Gradle.printscript:parser [dependencies]\" />\n        <item itemvalue=\"Gradle.Tests in 'lexer.test'\" />\n        <item itemvalue=\"Gradle.LexerTest (1)\" />\n        <item itemvalue=\"Gradle.TokenGeneratorTest (1)\" />\n        <item itemvalue=\"Gradle.TokenGeneratorTest\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"954f6e56-dbed-429a-ad86-bb5863b542df\" name=\"Changes\" comment=\"\" />\n      <created>1679425520328</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1679425520328</updated>\n      <workItem from=\"1679425521826\" duration=\"2198000\" />\n      <workItem from=\"1679427843461\" duration=\"1229000\" />\n      <workItem from=\"1679429078360\" duration=\"46000\" />\n      <workItem from=\"1679429146867\" duration=\"1048000\" />\n      <workItem from=\"1679440993586\" duration=\"5054000\" />\n      <workItem from=\"1679509149258\" duration=\"8300000\" />\n      <workItem from=\"1679863180190\" duration=\"994000\" />\n      <workItem from=\"1679952656114\" duration=\"1983000\" />\n      <workItem from=\"1679966003235\" duration=\"1278000\" />\n    </task>\n    <task id=\"LOCAL-00001\" summary=\"added ktlint\">\n      <created>1679428127274</created>\n      <option name=\"number\" value=\"00001\" />\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1679428127274</updated>\n    </task>\n    <task id=\"LOCAL-00002\" summary=\"added linter\">\n      <created>1679430190630</created>\n      <option name=\"number\" value=\"00002\" />\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1679430190630</updated>\n    </task>\n    <task id=\"LOCAL-00003\" summary=\"added Token to :lib\">\n      <created>1679449419022</created>\n      <option name=\"number\" value=\"00003\" />\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1679449419022</updated>\n    </task>\n    <task id=\"LOCAL-00004\" summary=\"added Token to parser\">\n      <created>1679510105916</created>\n      <option name=\"number\" value=\"00004\" />\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1679510105916</updated>\n    </task>\n    <task id=\"LOCAL-00005\" summary=\"fixed nodes bug\">\n      <created>1679520246655</created>\n      <option name=\"number\" value=\"00005\" />\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1679520246655</updated>\n    </task>\n    <task id=\"LOCAL-00006\" summary=\"add toString methods, started adding tests\">\n      <created>1679525289175</created>\n      <option name=\"number\" value=\"00006\" />\n      <option name=\"presentableId\" value=\"LOCAL-00006\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1679525289175</updated>\n    </task>\n    <task id=\"LOCAL-00007\" summary=\"finished parser tests\">\n      <created>1679953533233</created>\n      <option name=\"number\" value=\"00007\" />\n      <option name=\"presentableId\" value=\"LOCAL-00007\" />\n      <option name=\"project\" value=\"LOCAL\" />\n      <updated>1679953533233</updated>\n    </task>\n    <option name=\"localTasksCounter\" value=\"8\" />\n    <servers />\n  </component>\n  <component name=\"TypeScriptGeneratedFilesManager\">\n    <option name=\"version\" value=\"3\" />\n  </component>\n  <component name=\"Vcs.Log.Tabs.Properties\">\n    <option name=\"TAB_STATES\">\n      <map>\n        <entry key=\"MAIN\">\n          <value>\n            <State />\n          </value>\n        </entry>\n      </map>\n    </option>\n  </component>\n  <component name=\"VcsManagerConfiguration\">\n    <MESSAGE value=\"added ktlint\" />\n    <MESSAGE value=\"added linter\" />\n    <MESSAGE value=\"added Token to :lib\" />\n    <MESSAGE value=\"added Token to parser\" />\n    <MESSAGE value=\"fixed nodes bug\" />\n    <MESSAGE value=\"add toString methods, started adding tests\" />\n    <MESSAGE value=\"finished parser tests\" />\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"finished parser tests\" />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision d17a85de1839cab1cd1a9c86d53ca63f9f4dfcae)
++++ b/.idea/workspace.xml	(date 1680027865854)
+@@ -5,16 +5,10 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="954f6e56-dbed-429a-ad86-bb5863b542df" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/parsers/AssignmentParser.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/parsers/CodeParser.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/parsers/DeclarationParser.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/parser/src/main/kotlin/parsers/PrintParser.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/interfaces/ASTNodeVisitor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/interfaces/ASTNodeVisitor.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/ast/src/main/kotlin/types/VariableDeclaration.kt" beforeDir="false" afterPath="$PROJECT_DIR$/ast/src/main/kotlin/types/VariableDeclarationNode.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/parser/src/main/kotlin/interfaces/Parser.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/main/kotlin/interfaces/Parser.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/ParserTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/ParserTest.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/parser/src/test/kotlin/fixtures/Tokens.kt" beforeDir="false" afterPath="$PROJECT_DIR$/parser/src/test/kotlin/fixtures/Tokens.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/lexer/Lexer.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/lexer/Lexer.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/lexer/src/main/kotlin/strategies/TokenStrategy.kt" beforeDir="false" afterPath="$PROJECT_DIR$/lexer/src/main/kotlin/strategies/TokenStrategy.kt" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -91,28 +85,28 @@
+     <option name="showLibraryContents" value="true" />
+     <option name="showMembers" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "WebServerToolWindowFactoryState": "false",
+-    "git-widget-placeholder": "master",
+-    "jdk.selected.JAVA_MODULE": "corretto-18",
+-    "last_opened_file_path": "/Users/nachoferrari/Desktop/facu/ingsis/printscript/parser/src/main/kotlin/parsers",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "project.structure.last.edited": "Modules",
+-    "project.structure.proportion": "0.0",
+-    "project.structure.side.proportion": "0.0",
+-    "ruby.rails.projectView.checked": "true",
+-    "settings.editor.selected.configurable": "build.tools",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
++    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;corretto-18&quot;,
++    &quot;last_opened_file_path&quot;: &quot;/Users/nachoferrari/Desktop/facu/ingsis/printscript/parser/src/main/kotlin/parsers&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
++    &quot;ruby.rails.projectView.checked&quot;: &quot;true&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;build.tools&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="CopyFile.RECENT_KEYS">
+       <recent name="$PROJECT_DIR$/parser/src/main/kotlin/parsers" />
+@@ -145,7 +139,7 @@
+       </list>
+     </option>
+   </component>
+-  <component name="RunManager" selected="Gradle.printscript:parser [dependencies]">
++  <component name="RunManager" selected="Gradle.printscript [installLocalGitHook]">
+     <configuration default="true" type="DjangoTestsConfigurationType">
+       <module name="printscript" />
+       <option name="INTERPRETER_OPTIONS" value="" />
+@@ -226,10 +220,10 @@
+       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+       <method v="2" />
+     </configuration>
+-    <configuration name="LexerTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
++    <configuration name="StrategyTest.testIdentifierStrategy" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+       <ExternalSystemSettings>
+         <option name="executionName" />
+-        <option name="externalProjectPath" value="$PROJECT_DIR$/lexer" />
++        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+         <option name="externalSystemIdString" value="GRADLE" />
+         <option name="scriptParameters" value="" />
+         <option name="taskDescriptions">
+@@ -239,7 +233,7 @@
+           <list>
+             <option value=":lexer:test" />
+             <option value="--tests" />
+-            <option value="&quot;lexer.LexerTest&quot;" />
++            <option value="&quot;strategies.StrategyTest.testIdentifierStrategy&quot;" />
+           </list>
+         </option>
+         <option name="vmOptions" />
+@@ -247,13 +241,12 @@
+       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+       <DebugAllEnabled>false</DebugAllEnabled>
+-      <ForceTestExec>true</ForceTestExec>
+       <method v="2" />
+     </configuration>
+-    <configuration name="Tests in 'lexer.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
++    <configuration name="Tests in 'printscript.lexer.test'" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+       <ExternalSystemSettings>
+         <option name="executionName" />
+-        <option name="externalProjectPath" value="$PROJECT_DIR$/lexer" />
++        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+         <option name="externalSystemIdString" value="GRADLE" />
+         <option name="scriptParameters" value="" />
+         <option name="taskDescriptions">
+@@ -269,13 +262,12 @@
+       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+       <DebugAllEnabled>false</DebugAllEnabled>
+-      <ForceTestExec>true</ForceTestExec>
+       <method v="2" />
+     </configuration>
+-    <configuration name="TokenGeneratorTest (1)" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
++    <configuration name="TokenGeneratorTest.testGetIndentifierStrategy" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+       <ExternalSystemSettings>
+         <option name="executionName" />
+-        <option name="externalProjectPath" value="$PROJECT_DIR$/lexer" />
++        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+         <option name="externalSystemIdString" value="GRADLE" />
+         <option name="scriptParameters" value="" />
+         <option name="taskDescriptions">
+@@ -285,7 +277,7 @@
+           <list>
+             <option value=":lexer:test" />
+             <option value="--tests" />
+-            <option value="&quot;generators.TokenGeneratorTest&quot;" />
++            <option value="&quot;generators.TokenGeneratorTest.testGetIndentifierStrategy&quot;" />
+           </list>
+         </option>
+         <option name="vmOptions" />
+@@ -293,31 +285,27 @@
+       <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
+       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+       <DebugAllEnabled>false</DebugAllEnabled>
+-      <ForceTestExec>true</ForceTestExec>
+       <method v="2" />
+     </configuration>
+-    <configuration name="TokenGeneratorTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
++    <configuration name="printscript [installLocalGitHook]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+       <ExternalSystemSettings>
+         <option name="executionName" />
+-        <option name="externalProjectPath" value="$PROJECT_DIR$/lexer" />
++        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+         <option name="externalSystemIdString" value="GRADLE" />
+-        <option name="scriptParameters" value="" />
++        <option name="scriptParameters" />
+         <option name="taskDescriptions">
+           <list />
+         </option>
+         <option name="taskNames">
+           <list>
+-            <option value=":test" />
+-            <option value="--tests" />
+-            <option value="&quot;generators.TokenGeneratorTest&quot;" />
++            <option value="installLocalGitHook" />
+           </list>
+         </option>
+         <option name="vmOptions" />
+       </ExternalSystemSettings>
+-      <ExternalSystemDebugServerProcess>false</ExternalSystemDebugServerProcess>
++      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+       <DebugAllEnabled>false</DebugAllEnabled>
+-      <ForceTestExec>true</ForceTestExec>
+       <method v="2" />
+     </configuration>
+     <configuration name="printscript:parser [dependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+@@ -339,16 +327,15 @@
+       <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+       <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+       <DebugAllEnabled>false</DebugAllEnabled>
+-      <ForceTestExec>false</ForceTestExec>
+       <method v="2" />
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Gradle.printscript [installLocalGitHook]" />
++        <item itemvalue="Gradle.Tests in 'printscript.lexer.test'" />
++        <item itemvalue="Gradle.TokenGeneratorTest.testGetIndentifierStrategy" />
++        <item itemvalue="Gradle.StrategyTest.testIdentifierStrategy" />
+         <item itemvalue="Gradle.printscript:parser [dependencies]" />
+-        <item itemvalue="Gradle.Tests in 'lexer.test'" />
+-        <item itemvalue="Gradle.LexerTest (1)" />
+-        <item itemvalue="Gradle.TokenGeneratorTest (1)" />
+-        <item itemvalue="Gradle.TokenGeneratorTest" />
+       </list>
+     </recent_temporary>
+   </component>
+Index: .idea/gradle.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"GradleMigrationSettings\" migrationVersion=\"1\" />\n  <component name=\"GradleSettings\">\n    <option name=\"linkedExternalProjectsSettings\">\n      <GradleProjectSettings>\n        <compositeConfiguration>\n          <compositeBuild compositeDefinitionSource=\"SCRIPT\">\n            <builds>\n              <build path=\"$PROJECT_DIR$/buildSrc\" name=\"buildSrc\">\n                <projects>\n                  <project path=\"$PROJECT_DIR$/buildSrc\" />\n                </projects>\n              </build>\n            </builds>\n          </compositeBuild>\n        </compositeConfiguration>\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"modules\">\n          <set>\n            <option value=\"$PROJECT_DIR$\" />\n            <option value=\"$PROJECT_DIR$/ast\" />\n            <option value=\"$PROJECT_DIR$/buildSrc\" />\n            <option value=\"$PROJECT_DIR$/interpreter\" />\n            <option value=\"$PROJECT_DIR$/lexer\" />\n            <option value=\"$PROJECT_DIR$/lib\" />\n            <option value=\"$PROJECT_DIR$/parser\" />\n          </set>\n        </option>\n      </GradleProjectSettings>\n    </option>\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/gradle.xml b/.idea/gradle.xml
+--- a/.idea/gradle.xml	(revision d17a85de1839cab1cd1a9c86d53ca63f9f4dfcae)
++++ b/.idea/gradle.xml	(date 1680018250125)
+@@ -4,17 +4,6 @@
+   <component name="GradleSettings">
+     <option name="linkedExternalProjectsSettings">
+       <GradleProjectSettings>
+-        <compositeConfiguration>
+-          <compositeBuild compositeDefinitionSource="SCRIPT">
+-            <builds>
+-              <build path="$PROJECT_DIR$/buildSrc" name="buildSrc">
+-                <projects>
+-                  <project path="$PROJECT_DIR$/buildSrc" />
+-                </projects>
+-              </build>
+-            </builds>
+-          </compositeBuild>
+-        </compositeConfiguration>
+         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+         <option name="modules">
+           <set>
+Index: lexer/src/main/kotlin/strategies/TokenStrategy.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package lexer.strategies\nimport lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeNumber\nimport lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeString\n\nclass TokenStrategy {\n    companion object {\n        fun letStrategy(line: String, index: Int): Boolean {\n            return line.length > (index + 3) && line.subSequence(index, index + 3) == \"let\"\n        }\n        fun spaceStrategy(line: String, index: Int): Boolean {\n            return line[index] == ' '\n        }\n        fun identifierStrategy(line: String, index: Int): Boolean {\n            var lastIndex: Int = index\n            while (lastIndex < line.length && line[lastIndex] != ' ') {\n                lastIndex = lastIndex.plus(1)\n            }\n            return line[lastIndex - 1] == ':'\n        }\n        fun valueStrategy(line: String, index: Int): Boolean {\n            return line[index] == '\"' || line[index].isDigit()\n        }\n        fun finalStrategy(line: String, index: Int): Boolean {\n            return line[index] == ';'\n        }\n\n        fun operationStrategy(line: String, index: Int): Boolean {\n            val pattern = Regex(\"=|-|/|\\\\+|\\\\.|:|\")\n            return pattern.matches(line[index].toString())\n        }\n\n        fun typeStrategy(line: String, index: Int): Boolean {\n            return line[index] != '\"' && (\n                isTypeString(line, index) ||\n                    isTypeNumber(line, index)\n                )\n        }\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/lexer/src/main/kotlin/strategies/TokenStrategy.kt b/lexer/src/main/kotlin/strategies/TokenStrategy.kt
+--- a/lexer/src/main/kotlin/strategies/TokenStrategy.kt	(revision d17a85de1839cab1cd1a9c86d53ca63f9f4dfcae)
++++ b/lexer/src/main/kotlin/strategies/TokenStrategy.kt	(date 1680027642927)
+@@ -1,4 +1,8 @@
+ package lexer.strategies
++
++import PrototypeType
++import Token
++import lexer.exceptions.NoTokenException
+ import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeNumber
+ import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeString
+ 
+@@ -11,12 +15,27 @@
+             return line[index] == ' '
+         }
+         fun identifierStrategy(line: String, index: Int): Boolean {
+-            var lastIndex: Int = index
+-            while (lastIndex < line.length && line[lastIndex] != ' ') {
+-                lastIndex = lastIndex.plus(1)
++            if(line[index].isLetter()){
++                var lastIndex: Int = index
++                while (lastIndex < line.length && line[lastIndex] != ' ') {
++                    if(!(line[index].isDigit() || line[index].isLetter()))
++                        throw NoTokenException("No token with this expression " + line.subSequence(index, lastIndex + 1))
++                    lastIndex = lastIndex.plus(1)
++                }
++                return true
++            }else{
++                return false
+             }
+-            return line[lastIndex - 1] == ':'
+         }
++
++        private fun beforeTokenAs(tokens: ArrayList<Token>, let: PrototypeType): Boolean {
++            var lastIndex = tokens.size - 1
++            while (lastIndex >= 0 && tokens[lastIndex].prototypeType == PrototypeType.SPACE) {
++                lastIndex -= 1
++            }
++            return lastIndex >= 0 && tokens.size > 0 && tokens[lastIndex].prototypeType == PrototypeType.LET
++        }
++
+         fun valueStrategy(line: String, index: Int): Boolean {
+             return line[index] == '"' || line[index].isDigit()
+         }

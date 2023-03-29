@@ -1,0 +1,28 @@
+Index: lexer/src/main/kotlin/Token.kt
+===================================================================
+diff --git a/lexer/src/main/kotlin/Token.kt b/lexer/src/main/kotlin/Token.kt
+--- a/lexer/src/main/kotlin/Token.kt	
++++ b/lexer/src/main/kotlin/Token.kt	
+@@ -1,7 +1,12 @@
+ package lexer
+ 
+-data class Token(val prototypeType: PrototypeType, val value: String?)
+-
++data class Token(val id: String, val prototypeType: PrototypeType, val value: String?){
++    fun length(){
++        //TODO
++    }
++}
++//id
++//val a = "Hello"
+ enum class PrototypeType {
+     ASSIGNATION,
+     SEMICOLON ,
+@@ -17,6 +22,7 @@
+     STRING,
+     SPACE,
+     OPERATOR,
++    NOT_KNOWN_CHARACTER,
+ }
+ 
+ 

@@ -1,4 +1,6 @@
 package lexer.strategies
+
+import lexer.languageDefinitions.LanguageDefinitions.Companion.isPrintString
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeNumber
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeString
 
@@ -11,12 +13,9 @@ class TokenStrategy {
             return line[index] == ' '
         }
         fun identifierStrategy(line: String, index: Int): Boolean {
-            var lastIndex: Int = index
-            while (lastIndex < line.length && line[lastIndex] != ' ') {
-                lastIndex = lastIndex.plus(1)
-            }
-            return line[lastIndex - 1] == ':'
+            return line[index].isLetter()
         }
+
         fun valueStrategy(line: String, index: Int): Boolean {
             return line[index] == '"' || line[index].isDigit()
         }
@@ -25,7 +24,7 @@ class TokenStrategy {
         }
 
         fun operationStrategy(line: String, index: Int): Boolean {
-            val pattern = Regex("=|-|/|\\+|\\.|:|")
+            val pattern = Regex("=|-|/|\\+|\\*|:|")
             return pattern.matches(line[index].toString())
         }
 
@@ -34,6 +33,9 @@ class TokenStrategy {
                 isTypeString(line, index) ||
                     isTypeNumber(line, index)
                 )
+        }
+        fun printStrategy(line: String, index: Int): Boolean {
+            return isPrintString(line, index)
         }
     }
 }

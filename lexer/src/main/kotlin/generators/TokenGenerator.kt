@@ -11,11 +11,11 @@ class TokenGenerator {
     companion object {
         fun getIdentifierToken(line: String, index: Int): Token {
             var value = ""
-            var actualIndex: Int = index
-
-            while (line[actualIndex] != ':' && actualIndex < line.length - 1) {
-                value.plus(line[actualIndex]).also { value = it }
-                actualIndex.plus(1).also { actualIndex = it }
+            for (i in index until line.length) {
+                if (TokenStrategy.operationStrategy(line, i) || TokenStrategy.spaceStrategy(line, i)) {
+                    return Token(PrototypeType.IDENTIFIER, value)
+                }
+                value = value.plus(line[i])
             }
             return Token(PrototypeType.IDENTIFIER, value)
         }
@@ -41,13 +41,16 @@ class TokenGenerator {
         private fun valueString(line: String, index: Int): Token {
             var value = ""
             var isClosed = false
-
-            while (index < line.length && !TokenStrategy.finalStrategy(line, index) && !isClosed) {
-                if (line[index] == '"') isClosed = true
-                value.plus(line[index]).also { value = it }
-            }
-            if (!isClosed) {
-                throw NoTokenException("No value exists with this operator " + line[index])
+            for (i in index + 1 until line.length) {
+                if (line[i] == '"') isClosed = true
+                if (isClosed) break
+                if (TokenStrategy.finalStrategy(line, i) && !isClosed) {
+                    throw NoTokenException("No value exists with this operator " + line[i])
+                }
+                if (TokenStrategy.finalStrategy(line, i)) {
+                    return Token(PrototypeType.STRING, value)
+                }
+                value = value.plus(line[i])
             }
             return Token(PrototypeType.STRING, value)
         }
@@ -62,7 +65,7 @@ class TokenGenerator {
         fun getOperationStrategy(line: String, index: Int): Token {
             when (line[index]) {
                 '=' -> return Token(PrototypeType.ASSIGNATION, null)
-                '.' -> return Token(PrototypeType.MULTIPLICATION, null)
+                '*' -> return Token(PrototypeType.MULTIPLICATION, null)
                 '/' -> return Token(PrototypeType.DIVISION, null)
                 '+' -> return Token(PrototypeType.PLUS, null)
                 '-' -> return Token(PrototypeType.SUBTRACTION, null)
@@ -72,6 +75,22 @@ class TokenGenerator {
         }
         fun getFinalToken(): Token {
             return Token(PrototypeType.SEMICOLON, null)
+        }
+        fun getMethodPrintToken(line: String, index: Int): Token {
+            var value = ""
+            if (line.length > (index + 6) && line.subSequence(index, index + 6) == "print(") {
+                var isOpen = false
+                var value = ""
+                for (i in index + 6 until line.length) {
+                    if (line[i] == '"' && !isOpen) isOpen = true
+                    if (line[i] == '"' && isOpen) isOpen = false
+                    if (line[i] == ')' && !isOpen) {
+                        return Token(PrototypeType.METHOD_PRINT, value)
+                    }
+                    value = value.plus(line[i])
+                }
+            }
+            return Token(PrototypeType.METHOD_PRINT, value)
         }
     }
 }
