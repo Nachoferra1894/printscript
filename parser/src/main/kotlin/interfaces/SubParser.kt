@@ -1,6 +1,6 @@
 package interfaces
 
-import excepntions.InvalidTokenException
+import exceptions.InvalidTokenException
 import exceptions.WrongTokenException
 import kotlin.jvm.Throws
 

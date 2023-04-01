@@ -10,7 +10,7 @@ import interfaces.SubParser
 import operatorTypes
 import variableTypes
 
-class ExpressionSubParser(tokens: List<Token>,val closeType: PrototypeType = PrototypeType.SEMICOLON) : SubParser<Expression>, TokenMatcher(tokens) {
+class ExpressionSubParser(tokens: List<Token>, val closeType: PrototypeType = PrototypeType.SEMICOLON) : SubParser<Expression>, TokenMatcher(tokens) {
     val expressionInitialTypes: List<PrototypeType> =
         listOf(
             *variableTypes.toTypedArray(),

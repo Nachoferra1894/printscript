@@ -1,7 +1,7 @@
 package expresions
 
 import PrototypeType
-import excepntions.InvalidTokenException
+import exceptions.InvalidTokenException
 
 enum class Operator(op: String) {
     SUM("+"), SUB("-"), DIV("/"), MUL("*");

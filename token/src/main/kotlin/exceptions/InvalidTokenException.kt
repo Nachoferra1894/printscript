@@ -1,4 +1,4 @@
-package excepntions
+package exceptions
 
 import PrototypeType
 import Token
