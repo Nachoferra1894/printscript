@@ -1,5 +1,14 @@
 package excepntions
 
+import PrototypeType
 import Token
 
-class InvalidTokenException(token: Token) : Exception("Token: $token is incorrect")
+class InvalidTokenException: Exception {
+    constructor(token: Token){
+        throw Exception("Token: $token is incorrect")
+    }
+    constructor(prototypeType: PrototypeType){
+        throw Exception("Token: $prototypeType is incorrect")
+    }
+
+}

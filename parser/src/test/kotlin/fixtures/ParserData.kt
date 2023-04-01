@@ -48,7 +48,11 @@ val tokenList4 = listOf(
     Token(PrototypeType.SEMICOLON, null)
 )
 
-// Statement: let g: number = 1 - 2 - 3;
+// Statement: let a: number = 1 - 2 - 3;
+// Statement: let b: number = a + 1;
+// Statement: print(a + b);
+
+
 val tokenList7 = listOf(
     Token(PrototypeType.LET, null),
     Token(PrototypeType.IDENTIFIER, "g"),

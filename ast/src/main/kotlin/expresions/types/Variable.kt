@@ -11,7 +11,6 @@ class Variable(private val value: String) : Expression {
     }
 
     override fun accept(visitor: ASTNodeVisitor) {
-
     }
 
     override fun addMember(operator: Operator, newMember: Expression): Expression {
