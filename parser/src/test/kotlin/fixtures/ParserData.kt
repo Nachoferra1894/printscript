@@ -52,7 +52,6 @@ val tokenList4 = listOf(
 // Statement: let b: number = a + 1;
 // Statement: print(a + b);
 
-
 val tokenList7 = listOf(
     Token(PrototypeType.LET, null),
     Token(PrototypeType.IDENTIFIER, "g"),
