@@ -46,7 +46,7 @@ jobs:
       with:
         github-token: ${{ github.token }}
         script: |
-          const pull_number = "${{ steps.findPr.outputs.pr }}"
+          const pull_number = ${{ github.event.pull_request.number }}
           await github.pulls.createReview({
             ...context.repo,
             pull_number,
@@ -59,7 +59,7 @@ jobs:
       with:
         github-token: ${{ github.token }}
         script: |
-          const pull_number = "${{ steps.findPr.outputs.pr }}"
+          const pull_number = ${{ github.event.pull_request.number }}
           await github.pulls.createReview({
             ...context.repo,
             pull_number,
