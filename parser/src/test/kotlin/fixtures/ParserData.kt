@@ -50,7 +50,7 @@ private val tokenList4 = listOf(
 
 // Statement: let a: number = 1 - 2 - 3;
 // Statement: let b: number = a + 1;
-// Statement: print(a + b);
+// Statement: print(a + b); // 3
 
 private val tokenList7 = listOf(
     Token(PrototypeType.LET, null),
