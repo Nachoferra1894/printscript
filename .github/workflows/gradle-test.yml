@@ -7,8 +7,8 @@
 
 name: Gradle Package
 
-on: push
-  
+on: [pull_request,push]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,11 +30,15 @@ jobs:
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
         arguments: build
-        
+
     - name: Grant Permissions to gradlew
       run: chmod +x gradlew
+
     - name: Test
       run: ./gradlew test --tests "*"
+
+    - uses: jwalton/gh-find-current-pr@v1
+      id: findPr
 
     - name: Test Success
       if: success()
@@ -42,7 +46,7 @@ jobs:
       with:
         github-token: ${{ github.token }}
         script: |
-          const pull_number = "${{github.event.number}}"
+          const pull_number = "${{ steps.findPr.outputs.pr }}"
           await github.pulls.createReview({
             ...context.repo,
             pull_number,
@@ -55,7 +59,7 @@ jobs:
       with:
         github-token: ${{ github.token }}
         script: |
-          const pull_number = "${{github.event.number}}"
+          const pull_number = "${{ steps.findPr.outputs.pr }}"
           await github.pulls.createReview({
             ...context.repo,
             pull_number,
