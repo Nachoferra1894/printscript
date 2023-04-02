@@ -16,11 +16,11 @@ class DeclarationSubParser(tokens: List<Token>) : SubParser<VariableDeclarationN
 
     override fun getAstNode(nextIndex: Int): Pair<VariableDeclarationNode, Int> {
         var index = nextIndex
-        val declaration = getNextTokenOrThrowError(index, declarationTypes)
+        getNextTokenOrThrowError(index, declarationTypes)
         index++
         val variableName = getNextTokenOrThrowError(index, PrototypeType.IDENTIFIER)
         index++
-        val colon = getNextTokenOrThrowError(index, PrototypeType.COLON)
+        getNextTokenOrThrowError(index, PrototypeType.COLON)
         index++
         val variableType = getNextTokenOrThrowError(index, dataTypes)
         index++
@@ -28,8 +28,10 @@ class DeclarationSubParser(tokens: List<Token>) : SubParser<VariableDeclarationN
             getNextTokenOrThrowError(index, PrototypeType.SEMICOLON)
             Pair(VariableDeclarationNode(variableName.value!!, variableType.value!!), index + 1)
         } catch (e: WrongTokenException) {
+            getNextTokenOrThrowError(index, PrototypeType.ASSIGNATION)
+            index++
             val (expression, expressionIndex) = expressionSubParser.getAstNode(index)
-            val newNode = VariableDeclarationNode(variableName.value!!, variableType.value!!, expression)
+            val newNode = VariableDeclarationNode(variableName.value!!, variableType.prototypeType.toString(), expression)
             Pair(newNode, expressionIndex)
         }
     }

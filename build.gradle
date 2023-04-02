@@ -8,3 +8,4 @@ tasks.register('installLocalGitHook', Copy) {
 task build {
     dependsOn('installLocalGitHook')
 }
+

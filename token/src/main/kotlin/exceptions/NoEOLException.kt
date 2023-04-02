@@ -1,3 +1,3 @@
 package exceptions
 
-class NoEOLException: Exception("Unexpected end of file, no ;")
+class NoEOLException : Exception("Unexpected end of file, no ;")

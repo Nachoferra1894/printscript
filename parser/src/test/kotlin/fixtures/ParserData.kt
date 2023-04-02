@@ -1,5 +1,5 @@
 // Statement: let a: number = 42;
-val tokenList1 = listOf(
+private val tokenList1 = listOf(
     Token(PrototypeType.LET, null),
     Token(PrototypeType.IDENTIFIER, "a"),
     Token(PrototypeType.COLON, null),
@@ -10,7 +10,7 @@ val tokenList1 = listOf(
 )
 
 // Statement: let b: string = "Hello, world!";
-val tokenList2 = listOf(
+private val tokenList2 = listOf(
     Token(PrototypeType.LET, null),
     Token(PrototypeType.IDENTIFIER, "b"),
     Token(PrototypeType.COLON, null),
@@ -21,7 +21,7 @@ val tokenList2 = listOf(
 )
 
 // Statement: let c: number = 3 + 4 * 5;
-val tokenList3 = listOf(
+private val tokenList3 = listOf(
     Token(PrototypeType.LET, null),
     Token(PrototypeType.IDENTIFIER, "c"),
     Token(PrototypeType.COLON, null),
@@ -36,7 +36,7 @@ val tokenList3 = listOf(
 )
 
 // Statement: let d: string = "Hello " + "world!";
-val tokenList4 = listOf(
+private val tokenList4 = listOf(
     Token(PrototypeType.LET, null),
     Token(PrototypeType.IDENTIFIER, "d"),
     Token(PrototypeType.COLON, null),
@@ -52,7 +52,7 @@ val tokenList4 = listOf(
 // Statement: let b: number = a + 1;
 // Statement: print(a + b);
 
-val tokenList7 = listOf(
+private val tokenList7 = listOf(
     Token(PrototypeType.LET, null),
     Token(PrototypeType.IDENTIFIER, "g"),
     Token(PrototypeType.COLON, null),

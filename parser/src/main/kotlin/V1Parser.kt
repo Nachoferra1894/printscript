@@ -1,9 +1,5 @@
 import interfaces.ASTNode
 import interfaces.Parser
-import subParsers.AssignmentSubParser
-import subParsers.DeclarationSubParser
-import subParsers.ExpressionSubParser
-import subParsers.PrintSubParser
 import types.ParentNode
 
 class V1Parser : Parser {
@@ -12,14 +8,15 @@ class V1Parser : Parser {
     override fun parseTokens(tokens: List<Token>): ASTNode {
         subParserController = SubParserController(tokens)
         val parentNode = ParentNode()
-        var index = 0;
+        var index = 0
         while (index < tokens.size) {
             val subParser = subParserController.getSubParser(index)
             val (astNode, nextIndex) = subParser.getAstNode(index)
             parentNode.addChild(astNode)
             index = nextIndex
-
-            // TODO add EOL
+        }
+        if (parentNode.getChildren().size == 1) {
+            return parentNode.getChildren()[0]
         }
         return parentNode
     }
