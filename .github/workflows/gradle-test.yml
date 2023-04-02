@@ -37,7 +37,6 @@ jobs:
         echo "=== DEBUG LOG ==="
         cat gradle-debug.log
         echo "=== END DEBUG LOG ==="
-
 #    - name: Change wrapper permissions
 #      run: chmod +x ./gradlew
 #    - name: Build with Gradle
