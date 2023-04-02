@@ -25,18 +25,7 @@ jobs:
         distribution: 'corretto'
 
     - name: Build and run tests with Gradle
-      run: |
-        ./gradlew build
-        ./gradlew test --debug > gradle-debug.log 2>&1
-      continue-on-error: true
-
-    - name: Print test failure report
-      if: failure()
-      run: |
-        echo "Gradle test failed. See the report at: file://${{ github.workspace }}/build/reports/tests/test/index.html"
-        echo "=== DEBUG LOG ==="
-        cat gradle-debug.log
-        echo "=== END DEBUG LOG ==="
+      run: gradlew build
 #    - name: Change wrapper permissions
 #      run: chmod +x ./gradlew
 #    - name: Build with Gradle
