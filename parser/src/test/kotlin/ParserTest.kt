@@ -70,7 +70,8 @@ class ParserTest {
     @Test
     fun testMultipleLines() {
         // Statement: let a: number = 1 - 2 - 3;
-        // Statement: let b: number = a + 1;
+        // Statement: let b: number;
+        // Statement: b = a + 1;
         // Statement: print(a + b);
 
         val tokenList = tokenList5

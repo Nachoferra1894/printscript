@@ -26,7 +26,8 @@ class DeclarationSubParser(tokens: List<Token>) : SubParser<VariableDeclarationN
         index++
         return try {
             getNextTokenOrThrowError(index, PrototypeType.SEMICOLON)
-            Pair(VariableDeclarationNode(variableName.value!!, variableType.value!!), index + 1)
+            val newNode = VariableDeclarationNode(variableName.value!!, variableType.prototypeType.toString())
+            Pair(newNode, index + 1)
         } catch (e: WrongTokenException) {
             getNextTokenOrThrowError(index, PrototypeType.ASSIGNATION)
             index++
