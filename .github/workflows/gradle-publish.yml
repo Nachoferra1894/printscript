@@ -7,10 +7,11 @@
 
 name: Gradle Build and test
 
-on:
-  release:
-    branches: [master]
-    types: [created]
+on: [push] #TODO delete
+#
+#  release:
+#    branches: [master]
+#    types: [created]
 
 jobs:
   build:
