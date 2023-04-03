@@ -7,13 +7,7 @@
 
 name: Gradle Build and test
 
-on:
-  pull_request:
-    branches:
-      - master
-  push:
-    branches:
-      - ${{ github.head_ref }}
+on: [push, pull_request]
 
 jobs:
   build:
