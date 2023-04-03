@@ -23,11 +23,10 @@ class IndexGenerator {
             ) {
                 return (index + 6)
             }
-            if (token.prototypeType == PrototypeType.METHOD_PRINT) {
-                if (token.value != null) {
-                    return (index + 7 + token.value!!.length)
-                }
-            }
+            if (token.prototypeType == PrototypeType.METHOD_PRINT)
+                return (index + 5)
+
+
 
             return 0
         }

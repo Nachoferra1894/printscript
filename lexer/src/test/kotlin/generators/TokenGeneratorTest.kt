@@ -12,7 +12,6 @@ class TokenGeneratorTest {
     private val subtractOperation = "a - a"
     private val multiplicationOperation = "a * a"
     private val divisionOperation = "a / a"
-    private val printLine = "print(\"HI!\" + a);"
 
     @Test
     fun testGetValueTokenNumber() {
@@ -88,9 +87,7 @@ class TokenGeneratorTest {
 
     @Test
     fun testGetPrintStrategy() {
-        val indexCorrect = 0
-        val generatedToken: Token = TokenGenerator.getMethodPrintToken(printLine, indexCorrect)
+        val generatedToken: Token = TokenGenerator.getMethodPrintToken()
         assertEquals(PrototypeType.METHOD_PRINT, generatedToken.prototypeType)
-        assertEquals("\"HI!\" + a", generatedToken.value)
     }
 }
