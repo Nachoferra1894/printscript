@@ -11,7 +11,7 @@ class TokenGenerator {
         fun getIdentifierToken(line: String, index: Int): Token {
             var value = ""
             for (i in index until line.length) {
-                if (TokenStrategy.operationStrategy(line, i) || TokenStrategy.spaceStrategy(line, i)) {
+                if (TokenStrategy.operationStrategy(line, i) || TokenStrategy.spaceStrategy(line, i) || TokenStrategy.parenthesisStrategy(line, i) || TokenStrategy.finalStrategy(line, i)) {
                     return Token(PrototypeType.IDENTIFIER, value)
                 }
                 value = value.plus(line[i])
@@ -79,9 +79,9 @@ class TokenGenerator {
 
         fun getParenthesisToken(line: String, index: Int): Token {
             return if (line[index] == ')') {
-                Token(PrototypeType.OPEN_PARENTHESIS, null)
-            } else {
                 Token(PrototypeType.CLOSE_PARENTHESIS, null)
+            } else {
+                Token(PrototypeType.OPEN_PARENTHESIS, null)
             }
         }
 
