@@ -14,27 +14,28 @@ on: [push]
 #    types: [created]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: '18'
-          distribution: 'corretto'
-          cache: gradle
-
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build
-        env:
-          GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout
+#        uses: actions/checkout@v2
+#      - name: Set up JDK
+#        uses: actions/setup-java@v3
+#        with:
+#          java-version: '18'
+#          distribution: 'corretto'
+#          cache: gradle
+#
+#      - name: Gradle Wrapper
+#        uses: gradle/wrapper-validation-action@v1
+#
+#      - name: Gradle Build
+#        uses: gradle/gradle-build-action@v2
+#        with:
+#          arguments: build
+#        env:
+#          GITHUB_ACTOR: ${{ github.actor }}
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish:
     runs-on: ubuntu-latest
@@ -48,15 +49,23 @@ jobs:
           java-version: '18'
           distribution: 'corretto'
           cache: gradle
-      - name: Validate Gradle wrapper
+
+      - name: Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
-      - name: Build with Gradle
+      - name: Gradle Build
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Debug
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo $GITHUB_TOKEN
+            echo $GITHUB_ACTOR
 
       - name: Publish to GitHub Packages
         uses: gradle/gradle-build-action@v2
@@ -65,3 +74,5 @@ jobs:
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CI: true
+          GRADLE_OPTS: -Dorg.gradle.debug=true
