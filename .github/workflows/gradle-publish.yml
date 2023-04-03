@@ -7,7 +7,7 @@
 
 name: Gradle Build and test
 
-on: [push] #TODO delete
+on: [push]
 #
 #  release:
 #    branches: [master]
@@ -49,8 +49,11 @@ jobs:
           cache: gradle
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
-      - name: Publish
-        run: ./gradlew publish
+
+      - name: Publish to GitHub Packages
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: publish
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
