@@ -33,8 +33,7 @@ class IndexGenerator {
 
         private fun parenthesis(prototypeType: PrototypeType): Boolean {
             return PrototypeType.OPEN_PARENTHESIS == prototypeType ||
-                    PrototypeType.CLOSE_PARENTHESIS == prototypeType
-
+                PrototypeType.CLOSE_PARENTHESIS == prototypeType
         }
 
         private fun operations(prototypeType: PrototypeType): Boolean {

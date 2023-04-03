@@ -3,7 +3,6 @@ package lexer
 import Token
 import lexer.lexer.Lexer
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class LexerTest {
