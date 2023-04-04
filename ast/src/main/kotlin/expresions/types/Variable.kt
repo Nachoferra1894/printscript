@@ -5,10 +5,11 @@ import expresions.Expression
 import expresions.ExpressionVisitor
 import expresions.Operator
 import interfaces.ASTNodeVisitor
+import variableTypes
 
 class Variable(private val value: String, private val variableType: PrototypeType) : Expression {
     init {
-        require(variableType == PrototypeType.IDENTIFIER || variableType == PrototypeType.NUMBER || variableType == PrototypeType.STRING) {
+        require(variableTypes.contains(variableType)) {
             "Variable type must be either IDENTIFIER, NUMBER or STRING"
         }
     }
