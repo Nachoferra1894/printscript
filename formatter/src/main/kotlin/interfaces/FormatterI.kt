@@ -1,5 +1,5 @@
 package interfaces
 
 interface FormatterI {
-    fun getFormattedCode(node: ASTNode) : String
+    fun getFormattedCode(node: ASTNode): String
 }

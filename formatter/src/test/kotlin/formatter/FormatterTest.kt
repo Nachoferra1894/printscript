@@ -1,30 +1,35 @@
 package formatter
 
-
 import expresions.Operator
 import expresions.types.Operation
 import expresions.types.Variable
 import fromatter.Formatter
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
-import org.junit.jupiter.api.Assertions.assertEquals
-
 
 class FormatterTest {
-    private val formatter : Formatter = Formatter()
+    private val formatter: Formatter = Formatter()
 
     @Test
     fun testFormatterWithParentNode() {
         val node = ParentNode(
             listOf(
-                VariableDeclarationNode("a", "number", Operation(
-                    Variable("1", PrototypeType.NUMBER), Operator.SUB, Operation(
-                        Variable("2", PrototypeType.NUMBER), Operator.SUB, Variable("3", PrototypeType.NUMBER)
+                VariableDeclarationNode(
+                    "a",
+                    "number",
+                    Operation(
+                        Variable("1", PrototypeType.NUMBER),
+                        Operator.SUB,
+                        Operation(
+                            Variable("2", PrototypeType.NUMBER),
+                            Operator.SUB,
+                            Variable("3", PrototypeType.NUMBER)
+                        )
                     )
-                )
                 ),
                 VariableDeclarationNode("b", "number"),
                 AssignmentNode("b", Operation(Variable("a", PrototypeType.IDENTIFIER), Operator.SUM, Variable("1", PrototypeType.NUMBER))),
@@ -43,7 +48,6 @@ class FormatterTest {
         val expectedResult1 = "b = 22 + 20;"
         assertEquals(expectedResult, formatter.getFormattedCode(node))
         assertEquals(expectedResult1, formatter.getFormattedCode(node1))
-
     }
 
     @Test
@@ -58,7 +62,6 @@ class FormatterTest {
         val expectedResult1 = "let c: number = 3 + 4 * 5;"
         assertEquals(expectedResult, formatter.getFormattedCode(node))
         assertEquals(expectedResult1, formatter.getFormattedCode(node1))
-
     }
 
     @Test

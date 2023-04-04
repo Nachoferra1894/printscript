@@ -6,7 +6,7 @@ import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
 
-class FormatterVisitor: ASTNodeVisitor {
+class FormatterVisitor : ASTNodeVisitor {
     private val lines: ArrayList<String> = ArrayList()
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
