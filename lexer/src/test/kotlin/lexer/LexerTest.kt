@@ -66,8 +66,15 @@ class LexerTest {
     fun testPrintLine() {
         var actualTokens: ArrayList<Token> = lexer.defineTokens(printLine)
         var expectedTokens: ArrayList<Token> = ArrayList()
-        expectedTokens.add(Token(PrototypeType.METHOD_PRINT, "\"HI!\" + a"))
+        expectedTokens.add(Token(PrototypeType.METHOD_PRINT, null))
+        expectedTokens.add(Token(PrototypeType.OPEN_PARENTHESIS, null))
+        expectedTokens.add(Token(PrototypeType.STRING, "HI!"))
+        expectedTokens.add(Token(PrototypeType.SPACE, null))
+        expectedTokens.add(Token(PrototypeType.PLUS, null))
+        expectedTokens.add(Token(PrototypeType.SPACE, null))
+        expectedTokens.add(Token(PrototypeType.ASSIGNATION, "a"))
+        expectedTokens.add(Token(PrototypeType.CLOSE_PARENTHESIS, null))
         expectedTokens.add(Token(PrototypeType.SEMICOLON, null))
-        assertEquals(expectedTokens, actualTokens)
+        assertEquals(expectedTokens.toString(), actualTokens.toString())
     }
 }

@@ -6,3 +6,4 @@ build
 
 # Ignore Idea files
 .idea/*
+gradle.properties
