@@ -13,21 +13,21 @@ import generators.TokenGenerator.Companion.getValueToken
 import lexer.exceptions.NoTokenException
 import lexer.generators.IndexGenerator.Companion.defineIndex
 import lexer.interfaces.LexerI
-import lexer.strategies.TokenStrategy.Companion.finalStrategy
-import lexer.strategies.TokenStrategy.Companion.identifierStrategy
-import lexer.strategies.TokenStrategy.Companion.letStrategy
-import lexer.strategies.TokenStrategy.Companion.operationStrategy
-import lexer.strategies.TokenStrategy.Companion.parenthesisStrategy
-import lexer.strategies.TokenStrategy.Companion.printStrategy
-import lexer.strategies.TokenStrategy.Companion.spaceStrategy
-import lexer.strategies.TokenStrategy.Companion.typeStrategy
-import lexer.strategies.TokenStrategy.Companion.valueStrategy
+import strategies.TokenStrategy.Companion.finalStrategy
+import strategies.TokenStrategy.Companion.identifierStrategy
+import strategies.TokenStrategy.Companion.letStrategy
+import strategies.TokenStrategy.Companion.operationStrategy
+import strategies.TokenStrategy.Companion.parenthesisStrategy
+import strategies.TokenStrategy.Companion.printStrategy
+import strategies.TokenStrategy.Companion.spaceStrategy
+import strategies.TokenStrategy.Companion.typeStrategy
+import strategies.TokenStrategy.Companion.valueStrategy
 
 class Lexer : LexerI {
 
     override fun getTokens(code: String): ArrayList<Token> {
-        var tokens: ArrayList<Token> = ArrayList()
-        var lines = code.lines()
+        val tokens: ArrayList<Token> = ArrayList()
+        val lines = code.lines()
         lines.forEach {
             tokens.addAll(defineTokens(it))
         }
