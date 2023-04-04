@@ -18,6 +18,7 @@ class Variable(private val value: String, private val variableType: PrototypeTyp
     }
 
     override fun accept(visitor: ASTNodeVisitor) {
+        visitor.visitExpressionNode(this)
     }
 
     override fun addMember(operator: Operator, newMember: Expression): Expression {

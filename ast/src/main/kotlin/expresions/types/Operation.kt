@@ -26,6 +26,7 @@ class Operation : Expression {
     }
 
     override fun accept(visitor: ASTNodeVisitor) {
+        visitor.visitExpressionNode(this)
     }
 
     override fun addMember(operator: Operator, newMember: Expression): Expression {
