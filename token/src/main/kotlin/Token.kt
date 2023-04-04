@@ -32,7 +32,7 @@ enum class PrototypeType(val s: String) {
 }
 
 val dataTypes = listOf(PrototypeType.STRING_TYPE, PrototypeType.NUMBER_TYPE)
-val variableTypes = listOf(PrototypeType.STRING, PrototypeType.NUMBER)
+val variableTypes = listOf(PrototypeType.STRING, PrototypeType.NUMBER, PrototypeType.IDENTIFIER)
 val operatorTypes = listOf(PrototypeType.PLUS, PrototypeType.SUBTRACTION, PrototypeType.MULTIPLICATION, PrototypeType.DIVISION)
 val functionTypes = listOf(PrototypeType.METHOD_PRINT)
 val parenthesisTypes = listOf(PrototypeType.OPEN_PARENTHESIS, PrototypeType.CLOSE_PARENTHESIS)
