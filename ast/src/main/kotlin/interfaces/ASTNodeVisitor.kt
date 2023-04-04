@@ -1,10 +1,10 @@
 package interfaces
 
+import expresions.Expression
 import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
-import expresions.Expression
 
 interface ASTNodeVisitor {
     fun visitDeclaration(variableDeclaration: VariableDeclarationNode)

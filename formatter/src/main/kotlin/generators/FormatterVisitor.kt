@@ -31,7 +31,7 @@ class FormatterVisitor : ASTNodeVisitor {
     }
 
     override fun visitExpressionNode(expressionNode: Expression) {
-        lines.add("${expressionNode};")
+        lines.add("$expressionNode;")
     }
 
     fun getLines(): String {

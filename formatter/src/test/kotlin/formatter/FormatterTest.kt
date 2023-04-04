@@ -73,6 +73,7 @@ class FormatterTest {
         assertEquals(expectedResult, formatter.getFormattedCode(node))
         assertEquals(expectedResult1, formatter.getFormattedCode(node1))
     }
+
     @Test
     fun testFormatterWithExpressionNode() {
         val node = Operation(Variable("22", PrototypeType.NUMBER), Operator.SUM, Variable("20", PrototypeType.NUMBER))
