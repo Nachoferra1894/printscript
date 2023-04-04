@@ -16,15 +16,15 @@ import types.PrintNode
 import types.VariableDeclarationNode
 
 class StrategyTest {
-    private val assigmentNode = AssignmentNode("a", Variable("42"))
-    private val variableDeclarationNode = VariableDeclarationNode("b", "string", Variable("Hello, world!"))
-    private val printNode = PrintNode(Variable("Hello, world!"))
+    private val assigmentNode = AssignmentNode("a", Variable("42", PrototypeType.NUMBER))
+    private val variableDeclarationNode = VariableDeclarationNode("b", "string", Variable("Hello, world!", PrototypeType.STRING))
+    private val printNode = PrintNode(Variable("Hello, world!", PrototypeType.STRING))
     val parentNode = ParentNode(
         listOf(
-            VariableDeclarationNode("a", "number", Operation(Variable("1"), Operator.SUB, Operation(Variable("2"), Operator.SUB, Variable("3")))),
+            VariableDeclarationNode("a", "number", Operation(Variable("1", PrototypeType.NUMBER), Operator.SUB, Operation(Variable("2", PrototypeType.NUMBER), Operator.SUB, Variable("3", PrototypeType.NUMBER)))),
             VariableDeclarationNode("b", "number"),
-            AssignmentNode("b", Operation(Variable("a"), Operator.SUM, Variable("1"))),
-            PrintNode(Operation(Variable("a"), Operator.SUM, Variable("b")))
+            AssignmentNode("b", Operation(Variable("a", PrototypeType.IDENTIFIER), Operator.SUM, Variable("1", PrototypeType.NUMBER))),
+            PrintNode(Operation(Variable("a", PrototypeType.IDENTIFIER), Operator.SUM, Variable("b", PrototypeType.IDENTIFIER)))
         )
     )
 

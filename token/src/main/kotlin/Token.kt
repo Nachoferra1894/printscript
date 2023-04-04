@@ -12,7 +12,7 @@ enum class PrototypeType(val s: String) {
     SEMICOLON(";"),
     STRING_TYPE("string"),
     NUMBER_TYPE("number"),
-    IDENTIFIER("="),
+    IDENTIFIER("IDENTIFIER"),
     PLUS("+"),
     SUBTRACTION("-"),
     MULTIPLICATION("*"),

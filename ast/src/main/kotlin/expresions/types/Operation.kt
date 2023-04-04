@@ -1,5 +1,6 @@
 package expresions.types
 
+import PrototypeType
 import expresions.Expression
 import expresions.ExpressionVisitor
 import expresions.Operator
@@ -10,8 +11,8 @@ class Operation : Expression {
     private var operator: Operator? = null
     private var r: Expression? = null
 
-    constructor(value: String) {
-        this.l = Variable(value)
+    constructor(value: String, variableType: PrototypeType) {
+        this.l = Variable(value, variableType)
     }
 
     constructor(l: Expression?, operator: Operator?, r: Expression?) {

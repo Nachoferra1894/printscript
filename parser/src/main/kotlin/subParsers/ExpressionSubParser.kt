@@ -24,7 +24,8 @@ class ExpressionSubParser(tokens: List<Token>, val closeType: PrototypeType = Pr
 
     override fun getAstNode(nextIndex: Int): Pair<Expression, Int> {
         var index = nextIndex
-        var result: Expression = Variable(getNextTokenOrThrowError(index, expressionInitialTypes).value!!)
+        val variable = getNextTokenOrThrowError(index, expressionInitialTypes)
+        var result: Expression = Variable(variable.value!!, variable.prototypeType)
         index++
         var nextToken: Token = getNextTokenOrThrowError(index, expressionMiddleTypes)
         index++
@@ -32,7 +33,7 @@ class ExpressionSubParser(tokens: List<Token>, val closeType: PrototypeType = Pr
             val currentToken = getNextTokenOrThrowError(index, expressionInitialTypes)
             index++
             val operator: Operator = Operator.getByPrototypeType(nextToken.prototypeType)
-            result = result.addMember(operator, Variable(currentToken.value!!))
+            result = result.addMember(operator, Variable(currentToken.value!!, currentToken.prototypeType))
             nextToken = getNextTokenOrThrowError(index, expressionMiddleTypes)
             index++
         }
