@@ -18,18 +18,22 @@ class IndexGenerator {
                 }
             }
             if (operations(token.prototypeType)) return (index + 1)
+            if (parenthesis(token.prototypeType)) return (index + 1)
             if (token.prototypeType == PrototypeType.STRING_TYPE ||
                 token.prototypeType == PrototypeType.NUMBER_TYPE
             ) {
                 return (index + 6)
             }
             if (token.prototypeType == PrototypeType.METHOD_PRINT) {
-                if (token.value != null) {
-                    return (index + 7 + token.value!!.length)
-                }
+                return (index + 5)
             }
 
             return 0
+        }
+
+        private fun parenthesis(prototypeType: PrototypeType): Boolean {
+            return PrototypeType.OPEN_PARENTHESIS == prototypeType ||
+                PrototypeType.CLOSE_PARENTHESIS == prototypeType
         }
 
         private fun operations(prototypeType: PrototypeType): Boolean {

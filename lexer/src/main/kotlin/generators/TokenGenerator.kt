@@ -11,7 +11,7 @@ class TokenGenerator {
         fun getIdentifierToken(line: String, index: Int): Token {
             var value = ""
             for (i in index until line.length) {
-                if (TokenStrategy.operationStrategy(line, i) || TokenStrategy.spaceStrategy(line, i)) {
+                if (TokenStrategy.operationStrategy(line, i) || TokenStrategy.spaceStrategy(line, i) || TokenStrategy.parenthesisStrategy(line, i) || TokenStrategy.finalStrategy(line, i)) {
                     return Token(PrototypeType.IDENTIFIER, value)
                 }
                 value = value.plus(line[i])
@@ -79,27 +79,14 @@ class TokenGenerator {
 
         fun getParenthesisToken(line: String, index: Int): Token {
             return if (line[index] == ')') {
-                Token(PrototypeType.OPEN_PARENTHESIS, null)
-            } else {
                 Token(PrototypeType.CLOSE_PARENTHESIS, null)
+            } else {
+                Token(PrototypeType.OPEN_PARENTHESIS, null)
             }
         }
 
-        fun getMethodPrintToken(line: String, index: Int): Token {
-            var value = ""
-            if (line.length > (index + 6) && line.subSequence(index, index + 6) == "print(") {
-                var isOpen = false
-                var value = ""
-                for (i in index + 6 until line.length) {
-                    if (line[i] == '"' && !isOpen) isOpen = true
-                    if (line[i] == '"' && isOpen) isOpen = false
-                    if (line[i] == ')' && !isOpen) {
-                        return Token(PrototypeType.METHOD_PRINT, value)
-                    }
-                    value = value.plus(line[i])
-                }
-            }
-            return Token(PrototypeType.METHOD_PRINT, value)
+        fun getMethodPrintToken(): Token {
+            return Token(PrototypeType.METHOD_PRINT, null)
         }
     }
 }
