@@ -6,7 +6,7 @@ import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
 
-class NodesStrategy {
+class NodeStrategy {
     companion object {
         fun assigmentStrategy(astNode: ASTNode): Boolean {
             return astNode is AssignmentNode

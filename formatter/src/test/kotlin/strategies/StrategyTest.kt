@@ -6,10 +6,10 @@ import expresions.types.Variable
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import strategies.NodesStrategy.Companion.assigmentStrategy
-import strategies.NodesStrategy.Companion.parentStrategy
-import strategies.NodesStrategy.Companion.printStrategy
-import strategies.NodesStrategy.Companion.variableDeclarationStrategy
+import strategies.NodeStrategy.Companion.assigmentStrategy
+import strategies.NodeStrategy.Companion.parentStrategy
+import strategies.NodeStrategy.Companion.printStrategy
+import strategies.NodeStrategy.Companion.variableDeclarationStrategy
 import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
