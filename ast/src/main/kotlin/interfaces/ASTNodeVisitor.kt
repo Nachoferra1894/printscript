@@ -1,5 +1,6 @@
 package interfaces
 
+import expresions.Expression
 import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
@@ -10,4 +11,5 @@ interface ASTNodeVisitor {
     fun visitAssignment(assignmentNode: AssignmentNode)
     fun visitPrint(printNode: PrintNode)
     fun visitParentNode(parentNode: ParentNode)
+    fun visitExpressionNode(expressionNode: Expression)
 }

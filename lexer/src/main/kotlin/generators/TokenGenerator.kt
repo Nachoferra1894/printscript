@@ -4,7 +4,7 @@ import Token
 import lexer.exceptions.NoTokenException
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeNumber
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeString
-import lexer.strategies.TokenStrategy
+import strategies.TokenStrategy
 
 class TokenGenerator {
     companion object {

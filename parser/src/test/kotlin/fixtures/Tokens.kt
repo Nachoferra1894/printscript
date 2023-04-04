@@ -16,7 +16,7 @@ val tokenList0 = listOf(
     Token(PrototypeType.NUMBER, "42"),
     Token(PrototypeType.SEMICOLON, null)
 )
-val node0 = AssignmentNode("a", Variable("42"))
+val node0 = AssignmentNode("a", Variable("42", PrototypeType.NUMBER))
 
 // Statement: b = 22 + 20;
 val tokenList1 = listOf(
@@ -27,7 +27,7 @@ val tokenList1 = listOf(
     Token(PrototypeType.NUMBER, "20"),
     Token(PrototypeType.SEMICOLON, null)
 )
-val node1 = AssignmentNode("B", Operation(Variable("22"), Operator.SUM, Variable("20")))
+val node1 = AssignmentNode("B", Operation(Variable("22", PrototypeType.NUMBER), Operator.SUM, Variable("20", PrototypeType.NUMBER)))
 
 // Statement: let b: string = "Hello, world!";
 val tokenList2 = listOf(
@@ -39,7 +39,7 @@ val tokenList2 = listOf(
     Token(PrototypeType.STRING, "Hello, world!"),
     Token(PrototypeType.SEMICOLON, null)
 )
-val node2 = VariableDeclarationNode("b", "string", Variable("Hello, world!"))
+val node2 = VariableDeclarationNode("b", "string", Variable("Hello, world!", PrototypeType.STRING))
 
 // Statement: let c: number = 3 + 4 * 5;
 val tokenList3 = listOf(
@@ -58,7 +58,7 @@ val tokenList3 = listOf(
 val node3 = VariableDeclarationNode(
     "c",
     "number",
-    Operation(Variable("3"), Operator.SUM, Operation(Variable("4"), Operator.MUL, Variable("5")))
+    Operation(Variable("3", PrototypeType.NUMBER), Operator.SUM, Operation(Variable("4", PrototypeType.NUMBER), Operator.MUL, Variable("5", PrototypeType.NUMBER)))
 )
 
 // Statement: print("Hello, world!");
@@ -69,7 +69,7 @@ val tokenList4 = listOf(
     Token(PrototypeType.CLOSE_PARENTHESIS, null),
     Token(PrototypeType.SEMICOLON, null)
 )
-val node4 = PrintNode(Variable("Hello, world!"))
+val node4 = PrintNode(Variable("Hello, world!", PrototypeType.STRING))
 
 // Statement: let a: number = 1 - 2 - 3;
 // Statement: let b: number;
@@ -112,9 +112,9 @@ val tokenList5 = listOf(
 )
 val node5 = ParentNode(
     listOf(
-        VariableDeclarationNode("a", "number", Operation(Variable("1"), Operator.SUB, Operation(Variable("2"), Operator.SUB, Variable("3")))),
+        VariableDeclarationNode("a", "number", Operation(Variable("1", PrototypeType.NUMBER), Operator.SUB, Operation(Variable("2", PrototypeType.NUMBER), Operator.SUB, Variable("3", PrototypeType.NUMBER)))),
         VariableDeclarationNode("b", "number"),
-        AssignmentNode("b", Operation(Variable("a"), Operator.SUM, Variable("1"))),
-        PrintNode(Operation(Variable("a"), Operator.SUM, Variable("b")))
+        AssignmentNode("b", Operation(Variable("a", PrototypeType.IDENTIFIER), Operator.SUM, Variable("1", PrototypeType.NUMBER))),
+        PrintNode(Operation(Variable("a", PrototypeType.IDENTIFIER), Operator.SUM, Variable("b", PrototypeType.IDENTIFIER)))
     )
 )

@@ -5,11 +5,6 @@ import interfaces.ASTNode
 import interfaces.ASTNodeVisitor
 
 class VariableDeclarationNode : ASTNode {
-//    Declaration can be:
-//    let a: number;
-//    let b: String = "4";
-//    let c: number = 4 / 2;
-
     private var name: String
     private var type: String // TODO move to an enum??
     private var value: Expression?
