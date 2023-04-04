@@ -24,6 +24,7 @@ class Variable(private val value: String, private val variableType: PrototypeTyp
     }
 
     override fun toString(): String {
+        if(variableType == PrototypeType.STRING) return "\"$value\""
         return value
     }
 }
