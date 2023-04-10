@@ -3,9 +3,12 @@ package expresions
 import PrototypeType
 import exceptions.InvalidTokenException
 
-enum class Operator(op: String) {
+enum class Operator(val op: String) {
     SUM("+"), SUB("-"), DIV("/"), MUL("*");
 
+    override fun toString(): String {
+        return op
+    }
     companion object {
         fun getByPrototypeType(prototypeType: PrototypeType): Operator {
             return when (prototypeType) {

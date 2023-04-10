@@ -1,4 +1,4 @@
-package lexer.strategies
+package strategies
 
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isPrintString
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeNumber
