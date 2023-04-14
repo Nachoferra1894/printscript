@@ -10,6 +10,9 @@ import generators.TokenGenerator.Companion.getParenthesisToken
 import generators.TokenGenerator.Companion.getSpaceToken
 import generators.TokenGenerator.Companion.getTypeStrategy
 import generators.TokenGenerator.Companion.getValueToken
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.flatMapConcat
 import lexer.exceptions.NoTokenException
 import lexer.generators.IndexGenerator.Companion.defineIndex
 import lexer.interfaces.LexerI
@@ -25,14 +28,11 @@ import strategies.TokenStrategy.Companion.valueStrategy
 
 class Lexer : LexerI {
 
-    override fun getTokens(code: String): ArrayList<Token> {
-        val tokens: ArrayList<Token> = ArrayList()
-        val lines = code.lines()
-        lines.forEach {
-            tokens.addAll(defineTokens(it))
+    override fun getTokens(codeFlow: Flow<String>): Flow<Token> = codeFlow
+        .flatMapConcat { line ->
+            defineTokens(line).asFlow()
         }
-        return tokens
-    }
+
     fun defineTokens(line: String): ArrayList<Token> {
         val tokens: ArrayList<Token> = ArrayList()
         var index = 0
