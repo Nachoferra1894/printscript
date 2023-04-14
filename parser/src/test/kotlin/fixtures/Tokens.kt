@@ -4,6 +4,8 @@ import Token
 import expresions.Operator
 import expresions.types.Operation
 import expresions.types.Variable
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
@@ -118,3 +120,11 @@ val node5 = ParentNode(
         PrintNode(Operation(Variable("a", PrototypeType.IDENTIFIER), Operator.SUM, Variable("b", PrototypeType.IDENTIFIER)))
     )
 )
+
+fun getFlowFromTokenList(tokenList: List<Token>): Flow<Token> {
+    return flow {
+        tokenList.forEach { token ->
+            emit(token)
+        }
+    }
+}
