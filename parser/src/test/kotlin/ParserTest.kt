@@ -1,3 +1,4 @@
+import fixtures.getFlowFromTokenList
 import fixtures.node0
 import fixtures.node1
 import fixtures.node2
@@ -23,7 +24,7 @@ class ParserTest {
         val tokenList = tokenList0
         val node = node0
 
-        val astNode = parser.parseTokens(tokenList)
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
         assertEquals(node.toString(), astNode.toString())
     }
 
@@ -33,7 +34,7 @@ class ParserTest {
         val tokenList = tokenList1
         val node = node1
 
-        val astNode = parser.parseTokens(tokenList)
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
         assertEquals(node.toString(), astNode.toString())
     }
 
@@ -43,7 +44,7 @@ class ParserTest {
         val tokenList = tokenList2
         val node = node2
 
-        val astNode = parser.parseTokens(tokenList)
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
         assertEquals(node.toString(), astNode.toString())
     }
 
@@ -53,7 +54,7 @@ class ParserTest {
         val tokenList = tokenList3
         val node = node3
 
-        val astNode = parser.parseTokens(tokenList)
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
         assertEquals(node.toString(), astNode.toString())
     }
 
@@ -63,7 +64,7 @@ class ParserTest {
         val tokenList = tokenList4
         val node = node4
 
-        val astNode = parser.parseTokens(tokenList)
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
         assertEquals(node.toString(), astNode.toString())
     }
 
@@ -77,7 +78,7 @@ class ParserTest {
         val tokenList = tokenList5
         val node = node5
 
-        val astNode = parser.parseTokens(tokenList)
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
         assertEquals(node.toString(), astNode.toString())
     }
 }

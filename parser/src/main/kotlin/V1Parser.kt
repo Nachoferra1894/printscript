@@ -1,23 +1,30 @@
 import interfaces.ASTNode
 import interfaces.Parser
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.runBlocking
 import types.ParentNode
 
 class V1Parser : Parser {
     private lateinit var subParserController: SubParserController
 
-    override fun parseTokens(tokens: List<Token>): ASTNode {
-        subParserController = SubParserController(tokens)
+    override fun parseTokens(tokens: Flow<Token>): ASTNode = runBlocking {
         val parentNode = ParentNode()
-        var index = 0
-        while (index < tokens.size) {
-            val subParser = subParserController.getSubParser(index)
-            val (astNode, nextIndex) = subParser.getAstNode(index)
-            parentNode.addChild(astNode)
-            index = nextIndex
+        val subParserController = SubParserController()
+        val lineTokens = mutableListOf<Token>()
+
+        tokens.collect { token ->
+            lineTokens.add(token)
+            if (token.isEOL()) {
+                val subParser = subParserController.getSubParser(lineTokens)
+                val astNode = subParser.getAstNode(0)
+                parentNode.addChild(astNode.first)
+                lineTokens.clear()
+            }
         }
         if (parentNode.getChildren().size == 1) {
-            return parentNode.getChildren()[0]
+            parentNode.getChildren()[0]
+        } else {
+            parentNode
         }
-        return parentNode
     }
 }
