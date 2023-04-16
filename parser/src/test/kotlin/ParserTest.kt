@@ -11,7 +11,6 @@ import fixtures.tokenList2
 import fixtures.tokenList3
 import fixtures.tokenList4
 import fixtures.tokenList5
-
 import interfaces.Parser
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
