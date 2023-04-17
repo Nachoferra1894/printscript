@@ -5,7 +5,6 @@ import kotlinx.coroutines.runBlocking
 import types.ParentNode
 
 class V1Parser : Parser {
-    private lateinit var subParserController: SubParserController
 
     override fun parseTokens(tokens: Flow<Token>): ASTNode = runBlocking {
         val parentNode = ParentNode()
@@ -15,6 +14,7 @@ class V1Parser : Parser {
         tokens.collect { token ->
             lineTokens.add(token)
             if (token.isEOL()) {
+                println("lineTokens: $lineTokens")
                 val subParser = subParserController.getSubParser(lineTokens)
                 val astNode = subParser.getAstNode(0)
                 parentNode.addChild(astNode.first)

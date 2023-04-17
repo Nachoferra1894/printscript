@@ -35,7 +35,7 @@ class App : CliktCommand() {
     }
 
     private fun analyze(absolutePath: String, version: String?, arguments: String?) {
-        //dsdsds
+        // dsdsds
     }
 
     private fun format(absolutePath: String, version: String?, arguments: String?) {
@@ -53,7 +53,7 @@ class App : CliktCommand() {
     }
 
     private fun validate(absolutePath: String, version: String?, arguments: String?) {
-        //dsdsds
+        // dsdsds
     }
 }
 

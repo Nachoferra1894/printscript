@@ -1,23 +1,23 @@
 package printscript
 
+import V1Parser
 import input.LexerFileInput
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import lexer.lexer.Lexer
 import java.io.File
 
-class CommonPrintScriptRunner: PrintscriptRunner {
+class CommonPrintScriptRunner : PrintscriptRunner {
 
     override fun runValidation(sourceFile: String, version: String) {
     }
 
     override suspend fun runExecution(sourceFile: String, version: String) {
-        val file = File(sourceFile);
+        val file = File(sourceFile)
         val lexer = Lexer()
+        val parser = V1Parser()
         val lexerFileInput = LexerFileInput(file)
-        lexer.getTokens(lexerFileInput.getFlow()).collect { token ->
-            println(token)
-        }
+        val tokens = lexer.getTokens(lexerFileInput.getFlow())
+        val ast = parser.parseTokens(tokens)
+        println(ast)
     }
 
     override fun runFormatting(sourceFile: String, version: String, arguments: String) {
