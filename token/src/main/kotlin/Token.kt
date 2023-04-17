@@ -7,18 +7,21 @@ data class Token(val prototypeType: PrototypeType, val value: String?) {
     }
 }
 
-enum class PrototypeType(val s: String) {
+enum class PrototypeType(private val s: String) {
     ASSIGNATION("="),
     SEMICOLON(";"),
     STRING_TYPE("string"),
     NUMBER_TYPE("number"),
+    BOOLEAN_TYPE("boolean"),
     IDENTIFIER("IDENTIFIER"),
     PLUS("+"),
     SUBTRACTION("-"),
     MULTIPLICATION("*"),
     DIVISION("/"),
     LET("let"),
+    CONST("const"),
     NUMBER("number"),
+    BOOLEAN("boolean"),
     STRING("string"),
     SPACE(" "),
     COLON(":"),
@@ -31,9 +34,9 @@ enum class PrototypeType(val s: String) {
     }
 }
 
-val dataTypes = listOf(PrototypeType.STRING_TYPE, PrototypeType.NUMBER_TYPE)
-val variableTypes = listOf(PrototypeType.STRING, PrototypeType.NUMBER, PrototypeType.IDENTIFIER)
+val dataTypes = listOf(PrototypeType.STRING_TYPE, PrototypeType.NUMBER_TYPE, PrototypeType.BOOLEAN_TYPE)
+val variableTypes = listOf(PrototypeType.STRING, PrototypeType.NUMBER, PrototypeType.IDENTIFIER, PrototypeType.BOOLEAN)
 val operatorTypes = listOf(PrototypeType.PLUS, PrototypeType.SUBTRACTION, PrototypeType.MULTIPLICATION, PrototypeType.DIVISION)
 val functionTypes = listOf(PrototypeType.METHOD_PRINT)
 val parenthesisTypes = listOf(PrototypeType.OPEN_PARENTHESIS, PrototypeType.CLOSE_PARENTHESIS)
-val declarationTypes = listOf(PrototypeType.LET) // Maybe later we add more declaration types
+val declarationTypes = listOf(PrototypeType.LET, PrototypeType.CONST)

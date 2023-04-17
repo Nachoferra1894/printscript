@@ -1,6 +1,7 @@
 package lexer.lexer
 
 import Token
+import generators.TokenGenerator.Companion.getConstToken
 import generators.TokenGenerator.Companion.getFinalToken
 import generators.TokenGenerator.Companion.getIdentifierToken
 import generators.TokenGenerator.Companion.getLetToken
@@ -17,6 +18,7 @@ import kotlinx.coroutines.flow.flow
 import lexer.exceptions.NoTokenException
 import lexer.generators.IndexGenerator.Companion.defineIndex
 import lexer.interfaces.LexerI
+import strategies.TokenStrategy.Companion.constStrategy
 import strategies.TokenStrategy.Companion.finalStrategy
 import strategies.TokenStrategy.Companion.identifierStrategy
 import strategies.TokenStrategy.Companion.letStrategy
@@ -50,6 +52,7 @@ class Lexer : LexerI {
     private fun defineToken(line: String, index: Int): Token {
         if (spaceStrategy(line, index)) return getSpaceToken()
         if (letStrategy(line, index)) return getLetToken()
+        if (constStrategy(line, index)) return getConstToken()
         if (typeStrategy(line, index)) return getTypeStrategy(line, index)
         if (operationStrategy(line, index)) return getOperationStrategy(line, index)
         if (finalStrategy(line, index)) return getFinalToken()

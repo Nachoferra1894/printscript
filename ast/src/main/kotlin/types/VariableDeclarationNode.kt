@@ -8,17 +8,21 @@ class VariableDeclarationNode : ASTNode {
     private var name: String
     private var type: String // TODO move to an enum??
     private var value: Expression?
+    private var isMutable: Boolean
 
-    constructor(name: String, type: String) {
+    // add isMutable as a third parameter, default to true
+    constructor(name: String, type: String, isMutable: Boolean = true) {
         this.name = name
         this.type = type
         this.value = null // Declarations without declaration don't have value
+        this.isMutable = isMutable
     }
 
-    constructor(name: String, type: String, value: Expression) {
+    constructor(name: String, type: String, value: Expression, isMutable: Boolean = true) {
         this.name = name
         this.type = type
         this.value = value
+        this.isMutable = isMutable
     }
 
     override fun accept(visitor: ASTNodeVisitor) {
@@ -26,10 +30,11 @@ class VariableDeclarationNode : ASTNode {
     }
 
     override fun toString(): String {
+        val mutable = if (isMutable) "let" else "const"
         return if (value !== null) {
-            "let $name: $type = $value"
+            "$mutable $name: $type = $value"
         } else {
-            "let $name: $type"
+            "$mutable $name: $type"
         }
     }
 }

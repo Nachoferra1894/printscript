@@ -12,11 +12,11 @@ import types.VariableDeclarationNode
 class DeclarationSubParser(tokens: List<Token>) : SubParser<VariableDeclarationNode>, TokenMatcher(tokens) {
     // Statement: let g: number = 1 - 2 - 3;
     // Statement: let g: number;
-    val expressionSubParser = ExpressionSubParser(tokens)
+    private val expressionSubParser = ExpressionSubParser(tokens)
 
     override fun getAstNode(nextIndex: Int): Pair<VariableDeclarationNode, Int> {
         var index = nextIndex
-        getNextTokenOrThrowError(index, declarationTypes)
+        val declarationType = getNextTokenOrThrowError(index, declarationTypes)
         index++
         val variableName = getNextTokenOrThrowError(index, PrototypeType.IDENTIFIER)
         index++
@@ -24,15 +24,16 @@ class DeclarationSubParser(tokens: List<Token>) : SubParser<VariableDeclarationN
         index++
         val variableType = getNextTokenOrThrowError(index, dataTypes)
         index++
+        val isMutable: Boolean = declarationType.prototypeType == PrototypeType.LET
         return try {
             getNextTokenOrThrowError(index, PrototypeType.SEMICOLON)
-            val newNode = VariableDeclarationNode(variableName.value!!, variableType.prototypeType.toString())
+            val newNode = VariableDeclarationNode(variableName.value!!, variableType.prototypeType.toString(), isMutable)
             Pair(newNode, index + 1)
         } catch (e: WrongTokenException) {
             getNextTokenOrThrowError(index, PrototypeType.ASSIGNATION)
             index++
             val (expression, expressionIndex) = expressionSubParser.getAstNode(index)
-            val newNode = VariableDeclarationNode(variableName.value!!, variableType.prototypeType.toString(), expression)
+            val newNode = VariableDeclarationNode(variableName.value!!, variableType.prototypeType.toString(), expression, isMutable)
             Pair(newNode, expressionIndex)
         }
     }

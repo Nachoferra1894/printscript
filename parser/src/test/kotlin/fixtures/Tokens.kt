@@ -121,6 +121,19 @@ val node5 = ParentNode(
     )
 )
 
+// Statement: const b: boolean = true;
+val tokenList6 = listOf(
+    Token(PrototypeType.CONST, null),
+    Token(PrototypeType.IDENTIFIER, "b"),
+    Token(PrototypeType.COLON, null),
+    Token(PrototypeType.BOOLEAN_TYPE, null),
+    Token(PrototypeType.ASSIGNATION, null),
+    Token(PrototypeType.BOOLEAN, "true"),
+    Token(PrototypeType.SEMICOLON, null)
+)
+val node6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN), false)
+val mutableNode6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN))
+
 fun getFlowFromTokenList(tokenList: List<Token>): Flow<Token> {
     return flow {
         tokenList.forEach { token ->

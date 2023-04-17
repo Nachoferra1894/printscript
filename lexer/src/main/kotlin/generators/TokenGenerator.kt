@@ -21,6 +21,9 @@ class TokenGenerator {
         fun getLetToken(): Token {
             return Token(PrototypeType.LET, null)
         }
+        fun getConstToken(): Token {
+            return Token(PrototypeType.CONST, null)
+        }
         fun getValueToken(line: String, index: Int): Token {
             if (line[index].isDigit()) return valueNumber(line, index)
             if (line[index] == '"') return valueString(line, index)
