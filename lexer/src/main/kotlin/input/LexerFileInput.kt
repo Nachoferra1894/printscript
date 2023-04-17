@@ -10,6 +10,7 @@ class LexerFileInput(private val file: File) : LexerInput {
         val lines = text.split("\n")
         return flow {
             lines.forEach { line ->
+                println("processing index: $line")
                 emit(line)
             }
         }

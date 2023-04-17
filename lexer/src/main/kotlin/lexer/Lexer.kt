@@ -12,6 +12,7 @@ import generators.TokenGenerator.Companion.getTypeStrategy
 import generators.TokenGenerator.Companion.getValueToken
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
 import lexer.exceptions.NoTokenException
@@ -30,10 +31,10 @@ import strategies.TokenStrategy.Companion.valueStrategy
 class Lexer : LexerI {
 
     override fun getTokens(codeFlow: Flow<String>): Flow<Token> = flow {
-        codeFlow.flatMapConcat { line ->
-            defineTokens(line).asFlow()
-        }.collect { token ->
-            emit(token)
+        codeFlow.collect { line ->
+            defineTokens(line).forEach { token ->
+                emit(token)
+            }
         }
     }
 

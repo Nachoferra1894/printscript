@@ -3,9 +3,13 @@ import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.optional
 import com.github.ajalt.clikt.parameters.types.enum
 import com.github.ajalt.clikt.parameters.types.file
+import kotlinx.coroutines.runBlocking
+import printscript.CommonPrintScriptRunner
 
 class App : CliktCommand() {
     enum class Operation { Validation, Execution, Formatting, Analyzing }
+
+    val runner = CommonPrintScriptRunner()
 
     private val operation: Operation? by argument(help = "The operation type").enum<Operation>()
 
@@ -31,7 +35,7 @@ class App : CliktCommand() {
     }
 
     private fun analyze(absolutePath: String, version: String?, arguments: String?) {
-        TODO("Not yet implemented")
+        //dsdsds
     }
 
     private fun format(absolutePath: String, version: String?, arguments: String?) {
@@ -41,12 +45,15 @@ class App : CliktCommand() {
         }
     }
 
-    private fun execute(absolutePath: String, version: String?, arguments: String?) {
-        TODO("Not yet implemented")
+    private fun execute(absolutePath: String, version: String, arguments: String?) {
+        echo("exec")
+        runBlocking {
+            runner.runExecution(absolutePath, version)
+        }
     }
 
     private fun validate(absolutePath: String, version: String?, arguments: String?) {
-        TODO("Not yet implemented")
+        //dsdsds
     }
 }
 
