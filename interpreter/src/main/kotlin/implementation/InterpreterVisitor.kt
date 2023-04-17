@@ -1,5 +1,7 @@
 package implementation
 
+import expresions.Expression
+import expresions.types.Operation
 import interfaces.Printer
 import interfaces.ASTNodeVisitor
 import types.AssignmentNode
@@ -13,12 +15,15 @@ class InterpreterVisitor(
 ) : ASTNodeVisitor {
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) : VariableDeclarationNode {
-        return variableDeclaration
+        TODO("Not yet implemented")
     }
 
     override fun visitAssignment(assignmentNode: AssignmentNode) : AssignmentNode {
         TODO("Not yet implemented")
+    }
 
+    override fun visitExpressionNode(expressionNode: Expression) {
+        TODO("Not yet implemented")
     }
 
     override fun visitPrint(printNode: PrintNode) : PrintNode {

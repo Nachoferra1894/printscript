@@ -40,4 +40,15 @@ class Operation : Expression {
             l.toString()
         }
     }
+
+    fun getL() : Expression? {
+        return this.l
+    }
+    fun getOperator() : Operator? {
+        return this.operator
+    }
+
+    fun getR() : Expression? {
+        return this.r
+    }
 }

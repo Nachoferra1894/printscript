@@ -21,6 +21,17 @@ class VariableDeclarationNode : ASTNode {
         this.value = value
     }
 
+    fun getName() : String{
+        return this.name
+    }
+    fun getType() : String{
+        return this.type
+    }
+
+    fun getValue() : Expression? {
+        return this.value
+    }
+
     override fun accept(visitor: ASTNodeVisitor) {
         visitor.visitDeclaration(this)
     }
