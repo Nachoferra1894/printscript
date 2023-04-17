@@ -4,17 +4,21 @@ import Token
 import languageDefinitions.Strategies
 import lexer.generators.IndexGenerator.Companion.defineIndex
 import lexer.interfaces.LexerI
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.flatMapConcat
+import kotlinx.coroutines.flow.flow
 
 class Lexer : LexerI {
 
-    override fun getTokens(code: String): ArrayList<Token> {
-        val tokens: ArrayList<Token> = ArrayList()
-        val lines = code.lines()
-        lines.forEach {
-            tokens.addAll(defineTokens(it))
+    override fun getTokens(codeFlow: Flow<String>): Flow<Token> = flow {
+        codeFlow.flatMapConcat { line ->
+            defineTokens(line).asFlow()
+        }.collect { token ->
+            emit(token)
         }
-        return tokens
     }
+
     fun defineTokens(line: String): ArrayList<Token> {
         val strategies = Strategies()
         val tokens: ArrayList<Token> = ArrayList()

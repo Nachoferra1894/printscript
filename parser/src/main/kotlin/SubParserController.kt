@@ -4,17 +4,13 @@ import subParsers.AssignmentSubParser
 import subParsers.DeclarationSubParser
 import subParsers.PrintSubParser
 
-class SubParserController(val tokens: List<Token>) {
-    val assignmentSubParser = AssignmentSubParser(tokens)
-    val declarationSubParser = DeclarationSubParser(tokens)
-    val printSubParser = PrintSubParser(tokens)
-
-    fun getSubParser(index: Int): SubParser<*> {
-        return when (tokens[index].prototypeType) {
-            PrototypeType.METHOD_PRINT -> printSubParser
-            PrototypeType.IDENTIFIER -> assignmentSubParser
-            in declarationTypes -> declarationSubParser
-            else -> throw WrongTokenException(tokens[index])
+class SubParserController() {
+    fun getSubParser(tokens: List<Token>): SubParser<*> {
+        return when (tokens[0].prototypeType) {
+            PrototypeType.METHOD_PRINT -> PrintSubParser(tokens)
+            PrototypeType.IDENTIFIER -> AssignmentSubParser(tokens)
+            in declarationTypes -> DeclarationSubParser(tokens)
+            else -> throw WrongTokenException(tokens[0])
         }
     }
 }
