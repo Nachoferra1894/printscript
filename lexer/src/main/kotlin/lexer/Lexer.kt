@@ -1,13 +1,13 @@
 package lexer.lexer
 
 import Token
-import languageDefinitions.Strategies
-import lexer.generators.IndexGenerator.Companion.defineIndex
-import lexer.interfaces.LexerI
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flatMapConcat
 import kotlinx.coroutines.flow.flow
+import languageDefinitions.Strategies
+import lexer.generators.IndexGenerator.Companion.defineIndex
+import lexer.interfaces.LexerI
 
 class Lexer : LexerI {
 
