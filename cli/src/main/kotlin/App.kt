@@ -1,7 +1,6 @@
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.optional
-import com.github.ajalt.clikt.parameters.options.option
 import com.github.ajalt.clikt.parameters.types.enum
 import com.github.ajalt.clikt.parameters.types.file
 
@@ -19,8 +18,35 @@ class App : CliktCommand() {
     override fun run() {
         echo("Operation: $operation")
         echo("Source file: ${sourceFile.absolutePath}")
-        version?.let { echo("Version: $it") }
+
         arguments?.let { echo("Arguments: $it") }
+        val v = version ?: "v1"
+        when(operation) {
+            Operation.Validation -> validate(sourceFile.absolutePath,v,arguments)
+            Operation.Execution -> execute(sourceFile.absolutePath,v,arguments)
+            Operation.Formatting -> format(sourceFile.absolutePath,v,arguments)
+            Operation.Analyzing -> analyze(sourceFile.absolutePath,v,arguments)
+            null -> echo("No operation specified");
+        }
+    }
+
+    private fun analyze(absolutePath: String, version: String?, arguments: String?) {
+        TODO("Not yet implemented")
+    }
+
+    private fun format(absolutePath: String, version: String?, arguments: String?) {
+        if (arguments == null) {
+            echo("No arguments specified")
+            return
+        }
+    }
+
+    private fun execute(absolutePath: String, version: String?, arguments: String?) {
+        TODO("Not yet implemented")
+    }
+
+    private fun validate(absolutePath: String, version: String?, arguments: String?) {
+        TODO("Not yet implemented")
     }
 }
 
