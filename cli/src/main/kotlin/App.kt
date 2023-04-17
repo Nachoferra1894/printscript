@@ -8,7 +8,7 @@ import com.github.ajalt.clikt.parameters.types.file
 class App : CliktCommand() {
     enum class Operation { Validation, Execution, Formatting, Analyzing }
 
-    private val operation: Operation? by option(help = "The operation type").enum<Operation>()
+    private val operation: Operation? by argument(help = "The operation type").enum<Operation>()
 
     private val sourceFile by argument(help = "Source file path").file()
 

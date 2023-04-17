@@ -1,0 +1,2 @@
+let a: string = "hello world!";
+let b: string = "hello world!";
