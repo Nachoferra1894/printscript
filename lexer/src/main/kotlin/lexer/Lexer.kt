@@ -16,7 +16,7 @@ class Lexer : LexerI {
         return tokens
     }
     fun defineTokens(line: String): ArrayList<Token> {
-        val strategies: Strategies = Strategies()
+        val strategies = Strategies()
         val tokens: ArrayList<Token> = ArrayList()
         var index = 0
         while (index <= line.length - 1) {

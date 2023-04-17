@@ -22,7 +22,7 @@ import strategies.ValueStrategy
 class Strategies {
 
     private val listV1: ArrayList<Strategy> = ArrayList()
-    fun constructor() {
+    init {
         addStrategiesV1()
     }
     private fun addStrategiesV1() {
