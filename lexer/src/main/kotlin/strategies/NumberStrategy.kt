@@ -3,7 +3,7 @@ package strategies
 import Token
 import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeNumber
 
-class NumberStrategy: Strategy {
+class NumberStrategy : Strategy {
     override fun isStrategy(line: String, index: Int): Boolean {
         return line[index] != '"' && isTypeNumber(line, index)
     }

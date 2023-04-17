@@ -2,7 +2,7 @@ package strategies
 
 import Token
 
-class PlusStrategy: Strategy {
+class PlusStrategy : Strategy {
     override fun isStrategy(line: String, index: Int): Boolean {
         return line[index] == '+'
     }

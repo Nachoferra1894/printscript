@@ -2,7 +2,7 @@ package strategies
 
 import Token
 
-class DivisionStrategy:Strategy {
+class DivisionStrategy : Strategy {
 
     override fun isStrategy(line: String, index: Int): Boolean {
         return line[index] == '/'

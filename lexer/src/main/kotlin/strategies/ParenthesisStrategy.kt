@@ -2,7 +2,7 @@ package strategies
 
 import Token
 
-class ParenthesisStrategy: Strategy {
+class ParenthesisStrategy : Strategy {
     override fun isStrategy(line: String, index: Int): Boolean {
         return line[index] == '(' || line[index] == ')'
     }

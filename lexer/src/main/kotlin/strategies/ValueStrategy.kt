@@ -3,7 +3,7 @@ package strategies
 import Token
 import lexer.exceptions.NoTokenException
 
-class ValueStrategy: Strategy {
+class ValueStrategy : Strategy {
     override fun isStrategy(line: String, index: Int): Boolean {
         return line[index] == '"' || line[index].isDigit()
     }
@@ -13,7 +13,6 @@ class ValueStrategy: Strategy {
         if (line[index] == '"') return valueString(line, index)
         throw NoTokenException("No value exists with this operator " + line[index])
     }
-
 
     private fun valueNumber(line: String, index: Int): Token {
         var number: String = line[index].toString()
@@ -41,5 +40,4 @@ class ValueStrategy: Strategy {
         }
         return Token(PrototypeType.STRING, value)
     }
-
 }

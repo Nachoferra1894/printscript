@@ -2,7 +2,7 @@ package strategies
 
 import Token
 
-class ColonStrategy: Strategy {
+class ColonStrategy : Strategy {
     override fun isStrategy(line: String, index: Int): Boolean {
         return line[index] == ':'
     }

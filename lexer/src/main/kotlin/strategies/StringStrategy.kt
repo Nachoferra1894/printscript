@@ -9,7 +9,6 @@ class StringStrategy : Strategy {
     }
 
     override fun getToken(line: String, index: Int): Token {
-       return Token(PrototypeType.STRING_TYPE, null)
+        return Token(PrototypeType.STRING_TYPE, null)
     }
-
 }
