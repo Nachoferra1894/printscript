@@ -21,12 +21,12 @@ class App : CliktCommand() {
 
         arguments?.let { echo("Arguments: $it") }
         val v = version ?: "v1"
-        when(operation) {
-            Operation.Validation -> validate(sourceFile.absolutePath,v,arguments)
-            Operation.Execution -> execute(sourceFile.absolutePath,v,arguments)
-            Operation.Formatting -> format(sourceFile.absolutePath,v,arguments)
-            Operation.Analyzing -> analyze(sourceFile.absolutePath,v,arguments)
-            null -> echo("No operation specified");
+        when (operation) {
+            Operation.Validation -> validate(sourceFile.absolutePath, v, arguments)
+            Operation.Execution -> execute(sourceFile.absolutePath, v, arguments)
+            Operation.Formatting -> format(sourceFile.absolutePath, v, arguments)
+            Operation.Analyzing -> analyze(sourceFile.absolutePath, v, arguments)
+            null -> echo("No operation specified")
         }
     }
 
