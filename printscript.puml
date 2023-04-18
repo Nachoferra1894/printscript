@@ -56,10 +56,18 @@ Cli --> Parser
 Cli --> Lexer
 Cli --> Interpreter
 Cli --> Formatter
+Cli --> Linter
 
 class BuildSrc {
 }
 
+class Linter {
+    + getFormattedCode(node: ASTNode): String
+}
+
+Linter --> Lib
+Linter --> Ast
+Linter --> Token
 
 
 
