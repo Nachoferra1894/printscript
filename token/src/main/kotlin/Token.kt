@@ -22,7 +22,7 @@ enum class PrototypeType(val s: String) {
     STRING("string"),
     SPACE(" "),
     COLON(":"),
-    METHOD_PRINT("print"),
+    METHOD_PRINT("println"),
     OPEN_PARENTHESIS("("),
     CLOSE_PARENTHESIS(")");
 

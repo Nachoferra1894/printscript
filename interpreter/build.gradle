@@ -3,4 +3,6 @@ plugins {
 }
 dependencies {
     implementation project(':lib')
+    implementation project(':ast')
+    implementation project(':token')
 }

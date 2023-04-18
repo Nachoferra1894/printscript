@@ -35,15 +35,17 @@ class App : CliktCommand() {
         }
     }
 
-    private fun analyze(absolutePath: String, version: String?, arguments: String?) {
+    private fun analyze(absolutePath: String, version: String, arguments: String?) {
         // dsdsds
     }
 
-    private fun format(absolutePath: String, version: String?, arguments: String?) {
+    private fun format(absolutePath: String, version: String, arguments: String?) {
         if (arguments == null) {
             echo("No arguments specified")
             return
         }
+        val file = File(absolutePath)
+        runner.runFormatting(file, version, arguments)
     }
 
     private fun execute(absolutePath: String, version: String, arguments: String?) {
@@ -54,7 +56,7 @@ class App : CliktCommand() {
         }
     }
 
-    private fun validate(absolutePath: String, version: String?, arguments: String?) {
+    private fun validate(absolutePath: String, version: String, arguments: String?) {
         // dsdsds
     }
 }
