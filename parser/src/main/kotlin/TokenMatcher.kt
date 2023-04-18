@@ -10,7 +10,7 @@ abstract class TokenMatcher(private val tokens: List<Token>) {
         val nextToken = tokens[index]
         if (nextToken.prototypeType === PrototypeType.SPACE) return getNextTokenOrThrowError(index + 1, tokenTypes)
         if (!tokenTypes.contains(nextToken.prototypeType)) throw WrongTokenException(nextToken)
-        return Pair(nextToken,index+1)
+        return Pair(nextToken, index + 1)
     }
 
     @Throws(WrongTokenException::class)

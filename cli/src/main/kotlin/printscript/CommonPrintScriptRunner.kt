@@ -6,14 +6,14 @@ import lexer.lexer.Lexer
 import java.io.File
 
 class CommonPrintScriptRunner : PrintscriptRunner {
+    private val lexer = Lexer()
+    private val parser = V1Parser()
 
     override fun runValidation(sourceFile: String, version: String) {
     }
 
     override suspend fun runExecution(sourceFile: String, version: String) {
         val file = File(sourceFile)
-        val lexer = Lexer()
-        val parser = V1Parser()
         val lexerFileInput = LexerFileInput(file)
         val tokens = lexer.getTokens(lexerFileInput.getFlow())
         val ast = parser.parseTokens(tokens)
