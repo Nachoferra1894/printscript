@@ -21,14 +21,14 @@ class VariableDeclarationNode : ASTNode {
         this.value = value
     }
 
-    fun getName() : String{
+    fun getName(): String {
         return this.name
     }
-    fun getType() : String{
+    fun getType(): String {
         return this.type
     }
 
-    fun getValue() : Expression? {
+    fun getValue(): Expression? {
         return this.value
     }
 

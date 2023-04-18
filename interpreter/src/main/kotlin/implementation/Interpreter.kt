@@ -17,7 +17,5 @@ class Interpreter(
 
     companion object InterpreterConstructor {
         fun create(): Interpreter = Interpreter(InterpreterVisitor(InterpreterMap(mutableMapOf()), PrinterImpl()))
-
     }
-
 }

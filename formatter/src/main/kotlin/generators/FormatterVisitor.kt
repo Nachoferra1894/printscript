@@ -1,6 +1,7 @@
 package generators
 
 import expresions.Expression
+import interfaces.ASTNode
 import interfaces.ASTNodeVisitor
 import types.AssignmentNode
 import types.ParentNode
@@ -30,8 +31,9 @@ class FormatterVisitor : ASTNodeVisitor {
         parentNode.getChildren().forEach { it.accept(this) }
     }
 
-    override fun visitExpressionNode(expressionNode: Expression) {
+    override fun visitExpressionNode(expressionNode: Expression): ASTNode? {
         lines.add("$expressionNode;")
+        return null // TODO delete when interpreterVisitor is fixed
     }
 
     fun getLines(): String {

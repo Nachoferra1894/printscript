@@ -11,6 +11,5 @@ interface ASTNodeVisitor {
     fun visitAssignment(assignmentNode: AssignmentNode)
     fun visitPrint(printNode: PrintNode)
     fun visitParentNode(parentNode: ParentNode)
-    fun visitExpressionNode(expressionNode: Expression) : ASTNode
-
+    fun visitExpressionNode(expressionNode: Expression): ASTNode?
 }

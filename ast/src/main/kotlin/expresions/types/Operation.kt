@@ -41,14 +41,14 @@ class Operation : Expression {
         }
     }
 
-    fun getL() : Expression? {
+    fun getL(): Expression? {
         return this.l
     }
-    fun getOperator() : Operator? {
+    fun getOperator(): Operator? {
         return this.operator
     }
 
-    fun getR() : Expression? {
+    fun getR(): Expression? {
         return this.r
     }
 }

@@ -14,7 +14,7 @@ import kotlin.Error
 
 class InterpreterVisitor(
     val map: InterpreterMap,
-    private val printer : PrinterImpl
+    private val printer: PrinterImpl
 ) : ASTNodeVisitor {
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
@@ -24,15 +24,15 @@ class InterpreterVisitor(
         map.put(name, ValueAndType(null, type))
     }
 
-    override fun visitAssignment(assignmentNode: AssignmentNode){
+    override fun visitAssignment(assignmentNode: AssignmentNode) {
         val variableName = assignmentNode.name
-        if (map.exist(variableName)){
-            val variableType : String = map.getValue(variableName).type
+        if (map.exist(variableName)) {
+            val variableType: String = map.getValue(variableName).type
             val literal = assignmentNode.value.accept(this)
-            if (literal is Variable && variableType == getTypeFromPrototype(literal.getType())){
+            if (literal is Variable && variableType == getTypeFromPrototype(literal.getType())) {
                 map.put(variableName, ValueAndType(literal.getValue(), variableType))
             }
-        }else{
+        } else {
             throw Error("The variable: $variableName does not exist!")
         }
     }
@@ -56,7 +56,7 @@ class InterpreterVisitor(
             "string" -> {
                 PrototypeType.STRING
             }
-            "number"-> {
+            "number" -> {
                 PrototypeType.NUMBER
             }
             else -> {
@@ -65,23 +65,23 @@ class InterpreterVisitor(
         }
     }
 
-    override fun visitExpressionNode(expressionNode: Expression) : Variable {
-        if (expressionNode is Variable){
-            if (expressionNode.getType() == PrototypeType.IDENTIFIER){
+    override fun visitExpressionNode(expressionNode: Expression): Variable { // TODO this should not return anything
+        if (expressionNode is Variable) {
+            if (expressionNode.getType() == PrototypeType.IDENTIFIER) {
                 val variableVT = map.getValue(expressionNode.getValue())
-                return Variable(variableVT.value.toString(),getPrototypeFromType(variableVT.type))
+                return Variable(variableVT.value.toString(), getPrototypeFromType(variableVT.type))
             }
             return expressionNode
         }
-        if (expressionNode is Operation){
+        if (expressionNode is Operation) {
             var l = expressionNode.getL()
             val operator = expressionNode.getOperator()
             var r = expressionNode.getR()
-            if (l is Expression  && r is Expression && operator != null){
-                if (l is Operation){
+            if (l is Expression && r is Expression && operator != null) {
+                if (l is Operation) {
                     l = visitExpressionNode(l)
                 }
-                if (r is Operation){
+                if (r is Operation) {
                     r = visitExpressionNode(r)
                 }
                 if (l is Variable && r is Variable) {
@@ -98,7 +98,6 @@ class InterpreterVisitor(
         throw Error("Invalid Expression!")
     }
 
-
     private fun sumValues(left: Variable, right: Variable): Variable {
         val lType = left.getType()
         val rType = right.getType()
@@ -113,34 +112,34 @@ class InterpreterVisitor(
 
     private fun subtractValues(left: Variable, right: Variable): Variable {
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((left.getValue().toDouble() - right.getValue().toDouble()).toString(),PrototypeType.NUMBER)
+            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((left.getValue().toDouble() - right.getValue().toDouble()).toString(), PrototypeType.NUMBER)
             else -> throw Error("Can not subtract values")
         }
     }
 
     private fun multiplyValues(left: Variable, right: Variable): Variable {
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((left.getValue().toDouble() * right.getValue().toDouble()).toString(),PrototypeType.NUMBER)
+            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((left.getValue().toDouble() * right.getValue().toDouble()).toString(), PrototypeType.NUMBER)
             else -> throw Error("Can not multiply values")
         }
     }
 
     private fun divideValues(left: Variable, right: Variable): Variable {
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((left.getValue().toDouble() / right.getValue().toDouble()).toString(),PrototypeType.NUMBER)
+            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((left.getValue().toDouble() / right.getValue().toDouble()).toString(), PrototypeType.NUMBER)
             else -> throw Error("Can not divide values")
         }
     }
 
-    override fun visitPrint(printNode: PrintNode){
+    override fun visitPrint(printNode: PrintNode) {
         var content = printNode.content.accept(this)
-        if (content is Variable){
-            if (content.getType() == PrototypeType.IDENTIFIER){
+        if (content is Variable) {
+            if (content.getType() == PrototypeType.IDENTIFIER) {
                 val variableVT = map.getValue(content.getValue())
-                content = Variable(variableVT.value.toString(),getPrototypeFromType(variableVT.type))
+                content = Variable(variableVT.value.toString(), getPrototypeFromType(variableVT.type))
             }
             printer.print(content)
-        }else{
+        } else {
             throw Error("Can not print value")
         }
     }
@@ -148,5 +147,4 @@ class InterpreterVisitor(
     override fun visitParentNode(parentNode: ParentNode) {
         TODO("Not yet implemented")
     }
-
 }

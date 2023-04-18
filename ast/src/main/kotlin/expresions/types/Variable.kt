@@ -30,11 +30,11 @@ class Variable(private val value: String, private val variableType: PrototypeTyp
         return value
     }
 
-    fun getValue() : String {
+    fun getValue(): String {
         return this.value
     }
 
-    fun getType() : PrototypeType {
+    fun getType(): PrototypeType {
         return this.variableType
     }
 }

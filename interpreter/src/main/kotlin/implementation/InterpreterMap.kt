@@ -1,8 +1,6 @@
 package implementation
 
-import java.util.StringJoiner
-
-class InterpreterMap (private val map: MutableMap<String, ValueAndType>) {
+class InterpreterMap(private val map: MutableMap<String, ValueAndType>) {
 
     fun put(key: String, valueType: ValueAndType) = run { map[key] = valueType }
 
@@ -10,8 +8,7 @@ class InterpreterMap (private val map: MutableMap<String, ValueAndType>) {
         return map[key] ?: throw Error(key + "not found")
     }
 
-    fun exist(key: String) : Boolean{
-       return map.containsKey(key)
+    fun exist(key: String): Boolean {
+        return map.containsKey(key)
     }
-
 }

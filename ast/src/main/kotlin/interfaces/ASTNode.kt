@@ -1,6 +1,6 @@
 package interfaces
 
 interface ASTNode {
-    fun accept(visitor: ASTNodeVisitor) : Any
+    fun accept(visitor: ASTNodeVisitor): Any
     override fun toString(): String
 }
