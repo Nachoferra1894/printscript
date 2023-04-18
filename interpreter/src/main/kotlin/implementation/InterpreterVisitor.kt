@@ -38,17 +38,7 @@ class InterpreterVisitor(
     }
 
     private fun getTypeFromPrototype(literal: PrototypeType): String {
-        return when (literal) {
-            PrototypeType.STRING -> {
-                "string"
-            }
-            PrototypeType.NUMBER -> {
-                "number"
-            }
-            else -> {
-                "No es ni string ni number"
-            }
-        }
+        return literal.toString()
     }
 
     private fun getPrototypeFromType(type: String): PrototypeType {
@@ -98,6 +88,8 @@ class InterpreterVisitor(
         throw Error("Invalid Expression!")
     }
 
+    // TODO all of these should also accept identifiers
+
     private fun sumValues(left: Variable, right: Variable): Variable {
         val lType = left.getType()
         val rType = right.getType()
@@ -133,6 +125,7 @@ class InterpreterVisitor(
 
     override fun visitPrint(printNode: PrintNode) {
         var content = printNode.content.accept(this)
+        println("sarasa $content") // TODO bugaso
         if (content is Variable) {
             if (content.getType() == PrototypeType.IDENTIFIER) {
                 val variableVT = map.getValue(content.getValue())
@@ -140,11 +133,13 @@ class InterpreterVisitor(
             }
             printer.print(content)
         } else {
-            throw Error("Can not print value")
+            throw Error("Can't print value")
         }
     }
 
     override fun visitParentNode(parentNode: ParentNode) {
-        TODO("Not yet implemented")
+        for (child in parentNode.getChildren()) {
+            child.accept(this)
+        }
     }
 }
