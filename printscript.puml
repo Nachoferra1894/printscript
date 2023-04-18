@@ -1,0 +1,66 @@
+@startuml
+entity Token {
+    + prototypeType: PrototypeType
+    + value: String?
+    + from: Int
+    + to: Int
+    + line: Int
+}
+entity Ast {}
+
+Ast --> Lib
+Ast --> Token
+
+class Parser {
+    + parseTokens(tokens: Flow<Token>): ASTNode
+}
+
+Parser --> Lib
+Parser --> Ast
+Parser --> Token
+
+class Lexer {
+    + getTokens(codeFlow: Flow<String>): Flow<Token>
+}
+
+Lexer --> Lib
+Parser --> Token
+
+class Interpreter {
+    + interpret(ast: ASTNode)
+}
+
+Interpreter --> Lib
+Interpreter --> Ast
+Interpreter --> Token
+
+class Formatter {
+    + getFormattedCode(node: ASTNode): String
+}
+
+Formatter --> Lib
+Formatter --> Ast
+Formatter --> Token
+
+class Cli {
+    + analyze(absolutePath: String, version: String, arguments: String?)
+    + format(absolutePath: String, version: String, arguments: String?)
+    + execute(absolutePath: String, version: String, arguments: String?)
+    + validate(absolutePath: String, version: String, arguments: String?)
+}
+
+Cli --> Lib
+Cli --> Ast
+Cli --> Token
+Cli --> Parser
+Cli --> Lexer
+Cli --> Interpreter
+Cli --> Formatter
+
+class BuildSrc {
+}
+
+
+
+
+@enduml
