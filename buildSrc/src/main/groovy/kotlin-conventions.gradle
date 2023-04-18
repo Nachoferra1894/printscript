@@ -15,12 +15,12 @@ ext {
     junitVersion = '5.9.1'
 }
 
-sourceCompatibility = '18'
-targetCompatibility = '18'
+sourceCompatibility = '17'
+targetCompatibility = '17'
 
 [compileKotlin, compileTestKotlin].forEach {
     it.kotlinOptions {
-        jvmTarget = '18'
+        jvmTarget = '17'
     }
 }
 
