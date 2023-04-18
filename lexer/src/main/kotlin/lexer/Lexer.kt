@@ -12,7 +12,7 @@ class Lexer : LexerI {
     var lineIndex = -1
 
     override fun getTokens(codeFlow: Flow<String>): Flow<Token> = flow {
-        codeFlow.withIndex().collect { (index,line) ->
+        codeFlow.withIndex().collect { (index, line) ->
             defineTokens(line, index).forEach { token ->
                 emit(token)
             }
