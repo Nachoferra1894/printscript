@@ -43,10 +43,9 @@ class Strategies {
         listV1.add(ParenthesisStrategy())
     }
 
-    fun defineTokens(line: String, index: Int): Token {
+    fun defineTokens(line: String, index: Int, lineIndex: Int): Token {
         val strategy: Strategy = listV1.find { it.isStrategy(line, index) }
             ?: throw NoTokenException("No token with this expression " + line[index])
-
-        return strategy.getToken(line, index,0) // MICA FIXEA ESTE 0
+        return strategy.getToken(line, index, lineIndex)
     }
 }

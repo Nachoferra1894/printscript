@@ -2,7 +2,6 @@ package lexer.lexer
 
 import Token
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.withIndex
 import languageDefinitions.Strategies
@@ -10,6 +9,7 @@ import lexer.generators.IndexGenerator.Companion.defineIndex
 import lexer.interfaces.LexerI
 
 class Lexer : LexerI {
+    var lineIndex = -1
 
     override fun getTokens(codeFlow: Flow<String>): Flow<Token> = flow {
         codeFlow.withIndex().collect { (index,line) ->
@@ -24,13 +24,13 @@ class Lexer : LexerI {
         val tokens: ArrayList<Token> = ArrayList()
         var index = 0
         while (index <= line.length - 1) {
-            tokens.add(defineToken(line, index, strategies))
+            tokens.add(defineToken(line, index, strategies, lineIndex))
             index = defineIndex(tokens, index)
         }
         return tokens
     }
 
-    private fun defineToken(line: String, index: Int, strategies: Strategies): Token {
-        return strategies.defineTokens(line, index)
+    private fun defineToken(line: String, index: Int, strategies: Strategies, lineIndex: Int): Token {
+        return strategies.defineTokens(line, index, lineIndex)
     }
 }
