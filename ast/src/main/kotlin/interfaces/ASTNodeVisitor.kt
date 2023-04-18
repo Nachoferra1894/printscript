@@ -7,9 +7,10 @@ import types.PrintNode
 import types.VariableDeclarationNode
 
 interface ASTNodeVisitor {
-    fun visitDeclaration(variableDeclaration: VariableDeclarationNode) : ASTNode
-    fun visitAssignment(assignmentNode: AssignmentNode) : ASTNode
-    fun visitPrint(printNode: PrintNode) : ASTNode
-    fun visitParentNode(parentNode: ParentNode) : ASTNode
-    fun visitExpressionNode(expressionNode: Expression)
+    fun visitDeclaration(variableDeclaration: VariableDeclarationNode)
+    fun visitAssignment(assignmentNode: AssignmentNode)
+    fun visitPrint(printNode: PrintNode)
+    fun visitParentNode(parentNode: ParentNode)
+    fun visitExpressionNode(expressionNode: Expression) : ASTNode
+
 }

@@ -15,4 +15,9 @@ class Interpreter(
         return visitor.map
     }
 
+    companion object InterpreterConstructor {
+        fun create(): Interpreter = Interpreter(InterpreterVisitor(InterpreterMap(mutableMapOf()), PrinterImpl()))
+
+    }
+
 }
