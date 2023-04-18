@@ -19,7 +19,8 @@ class CommonPrintScriptRunner : PrintscriptRunner {
         val lexerFileInput = LexerFileInput(sourceFile)
         val tokens = lexer.getTokens(lexerFileInput.getFlow())
         val ast = parser.parseTokens(tokens)
-        val finalString = interpreter.interpret(ast);
+        println(ast)
+        val finalString = interpreter.interpret(ast)
         // TODO add interpreter
         return ast.toString()
     }

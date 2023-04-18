@@ -124,17 +124,7 @@ class InterpreterVisitor(
     }
 
     override fun visitPrint(printNode: PrintNode) {
-        var content = printNode.content.accept(this)
-        println("sarasa $content") // TODO bugaso
-        if (content is Variable) {
-            if (content.getType() == PrototypeType.IDENTIFIER) {
-                val variableVT = map.getValue(content.getValue())
-                content = Variable(variableVT.value.toString(), getPrototypeFromType(variableVT.type))
-            }
-            printer.print(content)
-        } else {
-            throw Error("Can't print value")
-        }
+        printNode.content.accept(this)
     }
 
     override fun visitParentNode(parentNode: ParentNode) {

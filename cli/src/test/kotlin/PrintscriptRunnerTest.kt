@@ -13,10 +13,10 @@ class PrintscriptRunnerTest {
         val sourceCode = """
             let a: string = "hello world!";
             let b: string = "hello world!";
-            b = a + "5";
+            b = "5" + "5";
         """.trimIndent()
         val sourceString =
-            "[let a: string = \"hello world!\", let b: string = \"hello world!\", b = a + \"5\"]" // TODO replace when interpreter is ready
+            "[let a: string = \"hello world!\", let b: string = \"hello world!\", b = \"5\" + \"5\"]" // TODO replace when interpreter is ready
 
         // Create a temporary file
         val sourceFile = File.createTempFile("test", ".kt")
