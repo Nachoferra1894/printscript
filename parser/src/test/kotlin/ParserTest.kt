@@ -32,7 +32,7 @@ class ParserTest {
     fun testSimpleSumToken() {
         // Statement: 22 + 20;
         val tokenList = tokenList1
-        val node = node1
+                                                                                                            val node = node1
 
         val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
         assertEquals(node.toString(), astNode.toString())
