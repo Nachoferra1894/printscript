@@ -8,7 +8,7 @@ class PrintStrategy : Strategy {
         return isPrintString(line, index)
     }
 
-    override fun getToken(line: String, index: Int): Token {
-        return Token(PrototypeType.METHOD_PRINT, null)
+    override fun getToken(line: String, index: Int, lineIndex: Int): Token {
+        return Token(PrototypeType.METHOD_PRINT, null, index, index + 7, lineIndex)
     }
 }

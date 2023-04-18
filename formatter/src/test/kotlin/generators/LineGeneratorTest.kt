@@ -13,7 +13,7 @@ import types.VariableDeclarationNode
 
 class LineGeneratorTest {
     private val variableDeclarationNode =
-        VariableDeclarationNode("b", "string", Variable("Hello, world!", PrototypeType.STRING))
+        VariableDeclarationNode("b", "string", Variable("Hello, world!", PrototypeType.STRING, 1), 1)
 //    val parentNode = ParentNode(
 //        listOf(
 //            VariableDeclarationNode(
@@ -42,12 +42,13 @@ class LineGeneratorTest {
 
     @Test
     fun testAssigmentLineGenerator() {
-        val assigmentNode = AssignmentNode("a", Variable("42", PrototypeType.NUMBER))
+        val assigmentNode = AssignmentNode("a", Variable("42", PrototypeType.NUMBER, 1), 1)
         val assigmentLine = "a = 42;"
         val assigmentLine2 = "b = 22 + 20;"
         val assigmentNode2 = AssignmentNode(
             "b",
-            Operation(Variable("22", PrototypeType.NUMBER), Operator.SUM, Variable("20", PrototypeType.NUMBER))
+            Operation(Variable("22", PrototypeType.NUMBER, 2), Operator.SUM, Variable("20", PrototypeType.NUMBER, 2), 2),
+            2
         )
         assertEquals(assigmentLine, assigmentGeneratorLine(assigmentNode))
         assertEquals(assigmentLine2, assigmentGeneratorLine(assigmentNode2))
@@ -55,7 +56,7 @@ class LineGeneratorTest {
 
     @Test
     fun testPrintLineGenerator() {
-        val printNode = PrintNode(Variable("Hello, world!", PrototypeType.STRING))
+        val printNode = PrintNode(Variable("Hello, world!", PrototypeType.STRING, 1), 1)
         val printLine = "print(\"Hello, world!\");"
         // val assigmentLine2= "b = 22 + 20;"
         // val assigmentNode2 = AssignmentNode("b", Operation(Variable("22"), Operator.SUM, Variable("20",PrototypeType.NUMBER)))

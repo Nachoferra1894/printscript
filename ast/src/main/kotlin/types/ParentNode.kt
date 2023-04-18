@@ -20,6 +20,10 @@ class ParentNode : ASTNode {
         return children
     }
 
+    override fun getLine(): Int {
+        return 0
+    }
+
     override fun accept(visitor: ASTNodeVisitor) {
         visitor.visitParentNode(this)
     }

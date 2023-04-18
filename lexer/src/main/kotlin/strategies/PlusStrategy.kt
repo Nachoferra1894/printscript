@@ -7,7 +7,7 @@ class PlusStrategy : Strategy {
         return line[index] == '+'
     }
 
-    override fun getToken(line: String, index: Int): Token {
-        return Token(PrototypeType.PLUS, null)
+    override fun getToken(line: String, index: Int, lineIndex: Int): Token {
+        return Token(PrototypeType.PLUS, null, index, index + 1, lineIndex)
     }
 }

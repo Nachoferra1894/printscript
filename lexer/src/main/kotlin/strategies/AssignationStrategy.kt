@@ -7,7 +7,7 @@ class AssignationStrategy : Strategy {
         return line[index] == '='
     }
 
-    override fun getToken(line: String, index: Int): Token {
-        return Token(PrototypeType.ASSIGNATION, null)
+    override fun getToken(line: String, index: Int, lineIndex: Int): Token {
+        return Token(PrototypeType.ASSIGNATION, null, index, index + 1, lineIndex)
     }
 }

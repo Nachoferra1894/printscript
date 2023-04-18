@@ -7,7 +7,7 @@ class MultiplicationStrategy : Strategy {
         return line[index] == '*'
     }
 
-    override fun getToken(line: String, index: Int): Token {
-        return Token(PrototypeType.MULTIPLICATION, null)
+    override fun getToken(line: String, index: Int, lineIndex: Int): Token {
+        return Token(PrototypeType.MULTIPLICATION, null, index, index + 1, lineIndex)
     }
 }

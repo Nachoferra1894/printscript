@@ -8,7 +8,7 @@ class StringStrategy : Strategy {
         return line[index] != '"' && isTypeString(line, index)
     }
 
-    override fun getToken(line: String, index: Int): Token {
-        return Token(PrototypeType.STRING_TYPE, null)
+    override fun getToken(line: String, index: Int, lineIndex: Int): Token {
+        return Token(PrototypeType.STRING_TYPE, null, index, index + 6, lineIndex)
     }
 }

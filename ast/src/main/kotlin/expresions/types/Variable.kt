@@ -7,7 +7,7 @@ import expresions.Operator
 import interfaces.ASTNodeVisitor
 import variableTypes
 
-class Variable(private val value: String, private val variableType: PrototypeType) : Expression {
+class Variable(private val value: String, private val variableType: PrototypeType, private val line: Int) : Expression {
     init {
         require(variableTypes.contains(variableType)) {
             "Variable type must be either IDENTIFIER, NUMBER or STRING"
@@ -22,7 +22,7 @@ class Variable(private val value: String, private val variableType: PrototypeTyp
     }
 
     override fun addMember(operator: Operator, newMember: Expression): Expression {
-        return Operation(this, operator, newMember)
+        return Operation(this, operator, newMember, this.line)
     }
 
     override fun toString(): String {
@@ -36,5 +36,9 @@ class Variable(private val value: String, private val variableType: PrototypeTyp
 
     fun getType(): PrototypeType {
         return this.variableType
+    }
+
+    override fun getLine(): Int {
+        return line
     }
 }
