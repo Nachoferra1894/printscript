@@ -9,6 +9,6 @@ class PrintStrategy : Strategy {
     }
 
     override fun getToken(line: String, index: Int, lineIndex: Int): Token {
-        return Token(PrototypeType.METHOD_PRINT, null, index, index + 5, lineIndex)
+        return Token(PrototypeType.METHOD_PRINT, null, index, index + 7, lineIndex)
     }
 }

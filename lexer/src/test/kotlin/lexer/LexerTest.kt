@@ -9,7 +9,7 @@ class LexerTest {
     private val numberLine = "let a: number = 12;"
     private val stringLine = "let aS12 : string = \"HI!\";"
     private val expression = "a/b ; "
-    private val printLine = "print(\"HI!\" + a);"
+    private val printLine = "println(\"HI!\" + a);"
     private val lexer = Lexer()
 
     @Test
@@ -66,17 +66,16 @@ class LexerTest {
     @Test
     fun testPrintLine() {
         val actualTokens: ArrayList<Token> = lexer.defineTokens(printLine, 1)
-        println(actualTokens)
         val expectedTokens: ArrayList<Token> = ArrayList()
-        expectedTokens.add(Token(PrototypeType.METHOD_PRINT, null, 0, 5, 1))
-        expectedTokens.add(Token(PrototypeType.OPEN_PARENTHESIS, null, 5, 6, 1))
-        expectedTokens.add(Token(PrototypeType.STRING, "HI!", 6, 9, 1))
-        expectedTokens.add(Token(PrototypeType.SPACE, null, 11, 12, 1))
-        expectedTokens.add(Token(PrototypeType.PLUS, null, 12, 13, 1))
+        expectedTokens.add(Token(PrototypeType.METHOD_PRINT, null, 0, 7, 1))
+        expectedTokens.add(Token(PrototypeType.OPEN_PARENTHESIS, null, 7, 8, 1))
+        expectedTokens.add(Token(PrototypeType.STRING, "HI!", 8, 11, 1))
         expectedTokens.add(Token(PrototypeType.SPACE, null, 13, 14, 1))
-        expectedTokens.add(Token(PrototypeType.IDENTIFIER, "a", 14, 15, 1))
-        expectedTokens.add(Token(PrototypeType.CLOSE_PARENTHESIS, null, 15, 16, 1))
-        expectedTokens.add(Token(PrototypeType.SEMICOLON, null, 16, 17, 1))
+        expectedTokens.add(Token(PrototypeType.PLUS, null, 14, 15, 1))
+        expectedTokens.add(Token(PrototypeType.SPACE, null, 15, 16, 1))
+        expectedTokens.add(Token(PrototypeType.IDENTIFIER, "a", 16, 17, 1))
+        expectedTokens.add(Token(PrototypeType.CLOSE_PARENTHESIS, null, 17, 18, 1))
+        expectedTokens.add(Token(PrototypeType.SEMICOLON, null, 18, 19, 1))
         assertEquals(expectedTokens.toString(), actualTokens.toString())
     }
 }

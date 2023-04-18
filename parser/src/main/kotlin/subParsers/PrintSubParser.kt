@@ -12,6 +12,6 @@ class PrintSubParser(tokens: List<Token>) : SubParser<PrintNode>, TokenMatcher(t
         index = getNextTokenOrThrowError(index, PrototypeType.OPEN_PARENTHESIS).second
         val (expression, expressionIndex) = expressionSubParser.getAstNode(index)
         index = getNextTokenOrThrowError(expressionIndex, PrototypeType.SEMICOLON).second
-        return Pair(PrintNode(expression), index)
+        return Pair(PrintNode(expression, expression.getLine()), index)
     }
 }

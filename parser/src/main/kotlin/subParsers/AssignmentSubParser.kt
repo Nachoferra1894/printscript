@@ -11,7 +11,7 @@ class AssignmentSubParser(tokens: List<Token>) : SubParser<AssignmentNode>, Toke
         var (variableName, index) = getNextTokenOrThrowError(nextIndex, PrototypeType.IDENTIFIER)
         index = getNextTokenOrThrowError(index, PrototypeType.ASSIGNATION).second
         val (expression, expressionIndex) = expressionSubParser.getAstNode(index)
-        val newNode = AssignmentNode(variableName.value!!, expression)
+        val newNode = AssignmentNode(variableName.value!!, expression, expression.getLine())
         return Pair(newNode, expressionIndex)
     }
 }

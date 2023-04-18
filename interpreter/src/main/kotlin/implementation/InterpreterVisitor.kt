@@ -23,7 +23,7 @@ class InterpreterVisitor(
 
         map.put(name, ValueAndType(null, type))
         if (variableDeclaration.getValue() != null) {
-            val assigment = AssignmentNode(name, variableDeclaration.getValue()!!)
+            val assigment = AssignmentNode(name, variableDeclaration.getValue()!!, variableDeclaration.getLine())
             visitAssignment(assigment)
         }
     }
@@ -63,7 +63,7 @@ class InterpreterVisitor(
         if (expressionNode is Variable) {
             if (expressionNode.getType() == PrototypeType.IDENTIFIER) {
                 val variableVT = map.getValue(expressionNode.getValue())
-                return Variable(variableVT.value.toString(), getPrototypeFromType(variableVT.type))
+                return Variable(variableVT.value.toString(), getPrototypeFromType(variableVT.type), expressionNode.getLine())
             }
             return expressionNode
         }
@@ -97,17 +97,17 @@ class InterpreterVisitor(
         var rValue = right.getValue()
         val lType = left.getType()
         val rType = right.getType()
-        if(lType == PrototypeType.IDENTIFIER){
+        if (lType == PrototypeType.IDENTIFIER) {
             lValue = map.getValue(lValue).toString()
         }
-        if(rType == PrototypeType.IDENTIFIER){
+        if (rType == PrototypeType.IDENTIFIER) {
             rValue = map.getValue(rValue).toString()
         }
         return when {
-            lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable((lValue.toDouble() + rValue.toDouble()).toString(), lType)
-            lType == PrototypeType.STRING && rType == PrototypeType.NUMBER -> Variable(lValue + rValue, lType)
-            lType == PrototypeType.NUMBER && rType == PrototypeType.STRING -> Variable(lValue + rValue, rType)
-            lType == PrototypeType.STRING && rType == PrototypeType.STRING -> Variable(lValue + rValue, lType)
+            lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable((lValue.toDouble() + rValue.toDouble()).toString(), lType, left.getLine())
+            lType == PrototypeType.STRING && rType == PrototypeType.NUMBER -> Variable(lValue + rValue, lType, left.getLine())
+            lType == PrototypeType.NUMBER && rType == PrototypeType.STRING -> Variable(lValue + rValue, rType, right.getLine())
+            lType == PrototypeType.STRING && rType == PrototypeType.STRING -> Variable(lValue + rValue, lType, left.getLine())
             else -> throw Error("Can not sum values")
         }
     }
@@ -115,14 +115,14 @@ class InterpreterVisitor(
     private fun subtractValues(left: Variable, right: Variable): Variable {
         var lValue = left.getValue()
         var rValue = right.getValue()
-        if(left.getType() == PrototypeType.IDENTIFIER){
+        if (left.getType() == PrototypeType.IDENTIFIER) {
             lValue = map.getValue(lValue).toString()
         }
-        if(right.getType() == PrototypeType.IDENTIFIER){
+        if (right.getType() == PrototypeType.IDENTIFIER) {
             rValue = map.getValue(rValue).toString()
         }
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((lValue.toDouble() - rValue.toDouble()).toString(), PrototypeType.NUMBER)
+            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((lValue.toDouble() - rValue.toDouble()).toString(), PrototypeType.NUMBER, left.getLine())
             else -> throw Error("Can not subtract values")
         }
     }
@@ -130,14 +130,14 @@ class InterpreterVisitor(
     private fun multiplyValues(left: Variable, right: Variable): Variable {
         var lValue = left.getValue()
         var rValue = right.getValue()
-        if(left.getType() == PrototypeType.IDENTIFIER){
+        if (left.getType() == PrototypeType.IDENTIFIER) {
             lValue = map.getValue(lValue).toString()
         }
-        if(right.getType() == PrototypeType.IDENTIFIER){
+        if (right.getType() == PrototypeType.IDENTIFIER) {
             rValue = map.getValue(rValue).toString()
         }
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((lValue.toDouble() * rValue.toDouble()).toString(), PrototypeType.NUMBER)
+            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((lValue.toDouble() * rValue.toDouble()).toString(), PrototypeType.NUMBER, left.getLine())
             else -> throw Error("Can not multiply values")
         }
     }
@@ -145,21 +145,21 @@ class InterpreterVisitor(
     private fun divideValues(left: Variable, right: Variable): Variable {
         var lValue = left.getValue()
         var rValue = right.getValue()
-        if(left.getType() == PrototypeType.IDENTIFIER){
+        if (left.getType() == PrototypeType.IDENTIFIER) {
             lValue = map.getValue(lValue).toString()
         }
-        if(right.getType() == PrototypeType.IDENTIFIER){
+        if (right.getType() == PrototypeType.IDENTIFIER) {
             rValue = map.getValue(rValue).toString()
         }
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((lValue.toDouble() / rValue.toDouble()).toString(), PrototypeType.NUMBER)
+            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((lValue.toDouble() / rValue.toDouble()).toString(), PrototypeType.NUMBER, right.getLine())
             else -> throw Error("Can not divide values")
         }
     }
 
     override fun visitPrint(printNode: PrintNode) {
-        var stringValue : String =  visitExpressionNode(printNode.content).toString()
-        printer.print(stringValue.replace(".0",""))
+        var stringValue: String = visitExpressionNode(printNode.content).toString()
+        printer.print(stringValue.replace(".0", ""))
     }
 
     override fun visitParentNode(parentNode: ParentNode) {

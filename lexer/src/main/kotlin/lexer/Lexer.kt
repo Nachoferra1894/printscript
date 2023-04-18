@@ -9,7 +9,6 @@ import lexer.generators.IndexGenerator.Companion.defineIndex
 import lexer.interfaces.LexerI
 
 class Lexer : LexerI {
-    var lineIndex = -1
 
     override fun getTokens(codeFlow: Flow<String>): Flow<Token> = flow {
         codeFlow.withIndex().collect { (index, line) ->

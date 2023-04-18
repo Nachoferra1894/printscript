@@ -22,18 +22,21 @@ class FormatterTest {
                     "a",
                     "number",
                     Operation(
-                        Variable("1", PrototypeType.NUMBER),
+                        Variable("1", PrototypeType.NUMBER, 1),
                         Operator.SUB,
                         Operation(
-                            Variable("2", PrototypeType.NUMBER),
+                            Variable("2", PrototypeType.NUMBER, 1),
                             Operator.SUB,
-                            Variable("3", PrototypeType.NUMBER)
-                        )
-                    )
+                            Variable("3", PrototypeType.NUMBER, 1),
+                            1
+                        ),
+                        1
+                    ),
+                    1
                 ),
-                VariableDeclarationNode("b", "number"),
-                AssignmentNode("b", Operation(Variable("a", PrototypeType.IDENTIFIER), Operator.SUM, Variable("1", PrototypeType.NUMBER))),
-                PrintNode(Operation(Variable("a", PrototypeType.IDENTIFIER), Operator.SUM, Variable("b", PrototypeType.IDENTIFIER)))
+                VariableDeclarationNode("b", "number", 2),
+                AssignmentNode("b", Operation(Variable("a", PrototypeType.IDENTIFIER, 3), Operator.SUM, Variable("1", PrototypeType.NUMBER, 3), 3), 3),
+                PrintNode(Operation(Variable("a", PrototypeType.IDENTIFIER, 4), Operator.SUM, Variable("b", PrototypeType.IDENTIFIER, 4), 4), 4)
             )
         )
         val expectedResult = "let a: number = 1 - 2 - 3;\nlet b: number;\nb = a + 1;\nprint(a + b);"
@@ -42,9 +45,9 @@ class FormatterTest {
 
     @Test
     fun testFormatterWithAssigmentNode() {
-        val node = AssignmentNode("a", Variable("42", PrototypeType.NUMBER))
+        val node = AssignmentNode("a", Variable("42", PrototypeType.NUMBER, 1), 1)
         val expectedResult = "a = 42;"
-        val node1 = AssignmentNode("b", Operation(Variable("22", PrototypeType.NUMBER), Operator.SUM, Variable("20", PrototypeType.NUMBER)))
+        val node1 = AssignmentNode("b", Operation(Variable("22", PrototypeType.NUMBER, 1), Operator.SUM, Variable("20", PrototypeType.NUMBER, 1), 1), 1)
         val expectedResult1 = "b = 22 + 20;"
         assertEquals(expectedResult, formatter.getFormattedCode(node))
         assertEquals(expectedResult1, formatter.getFormattedCode(node1))
@@ -52,12 +55,13 @@ class FormatterTest {
 
     @Test
     fun testFormatterWithDeclarationNode() {
-        val node = VariableDeclarationNode("b", "string", Variable("Hello, world!", PrototypeType.STRING))
+        val node = VariableDeclarationNode("b", "string", Variable("Hello, world!", PrototypeType.STRING, 1), 1)
         val expectedResult = "let b: string = \"Hello, world!\";"
         val node1 = VariableDeclarationNode(
             "c",
             "number",
-            Operation(Variable("3", PrototypeType.NUMBER), Operator.SUM, Operation(Variable("4", PrototypeType.NUMBER), Operator.MUL, Variable("5", PrototypeType.NUMBER)))
+            Operation(Variable("3", PrototypeType.NUMBER, 1), Operator.SUM, Operation(Variable("4", PrototypeType.NUMBER, 1), Operator.MUL, Variable("5", PrototypeType.NUMBER, 1), 1), 1),
+            1
         )
         val expectedResult1 = "let c: number = 3 + 4 * 5;"
         assertEquals(expectedResult, formatter.getFormattedCode(node))
@@ -66,9 +70,9 @@ class FormatterTest {
 
     @Test
     fun testFormatterWithPrintNode() {
-        val node = PrintNode(Variable("Hello, world!", PrototypeType.STRING))
+        val node = PrintNode(Variable("Hello, world!", PrototypeType.STRING, 1), 1)
         val expectedResult = "print(\"Hello, world!\");"
-        val node1 = PrintNode(Operation(Variable("3", PrototypeType.NUMBER), Operator.SUM, Operation(Variable("4", PrototypeType.NUMBER), Operator.MUL, Variable("5", PrototypeType.NUMBER))))
+        val node1 = PrintNode(Operation(Variable("3", PrototypeType.NUMBER, 1), Operator.SUM, Operation(Variable("4", PrototypeType.NUMBER, 1), Operator.MUL, Variable("5", PrototypeType.NUMBER, 1), 1), 1), 1)
         val expectedResult1 = "print(3 + 4 * 5);"
         assertEquals(expectedResult, formatter.getFormattedCode(node))
         assertEquals(expectedResult1, formatter.getFormattedCode(node1))
@@ -76,12 +80,12 @@ class FormatterTest {
 
     @Test
     fun testFormatterWithExpressionNode() {
-        val node = Operation(Variable("22", PrototypeType.NUMBER), Operator.SUM, Variable("20", PrototypeType.NUMBER))
+        val node = Operation(Variable("22", PrototypeType.NUMBER, 1), Operator.SUM, Variable("20", PrototypeType.NUMBER, 1), 1)
         val expectedResult = "22 + 20;"
         assertEquals(expectedResult, formatter.getFormattedCode(node))
-        val node1 = Variable("22", PrototypeType.NUMBER)
+        val node1 = Variable("22", PrototypeType.NUMBER, 1)
         val expectedResult1 = "22;"
-        val node2 = Variable("Hello", PrototypeType.STRING)
+        val node2 = Variable("Hello", PrototypeType.STRING, 1)
         val expectedResult2 = "\"Hello\";"
         assertEquals(expectedResult, formatter.getFormattedCode(node))
         assertEquals(expectedResult1, formatter.getFormattedCode(node1))
