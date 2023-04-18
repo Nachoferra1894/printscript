@@ -1,8 +1,10 @@
 package printscript
 
+import java.io.File
+
 interface PrintscriptRunner {
-    fun runValidation(sourceFile: String, version: String)
-    suspend fun runExecution(sourceFile: String, version: String)
-    fun runFormatting(sourceFile: String, version: String, arguments: String)
-    fun runAnalyzing(sourceFile: String, version: String)
+    fun runValidation(sourceFile: File, version: String): String
+    suspend fun runExecution(sourceFile: File, version: String): String
+    fun runFormatting(sourceFile: File, version: String, arguments: String): String
+    fun runAnalyzing(sourceFile: File, version: String): String
 }

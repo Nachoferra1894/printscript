@@ -9,20 +9,23 @@ class CommonPrintScriptRunner : PrintscriptRunner {
     private val lexer = Lexer()
     private val parser = V1Parser()
 
-    override fun runValidation(sourceFile: String, version: String) {
+    override fun runValidation(sourceFile: File, version: String): String {
+        return ""
     }
 
-    override suspend fun runExecution(sourceFile: String, version: String) {
-        val file = File(sourceFile)
-        val lexerFileInput = LexerFileInput(file)
+    override suspend fun runExecution(sourceFile: File, version: String): String {
+        val lexerFileInput = LexerFileInput(sourceFile)
         val tokens = lexer.getTokens(lexerFileInput.getFlow())
         val ast = parser.parseTokens(tokens)
-        println(ast)
+        // TODO add interpreter
+        return ast.toString()
     }
 
-    override fun runFormatting(sourceFile: String, version: String, arguments: String) {
+    override fun runFormatting(sourceFile: File, version: String, arguments: String): String {
+        return ""
     }
 
-    override fun runAnalyzing(sourceFile: String, version: String) {
+    override fun runAnalyzing(sourceFile: File, version: String): String {
+        return ""
     }
 }

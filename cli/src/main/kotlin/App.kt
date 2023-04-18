@@ -5,6 +5,7 @@ import com.github.ajalt.clikt.parameters.types.enum
 import com.github.ajalt.clikt.parameters.types.file
 import kotlinx.coroutines.runBlocking
 import printscript.CommonPrintScriptRunner
+import java.io.File
 
 class App : CliktCommand() {
     enum class Operation { Validation, Execution, Formatting, Analyzing }
@@ -48,7 +49,8 @@ class App : CliktCommand() {
     private fun execute(absolutePath: String, version: String, arguments: String?) {
         echo("exec")
         runBlocking {
-            runner.runExecution(absolutePath, version)
+            val file = File(absolutePath)
+            runner.runExecution(file, version)
         }
     }
 
