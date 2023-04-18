@@ -97,10 +97,10 @@ class InterpreterVisitor(
         var rValue = right.getValue()
         val lType = left.getType()
         val rType = right.getType()
-        if(lType == PrototypeType.IDENTIFIER){
+        if (lType == PrototypeType.IDENTIFIER) {
             lValue = map.getValue(lValue).toString()
         }
-        if(rType == PrototypeType.IDENTIFIER){
+        if (rType == PrototypeType.IDENTIFIER) {
             rValue = map.getValue(rValue).toString()
         }
         return when {
@@ -115,10 +115,10 @@ class InterpreterVisitor(
     private fun subtractValues(left: Variable, right: Variable): Variable {
         var lValue = left.getValue()
         var rValue = right.getValue()
-        if(left.getType() == PrototypeType.IDENTIFIER){
+        if (left.getType() == PrototypeType.IDENTIFIER) {
             lValue = map.getValue(lValue).toString()
         }
-        if(right.getType() == PrototypeType.IDENTIFIER){
+        if (right.getType() == PrototypeType.IDENTIFIER) {
             rValue = map.getValue(rValue).toString()
         }
         return when {
@@ -130,10 +130,10 @@ class InterpreterVisitor(
     private fun multiplyValues(left: Variable, right: Variable): Variable {
         var lValue = left.getValue()
         var rValue = right.getValue()
-        if(left.getType() == PrototypeType.IDENTIFIER){
+        if (left.getType() == PrototypeType.IDENTIFIER) {
             lValue = map.getValue(lValue).toString()
         }
-        if(right.getType() == PrototypeType.IDENTIFIER){
+        if (right.getType() == PrototypeType.IDENTIFIER) {
             rValue = map.getValue(rValue).toString()
         }
         return when {
@@ -145,10 +145,10 @@ class InterpreterVisitor(
     private fun divideValues(left: Variable, right: Variable): Variable {
         var lValue = left.getValue()
         var rValue = right.getValue()
-        if(left.getType() == PrototypeType.IDENTIFIER){
+        if (left.getType() == PrototypeType.IDENTIFIER) {
             lValue = map.getValue(lValue).toString()
         }
-        if(right.getType() == PrototypeType.IDENTIFIER){
+        if (right.getType() == PrototypeType.IDENTIFIER) {
             rValue = map.getValue(rValue).toString()
         }
         return when {
