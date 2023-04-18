@@ -1,3 +1,4 @@
 let a: string = "hello world!";
 let b: string = "hello world!";
-b = a + "5";
+b = "4" + "5";
+println("4");

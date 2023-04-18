@@ -25,7 +25,7 @@ class IndexGenerator {
                 return (index + 6)
             }
             if (token.prototypeType == PrototypeType.METHOD_PRINT) {
-                return (index + 5)
+                return (index + 7)
             }
 
             return 0

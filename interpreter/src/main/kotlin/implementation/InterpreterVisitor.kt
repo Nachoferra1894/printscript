@@ -22,6 +22,10 @@ class InterpreterVisitor(
         val type = variableDeclaration.getType()
 
         map.put(name, ValueAndType(null, type))
+        if (variableDeclaration.getValue() != null) {
+            val assigment = AssignmentNode(name, variableDeclaration.getValue()!!)
+            visitAssignment(assigment)
+        }
     }
 
     override fun visitAssignment(assignmentNode: AssignmentNode) {
@@ -38,17 +42,7 @@ class InterpreterVisitor(
     }
 
     private fun getTypeFromPrototype(literal: PrototypeType): String {
-        return when (literal) {
-            PrototypeType.STRING -> {
-                "string"
-            }
-            PrototypeType.NUMBER -> {
-                "number"
-            }
-            else -> {
-                "No es ni string ni number"
-            }
-        }
+        return literal.toString()
     }
 
     private fun getPrototypeFromType(type: String): PrototypeType {
@@ -65,7 +59,7 @@ class InterpreterVisitor(
         }
     }
 
-    override fun visitExpressionNode(expressionNode: Expression): Variable { // TODO this should not return anything
+    override fun visitExpressionNode(expressionNode: Expression): Variable {
         if (expressionNode is Variable) {
             if (expressionNode.getType() == PrototypeType.IDENTIFIER) {
                 val variableVT = map.getValue(expressionNode.getValue())
@@ -99,52 +93,78 @@ class InterpreterVisitor(
     }
 
     private fun sumValues(left: Variable, right: Variable): Variable {
+        var lValue = left.getValue()
+        var rValue = right.getValue()
         val lType = left.getType()
         val rType = right.getType()
+        if(lType == PrototypeType.IDENTIFIER){
+            lValue = map.getValue(lValue).toString()
+        }
+        if(rType == PrototypeType.IDENTIFIER){
+            rValue = map.getValue(rValue).toString()
+        }
         return when {
-            lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable((left.getValue().toDouble() + right.getValue().toDouble()).toString(), lType)
-            lType == PrototypeType.STRING && rType == PrototypeType.NUMBER -> Variable(left.getValue() + right.getValue(), lType)
-            lType == PrototypeType.NUMBER && rType == PrototypeType.STRING -> Variable(left.getValue() + right.getValue(), rType)
-            lType == PrototypeType.STRING && rType == PrototypeType.STRING -> Variable(left.getValue() + right.getValue(), lType)
+            lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable((lValue.toDouble() + rValue.toDouble()).toString(), lType)
+            lType == PrototypeType.STRING && rType == PrototypeType.NUMBER -> Variable(lValue + rValue, lType)
+            lType == PrototypeType.NUMBER && rType == PrototypeType.STRING -> Variable(lValue + rValue, rType)
+            lType == PrototypeType.STRING && rType == PrototypeType.STRING -> Variable(lValue + rValue, lType)
             else -> throw Error("Can not sum values")
         }
     }
 
     private fun subtractValues(left: Variable, right: Variable): Variable {
+        var lValue = left.getValue()
+        var rValue = right.getValue()
+        if(left.getType() == PrototypeType.IDENTIFIER){
+            lValue = map.getValue(lValue).toString()
+        }
+        if(right.getType() == PrototypeType.IDENTIFIER){
+            rValue = map.getValue(rValue).toString()
+        }
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((left.getValue().toDouble() - right.getValue().toDouble()).toString(), PrototypeType.NUMBER)
+            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((lValue.toDouble() - rValue.toDouble()).toString(), PrototypeType.NUMBER)
             else -> throw Error("Can not subtract values")
         }
     }
 
     private fun multiplyValues(left: Variable, right: Variable): Variable {
+        var lValue = left.getValue()
+        var rValue = right.getValue()
+        if(left.getType() == PrototypeType.IDENTIFIER){
+            lValue = map.getValue(lValue).toString()
+        }
+        if(right.getType() == PrototypeType.IDENTIFIER){
+            rValue = map.getValue(rValue).toString()
+        }
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((left.getValue().toDouble() * right.getValue().toDouble()).toString(), PrototypeType.NUMBER)
+            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((lValue.toDouble() * rValue.toDouble()).toString(), PrototypeType.NUMBER)
             else -> throw Error("Can not multiply values")
         }
     }
 
     private fun divideValues(left: Variable, right: Variable): Variable {
+        var lValue = left.getValue()
+        var rValue = right.getValue()
+        if(left.getType() == PrototypeType.IDENTIFIER){
+            lValue = map.getValue(lValue).toString()
+        }
+        if(right.getType() == PrototypeType.IDENTIFIER){
+            rValue = map.getValue(rValue).toString()
+        }
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((left.getValue().toDouble() / right.getValue().toDouble()).toString(), PrototypeType.NUMBER)
+            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable((lValue.toDouble() / rValue.toDouble()).toString(), PrototypeType.NUMBER)
             else -> throw Error("Can not divide values")
         }
     }
 
     override fun visitPrint(printNode: PrintNode) {
-        var content = printNode.content.accept(this)
-        if (content is Variable) {
-            if (content.getType() == PrototypeType.IDENTIFIER) {
-                val variableVT = map.getValue(content.getValue())
-                content = Variable(variableVT.value.toString(), getPrototypeFromType(variableVT.type))
-            }
-            printer.print(content)
-        } else {
-            throw Error("Can not print value")
-        }
+        var stringValue : String =  visitExpressionNode(printNode.content).toString()
+        printer.print(stringValue.replace(".0",""))
     }
 
     override fun visitParentNode(parentNode: ParentNode) {
-        TODO("Not yet implemented")
+        for (child in parentNode.getChildren()) {
+            child.accept(this)
+        }
     }
 }

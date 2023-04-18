@@ -11,9 +11,9 @@ class LanguageDefinitions {
         }
 
         fun isPrintString(line: String, index: Int): Boolean {
-            if (line.length > (index + 6) && line.subSequence(index, index + 6) == "print(") {
+            if (line.length > (index + 8) && line.subSequence(index, index + 8) == "println(") {
                 var isOpen = false
-                for (i in index + 7 until line.length) {
+                for (i in index + 9 until line.length) {
                     if (line[i] == '(' && !isOpen) isOpen = true
                     if (line[i] == ')') {
                         if (isOpen) {
