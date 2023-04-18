@@ -4,6 +4,7 @@ import Token
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.withIndex
 import languageDefinitions.Strategies
 import lexer.generators.IndexGenerator.Companion.defineIndex
 import lexer.interfaces.LexerI
@@ -11,8 +12,8 @@ import lexer.interfaces.LexerI
 class Lexer : LexerI {
 
     override fun getTokens(codeFlow: Flow<String>): Flow<Token> = flow {
-        codeFlow.collect { line ->
-            defineTokens(line).forEach { token ->
+        codeFlow.withIndex().collect { (index,line) ->
+            defineTokens(line, index).forEach { token ->
                 emit(token)
             }
         }

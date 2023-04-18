@@ -46,6 +46,7 @@ class Strategies {
     fun defineTokens(line: String, index: Int): Token {
         val strategy: Strategy = listV1.find { it.isStrategy(line, index) }
             ?: throw NoTokenException("No token with this expression " + line[index])
-        return strategy.getToken(line, index)
+
+        return strategy.getToken(line, index,0) // MICA FIXEA ESTE 0
     }
 }

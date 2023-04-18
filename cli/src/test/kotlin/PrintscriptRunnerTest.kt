@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test
 import printscript.CommonPrintScriptRunner
 import printscript.PrintscriptRunner
 import java.io.File
-import java.io.FileOutputStream
-import java.io.PrintWriter
 
 class PrintscriptRunnerTest {
     val printscriptRunner: PrintscriptRunner = CommonPrintScriptRunner()
