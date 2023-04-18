@@ -10,6 +10,6 @@ class LetStrategy : Strategy {
     }
 
     override fun getToken(line: String, index: Int, lineIndex: Int): Token {
-        return Token(PrototypeType.LET, null, index, index + 3, lineIndex )
+        return Token(PrototypeType.LET, null, index, index + 3, lineIndex)
     }
 }

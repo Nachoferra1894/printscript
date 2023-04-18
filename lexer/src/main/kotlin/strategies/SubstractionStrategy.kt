@@ -8,6 +8,6 @@ class SubstractionStrategy : Strategy {
     }
 
     override fun getToken(line: String, index: Int, lineIndex: Int): Token {
-        return Token(PrototypeType.SUBTRACTION, null, index, index + 1,lineIndex)
+        return Token(PrototypeType.SUBTRACTION, null, index, index + 1, lineIndex)
     }
 }

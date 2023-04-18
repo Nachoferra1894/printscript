@@ -11,10 +11,10 @@ class IdentifierStrategy : Strategy {
         var value = ""
         for (i in index until line.length) {
             if (TokenStrategy.operationStrategy(line, i) || TokenStrategy.spaceStrategy(line, i) || TokenStrategy.parenthesisStrategy(line, i) || TokenStrategy.finalStrategy(line, i)) {
-                return Token(PrototypeType.IDENTIFIER, value, index, index + value.length,lineIndex )
+                return Token(PrototypeType.IDENTIFIER, value, index, index + value.length, lineIndex)
             }
             value = value.plus(line[i])
         }
-        return Token(PrototypeType.IDENTIFIER, value, index, index + value.length,lineIndex)
+        return Token(PrototypeType.IDENTIFIER, value, index, index + value.length, lineIndex)
     }
 }
