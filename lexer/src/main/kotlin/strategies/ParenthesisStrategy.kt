@@ -7,11 +7,11 @@ class ParenthesisStrategy : Strategy {
         return line[index] == '(' || line[index] == ')'
     }
 
-    override fun getToken(line: String, index: Int): Token {
+    override fun getToken(line: String, index: Int, lineIndex: Int): Token {
         return if (line[index] == ')') {
-            Token(PrototypeType.CLOSE_PARENTHESIS, null)
+            Token(PrototypeType.CLOSE_PARENTHESIS, null, index, index + 1, lineIndex)
         } else {
-            Token(PrototypeType.OPEN_PARENTHESIS, null)
+            Token(PrototypeType.OPEN_PARENTHESIS, null, index, index + 1, lineIndex)
         }
     }
 }

@@ -7,7 +7,7 @@ class ColonStrategy : Strategy {
         return line[index] == ':'
     }
 
-    override fun getToken(line: String, index: Int): Token {
-        return Token(PrototypeType.COLON, null)
+    override fun getToken(line: String, index: Int, lineIndex: Int): Token {
+        return Token(PrototypeType.COLON, null, index, index + 1, lineIndex)
     }
 }

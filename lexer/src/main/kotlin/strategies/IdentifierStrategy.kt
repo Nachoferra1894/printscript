@@ -7,14 +7,14 @@ class IdentifierStrategy : Strategy {
         return line[index].isLetter()
     }
 
-    override fun getToken(line: String, index: Int): Token {
+    override fun getToken(line: String, index: Int, lineIndex: Int): Token {
         var value = ""
         for (i in index until line.length) {
             if (TokenStrategy.operationStrategy(line, i) || TokenStrategy.spaceStrategy(line, i) || TokenStrategy.parenthesisStrategy(line, i) || TokenStrategy.finalStrategy(line, i)) {
-                return Token(PrototypeType.IDENTIFIER, value)
+                return Token(PrototypeType.IDENTIFIER, value, index, index + value.length,lineIndex )
             }
             value = value.plus(line[i])
         }
-        return Token(PrototypeType.IDENTIFIER, value)
+        return Token(PrototypeType.IDENTIFIER, value, index, index + value.length,lineIndex)
     }
 }

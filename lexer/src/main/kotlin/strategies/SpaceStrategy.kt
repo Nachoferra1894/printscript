@@ -7,7 +7,7 @@ class SpaceStrategy : Strategy {
         return line[index] == ' '
     }
 
-    override fun getToken(line: String, index: Int): Token {
-        return Token(PrototypeType.SPACE, null)
+    override fun getToken(line: String, index: Int, lineIndex: Int): Token {
+        return Token(PrototypeType.SPACE, null, index, index + 1,lineIndex)
     }
 }

@@ -7,7 +7,7 @@ class SubstractionStrategy : Strategy {
         return line[index] == '-'
     }
 
-    override fun getToken(line: String, index: Int): Token {
-        return Token(PrototypeType.SUBTRACTION, null)
+    override fun getToken(line: String, index: Int, lineIndex: Int): Token {
+        return Token(PrototypeType.SUBTRACTION, null, index, index + 1,lineIndex)
     }
 }

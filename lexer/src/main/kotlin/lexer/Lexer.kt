@@ -12,14 +12,15 @@ import lexer.interfaces.LexerI
 class Lexer : LexerI {
 
     override fun getTokens(codeFlow: Flow<String>): Flow<Token> = flow {
+        var lineIndex = 0
         codeFlow.flatMapConcat { line ->
-            defineTokens(line).asFlow()
+            defineTokens(line, lineIndex).asFlow()
         }.collect { token ->
             emit(token)
         }
     }
 
-    fun defineTokens(line: String): ArrayList<Token> {
+    fun defineTokens(line: String, lineIndex: Int): ArrayList<Token> {
         val strategies = Strategies()
         val tokens: ArrayList<Token> = ArrayList()
         var index = 0
