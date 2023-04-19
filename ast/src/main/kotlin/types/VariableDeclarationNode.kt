@@ -12,7 +12,7 @@ class VariableDeclarationNode : ASTNode {
     private var line: Int
 
     // add isMutable as a third parameter, default to true
-    constructor(name: String, type: String, isMutable: Boolean = true, line: Int) {
+    constructor(name: String, type: String, line: Int = 0, isMutable: Boolean = true) {
         this.name = name
         this.name = name
         this.type = type
@@ -21,7 +21,7 @@ class VariableDeclarationNode : ASTNode {
         this.line = line
     }
 
-    constructor(name: String, type: String, value: Expression,  isMutable: Boolean = true, line: Int) {
+    constructor(name: String, type: String, value: Expression, line: Int = 0, isMutable: Boolean = true) {
         this.name = name
         this.type = type
         this.value = value
@@ -36,6 +36,7 @@ class VariableDeclarationNode : ASTNode {
     fun getName(): String {
         return this.name
     }
+
     fun getType(): String {
         return this.type
     }
@@ -49,6 +50,7 @@ class VariableDeclarationNode : ASTNode {
     }
 
     override fun toString(): String {
+        val mutable = if (isMutable) "let" else "const"
         return if (value !== null) {
             "$mutable $name: $type = $value"
         } else {

@@ -11,12 +11,12 @@ class Operation : Expression {
     private var operator: Operator? = null
     private var r: Expression? = null
     private var line: Int
-    constructor(value: String, variableType: PrototypeType, line: Int) {
+    constructor(value: String, variableType: PrototypeType, line: Int = 0) {
         this.line = line
         this.l = Variable(value, variableType, this.line)
     }
 
-    constructor(l: Expression?, operator: Operator?, r: Expression?, line: Int) {
+    constructor(l: Expression?, operator: Operator?, r: Expression?, line: Int = 0) {
         this.l = l
         this.operator = operator
         this.r = r

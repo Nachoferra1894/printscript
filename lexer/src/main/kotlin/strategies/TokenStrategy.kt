@@ -1,10 +1,5 @@
 package strategies
 
-import lexer.languageDefinitions.LanguageDefinitions.Companion.isPrintString
-import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeBoolean
-import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeNumber
-import lexer.languageDefinitions.LanguageDefinitions.Companion.isTypeString
-
 class TokenStrategy {
     companion object {
         fun letStrategy(line: String, index: Int): Boolean {
