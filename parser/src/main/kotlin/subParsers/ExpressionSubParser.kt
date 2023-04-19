@@ -11,7 +11,6 @@ import operatorTypes
 import variableTypes
 
 class ExpressionSubParser(tokens: List<Token>, val closeType: PrototypeType = PrototypeType.SEMICOLON) : SubParser<Expression>, TokenMatcher(tokens) {
-    val expressionInitialTypes: List<PrototypeType> = variableTypes
 
     val expressionMiddleTypes: List<PrototypeType> =
         listOf(
@@ -20,7 +19,7 @@ class ExpressionSubParser(tokens: List<Token>, val closeType: PrototypeType = Pr
         )
 
     override fun getAstNode(nextIndex: Int): Pair<Expression, Int> {
-        val expressionInitial = getNextTokenOrThrowError(nextIndex, expressionInitialTypes)
+        val expressionInitial = getNextTokenOrThrowError(nextIndex, variableTypes)
         var index = expressionInitial.second
         val variable = expressionInitial.first
         var result: Expression = Variable(variable.value!!, variable.prototypeType, variable.line)
@@ -28,7 +27,7 @@ class ExpressionSubParser(tokens: List<Token>, val closeType: PrototypeType = Pr
         var nextToken = expressionMiddleType.first
         index = expressionMiddleType.second
         while (nextToken.prototypeType != closeType) {
-            val opNode = getNextTokenOrThrowError(index, expressionInitialTypes)
+            val opNode = getNextTokenOrThrowError(index, variableTypes)
             val currentToken = opNode.first
             index = opNode.second
             val operator: Operator = Operator.getByPrototypeType(nextToken.prototypeType)

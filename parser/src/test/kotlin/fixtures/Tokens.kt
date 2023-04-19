@@ -122,6 +122,18 @@ val node5 = ParentNode(
     )
 )
 
+// Statement: a =    42;
+val tokenList7 = listOf(
+    Token(PrototypeType.IDENTIFIER, "a", 0, 1, 1),
+    Token(PrototypeType.ASSIGNATION, null, 2, 3, 1),
+    Token(PrototypeType.SPACE, null, 4, 5, 1),
+    Token(PrototypeType.SPACE, null, 6, 7, 1),
+    Token(PrototypeType.SPACE, null, 8, 9, 1),
+    Token(PrototypeType.NUMBER, "42", 9, 11, 1),
+    Token(PrototypeType.SEMICOLON, null, 12, 13, 1)
+)
+val node7 = AssignmentNode("a", Variable("42", PrototypeType.NUMBER, 1), 1)
+
 fun getFlowFromTokenList(tokenList: List<Token>): Flow<Token> {
     return flow {
         tokenList.forEach { token ->
