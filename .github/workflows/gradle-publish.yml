@@ -8,9 +8,12 @@
 name: Gradle Build and test
 
 on:
-  release:
-    branches: [master]
-    types: [created]
+  pull_request:
+    types:
+      - closed
+    branches:
+      - master
+
 
 jobs:
   build:
