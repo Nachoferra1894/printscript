@@ -2,6 +2,7 @@ plugins {
     id 'org.jetbrains.kotlin.jvm'
     id 'org.jlleitschuh.gradle.ktlint'
     id 'maven-publish'
+    id 'jacoco'
 }
 
 group 'edu.austral.ingsis.prinstcript'
@@ -33,6 +34,22 @@ check.dependsOn 'ktlintFormat'
 
 test {
     useJUnitPlatform()
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+}
+jacoco {
+    toolVersion = "0.8.8"
+}
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.0 // TODO change this
+            }
+        }
+    }
 }
 
 publishing {
