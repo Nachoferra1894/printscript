@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Get the name from command line argument
+name=$1
+
+# Check if the name is provided
+if [[ -z "$name" ]]; then
+    echo "Usage: $0 <name>"
+    exit 1
+fi
+
+# Check if the directory exists
+if [[ ! -d "./$name" ]]; then
+    echo "Directory './$name' not found"
+    exit 1
+fi
+
+# Check if the index.html file exists
+if [[ ! -f "./$name/build/reports/jacoco/test/html/index.html" ]]; then
+    echo "File './$name/build/reports/jacoco/test/html/index.html' not found"
+    exit 1
+fi
+
+# Determine the operating system
+os=$(uname -s)
+
+# Open the file in the default web browser
+if [[ "$os" == "Darwin" ]]; then
+    open "./$name/build/reports/jacoco/test/html/index.html"
+elif [[ "$os" == "Linux" ]]; then
+    xdg-open "./$name/build/reports/jacoco/test/html/index.html"
+elif [[ "$os" == "Windows_NT" ]]; then
+    start "" "./$name/build/reports/jacoco/test/html/index.html"
+else
+    echo "Unsupported operating system: $os"
+    exit 1
+fi
