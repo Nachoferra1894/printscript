@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Run the cli
+# Any remaining arguments are forwarded to the sample's argv.
+
+./gradlew --quiet ":cli:installDist" && "./cli/build/install/cli/bin/cli" "$@"

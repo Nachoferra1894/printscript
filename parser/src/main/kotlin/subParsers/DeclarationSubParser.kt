@@ -16,24 +16,23 @@ class DeclarationSubParser(tokens: List<Token>) : SubParser<VariableDeclarationN
 
     override fun getAstNode(nextIndex: Int): Pair<VariableDeclarationNode, Int> {
         var index = nextIndex
-        val declarationType = getNextTokenOrThrowError(index, declarationTypes)
-        index++
-        val variableName = getNextTokenOrThrowError(index, PrototypeType.IDENTIFIER)
-        index++
-        getNextTokenOrThrowError(index, PrototypeType.COLON)
-        index++
-        val variableType = getNextTokenOrThrowError(index, dataTypes)
-        index++
+        index = getNextTokenOrThrowError(index, declarationTypes).second
+        val identifier = getNextTokenOrThrowError(index, PrototypeType.IDENTIFIER)
+        val variableName = identifier.first
+        index = identifier.second
+        index = getNextTokenOrThrowError(index, PrototypeType.COLON).second
+        val variable = getNextTokenOrThrowError(index, dataTypes)
+        val variableType = variable.first
+        index = variable.second
         val isMutable: Boolean = declarationType.prototypeType == PrototypeType.LET
         return try {
-            getNextTokenOrThrowError(index, PrototypeType.SEMICOLON)
-            val newNode = VariableDeclarationNode(variableName.value!!, variableType.prototypeType.toString(), isMutable)
+            index = getNextTokenOrThrowError(index, PrototypeType.SEMICOLON).second
+            val newNode = VariableDeclarationNode(variableName.value!!, variableType.prototypeType.toString(), isMutable,variableName.line)
             Pair(newNode, index + 1)
         } catch (e: WrongTokenException) {
-            getNextTokenOrThrowError(index, PrototypeType.ASSIGNATION)
-            index++
+            index = getNextTokenOrThrowError(index, PrototypeType.ASSIGNATION).second
             val (expression, expressionIndex) = expressionSubParser.getAstNode(index)
-            val newNode = VariableDeclarationNode(variableName.value!!, variableType.prototypeType.toString(), expression, isMutable)
+            val newNode = VariableDeclarationNode(variableName.value!!, variableType.prototypeType.toString(), expression, variableName.line)
             Pair(newNode, expressionIndex)
         }
     }
