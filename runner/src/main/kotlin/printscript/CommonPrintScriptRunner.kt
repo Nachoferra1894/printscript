@@ -17,7 +17,11 @@ class CommonPrintScriptRunner : PrintscriptRunner {
         return ""
     }
 
-    override suspend fun runExecution(sourceFile: File, version: String): String {
+    override suspend fun runExecution(
+        sourceFile: File,
+        version: String,
+        printFunction: (output: String) -> Unit
+    ): String {
         val lexerFileInput = LexerFileInput(sourceFile)
         val tokens = lexer.getTokens(lexerFileInput.getFlow())
         val ast = parser.parseTokens(tokens)
@@ -27,7 +31,7 @@ class CommonPrintScriptRunner : PrintscriptRunner {
         return ast.toString()
     }
 
-    override fun runFormatting(sourceFile: File, version: String, arguments: String): String {
+    override fun runFormatting(sourceFile: File, version: String, configFile: File): String {
         val lexerFileInput = LexerFileInput(sourceFile)
         val tokens = lexer.getTokens(lexerFileInput.getFlow())
         val ast = parser.parseTokens(tokens)

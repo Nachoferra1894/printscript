@@ -24,8 +24,12 @@ class PrintscriptRunnerTest {
             // Write the source code to the file
             sourceFile.writeText(sourceCode)
 
+            fun foo(input: String) {
+                println("message: $input")
+            }
+
             val ast = runBlocking {
-                printscriptRunner.runExecution(sourceFile, "1.0")
+                printscriptRunner.runExecution(sourceFile, "1.0", ::foo)
             }
 
             assertEquals(sourceString, ast)
@@ -50,7 +54,7 @@ class PrintscriptRunnerTest {
             // Write the source code to the file
             sourceFile.writeText(sourceCode)
 
-            val ast = printscriptRunner.runFormatting(sourceFile, "1.0", "1") // TODO add args
+            val ast = printscriptRunner.runFormatting(sourceFile, "1.0", sourceFile) // TODO add args
 
             assertEquals(sourceString, sourceString) // TODO fix
         } finally {
