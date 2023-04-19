@@ -3,28 +3,28 @@ package generators
 import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitor
+import strategies.PrintStrategy
+import strategies.VariableStrategy
 import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
 
-class FormatterVisitor : ASTNodeVisitor {
+class LinterVisitor: ASTNodeVisitor {
     private val lines: ArrayList<String> = ArrayList()
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
-        val planeValue = variableDeclaration.toString()
-        lines.add("$planeValue;")
+        val strategy =  VariableStrategy()
+        if(!strategy.checkIdentifierCondition(variableDeclaration))
+            lines.add(strategy.getIncorrectLine(variableDeclaration))
     }
 
-    override fun visitAssignment(assignmentNode: AssignmentNode) {
-        val name = assignmentNode.name
-        val planeValue = assignmentNode.value.toString()
-        lines.add("$name = $planeValue;")
-    }
+    override fun visitAssignment(assignmentNode: AssignmentNode) {}
 
     override fun visitPrint(printNode: PrintNode) {
-        val planeValue = printNode.content.toString()
-        lines.add("println($planeValue);")
+        val strategy = PrintStrategy()
+        if(!strategy.checkContent(printNode))
+            lines.add(strategy.getIncorrectLine(printNode))
     }
 
     override fun visitParentNode(parentNode: ParentNode) {
@@ -32,11 +32,11 @@ class FormatterVisitor : ASTNodeVisitor {
     }
 
     override fun visitExpressionNode(expressionNode: Expression): ASTNode? {
-        lines.add("$expressionNode;")
-        return null // TODO delete when interpreterVisitor is fixed
+        return null
     }
 
     fun getLines(): String {
         return lines.joinToString("\n")
     }
+
 }
