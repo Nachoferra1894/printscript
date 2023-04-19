@@ -10,21 +10,23 @@ import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
 
-class LinterVisitor: ASTNodeVisitor {
+class LinterVisitor : ASTNodeVisitor {
     private val lines: ArrayList<String> = ArrayList()
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
-        val strategy =  VariableStrategy()
-        if(!strategy.checkIdentifierCondition(variableDeclaration))
+        val strategy = VariableStrategy()
+        if (!strategy.checkIdentifierCondition(variableDeclaration)) {
             lines.add(strategy.getIncorrectLine(variableDeclaration))
+        }
     }
 
     override fun visitAssignment(assignmentNode: AssignmentNode) {}
 
     override fun visitPrint(printNode: PrintNode) {
         val strategy = PrintStrategy()
-        if(!strategy.checkContent(printNode))
+        if (!strategy.checkContent(printNode)) {
             lines.add(strategy.getIncorrectLine(printNode))
+        }
     }
 
     override fun visitParentNode(parentNode: ParentNode) {
@@ -38,5 +40,4 @@ class LinterVisitor: ASTNodeVisitor {
     fun getLines(): String {
         return lines.joinToString("\n")
     }
-
 }

@@ -5,18 +5,18 @@ import types.VariableDeclarationNode
 class VariableStrategy {
     var condition = "camelCase"
 
-    fun checkIdentifierCondition(node: VariableDeclarationNode): Boolean{
+    fun checkIdentifierCondition(node: VariableDeclarationNode): Boolean {
         val name = node.getName()
-        if(condition == "camelCase"){
-             return isCamelCase(name)
+        if (condition == "camelCase") {
+            return isCamelCase(name)
         }
-        if (condition == "snakeCase"){
+        if (condition == "snakeCase") {
             return isSnakeCase(name)
         }
         return true
     }
 
-    fun getIncorrectLine(node: VariableDeclarationNode) : String {
+    fun getIncorrectLine(node: VariableDeclarationNode): String {
         return "Incorrect identifier format [line: " + node.getLine() + " ]"
     }
 

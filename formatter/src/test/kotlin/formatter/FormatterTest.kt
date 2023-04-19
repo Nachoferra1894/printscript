@@ -39,7 +39,7 @@ class FormatterTest {
                 PrintNode(Operation(Variable("a", PrototypeType.IDENTIFIER, 4), Operator.SUM, Variable("b", PrototypeType.IDENTIFIER, 4), 4), 4)
             )
         )
-        val expectedResult = "let a: number = 1 - 2 - 3;\nlet b: number;\nb = a + 1;\nprint(a + b);"
+        val expectedResult = "let a: number = 1 - 2 - 3;\nlet b: number;\nb = a + 1;\nprintln(a + b);"
         assertEquals(expectedResult, formatter.getFormattedCode(node))
     }
 
@@ -71,9 +71,9 @@ class FormatterTest {
     @Test
     fun testFormatterWithPrintNode() {
         val node = PrintNode(Variable("Hello, world!", PrototypeType.STRING, 1), 1)
-        val expectedResult = "print(\"Hello, world!\");"
+        val expectedResult = "println(\"Hello, world!\");"
         val node1 = PrintNode(Operation(Variable("3", PrototypeType.NUMBER, 1), Operator.SUM, Operation(Variable("4", PrototypeType.NUMBER, 1), Operator.MUL, Variable("5", PrototypeType.NUMBER, 1), 1), 1), 1)
-        val expectedResult1 = "print(3 + 4 * 5);"
+        val expectedResult1 = "println(3 + 4 * 5);"
         assertEquals(expectedResult, formatter.getFormattedCode(node))
         assertEquals(expectedResult1, formatter.getFormattedCode(node1))
     }
