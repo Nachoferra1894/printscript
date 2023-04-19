@@ -5,12 +5,14 @@ import fixtures.node2
 import fixtures.node3
 import fixtures.node4
 import fixtures.node5
+import fixtures.node7
 import fixtures.tokenList0
 import fixtures.tokenList1
 import fixtures.tokenList2
 import fixtures.tokenList3
 import fixtures.tokenList4
 import fixtures.tokenList5
+import fixtures.tokenList7
 import interfaces.Parser
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
@@ -77,6 +79,16 @@ class ParserTest {
 
         val tokenList = tokenList5
         val node = node5
+
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
+        assertEquals(node.toString(), astNode.toString())
+    }
+
+    @Test
+    fun testSpaceTokensDontBreak() {
+        // Statement: a =    42;
+        val tokenList = tokenList7
+        val node = node7
 
         val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
         assertEquals(node.toString(), astNode.toString())
