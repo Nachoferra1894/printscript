@@ -62,7 +62,7 @@ class BuildSrc {
 }
 
 class Linter {
-    + getFormattedCode(node: ASTNode): String
+    +  getLinteredCodeCorrection(node: ASTNode): String
 }
 
 Linter --> Lib
