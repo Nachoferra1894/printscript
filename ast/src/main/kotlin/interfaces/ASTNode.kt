@@ -1,6 +1,7 @@
 package interfaces
 
 interface ASTNode {
-    fun accept(visitor: ASTNodeVisitor)
+    fun getLine(): Int
+    fun accept(visitor: ASTNodeVisitor): Any
     override fun toString(): String
 }

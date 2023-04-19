@@ -8,13 +8,10 @@ import types.AssignmentNode
 class AssignmentSubParser(tokens: List<Token>) : SubParser<AssignmentNode>, TokenMatcher(tokens) {
     private val expressionSubParser = ExpressionSubParser(tokens)
     override fun getAstNode(nextIndex: Int): Pair<AssignmentNode, Int> {
-        var index = nextIndex
-        val variableName = getNextTokenOrThrowError(index, PrototypeType.IDENTIFIER)
-        index++
-        val equals = getNextTokenOrThrowError(index, PrototypeType.ASSIGNATION)
-        index++
+        var (variableName, index) = getNextTokenOrThrowError(nextIndex, PrototypeType.IDENTIFIER)
+        index = getNextTokenOrThrowError(index, PrototypeType.ASSIGNATION).second
         val (expression, expressionIndex) = expressionSubParser.getAstNode(index)
-        val newNode = AssignmentNode(variableName.value!!, expression)
+        val newNode = AssignmentNode(variableName.value!!, expression, expression.getLine())
         return Pair(newNode, expressionIndex)
     }
 }

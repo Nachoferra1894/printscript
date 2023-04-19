@@ -1,4 +1,4 @@
-data class Token(val prototypeType: PrototypeType, val value: String?) {
+data class Token(val prototypeType: PrototypeType, val value: String?, val from: Int, val to: Int, val line: Int) {
     fun isEOL(): Boolean {
         return this.prototypeType === PrototypeType.SEMICOLON
     }
@@ -22,7 +22,7 @@ enum class PrototypeType(val s: String) {
     STRING("string"),
     SPACE(" "),
     COLON(":"),
-    METHOD_PRINT("print"),
+    METHOD_PRINT("println"),
     OPEN_PARENTHESIS("("),
     CLOSE_PARENTHESIS(")");
 

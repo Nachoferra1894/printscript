@@ -1,0 +1,26 @@
+plugins {
+    id 'kotlin-conventions'
+    id 'application'
+}
+
+dependencies {
+    implementation 'com.github.ajalt.clikt:clikt:3.5.2'
+    implementation project(':lib')
+    implementation project(':ast')
+    implementation project(':token')
+    implementation project(':parser')
+    implementation project(':lexer')
+    implementation project(':interpreter')
+    implementation project(':formatter')
+}
+
+application {
+    mainClass = 'AppKt'
+}
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'AppKt'
+        )
+    }
+}
