@@ -10,7 +10,7 @@ import java.io.File
 class App : CliktCommand() {
     enum class Operation { Validation, Execution, Formatting, Analyzing }
 
-    val runner = CommonPrintScriptRunner()
+    private val runner = CommonPrintScriptRunner()
 
     private val operation: Operation? by argument(help = "The operation type").enum<Operation>()
 
@@ -35,29 +35,34 @@ class App : CliktCommand() {
         }
     }
 
-    private fun analyze(absolutePath: String, version: String, arguments: String?) {
-        // dsdsds
+    private fun analyze(absolutePath: String, version: String, ruleFileName: String?) {
+        format(absolutePath, version, ruleFileName)
     }
 
-    private fun format(absolutePath: String, version: String, arguments: String?) {
-        if (arguments == null) {
+    private fun format(absolutePath: String, version: String, ruleFileName: String?) {
+        if (ruleFileName == null) {
             echo("No arguments specified")
             return
         }
         val file = File(absolutePath)
-        runner.runFormatting(file, version, arguments)
+        val ruleFile = File(ruleFileName)
+        runner.runFormatting(file, version, ruleFile)
     }
 
     private fun execute(absolutePath: String, version: String, arguments: String?) {
         echo("exec")
+        fun printFunction(output: String) {
+            echo(output)
+        }
         runBlocking {
             val file = File(absolutePath)
-            runner.runExecution(file, version)
+            runner.runExecution(file, version, ::printFunction)
         }
     }
 
     private fun validate(absolutePath: String, version: String, arguments: String?) {
-        // dsdsds
+        val file = File(absolutePath)
+        runner.runValidation(file, version)
     }
 }
 

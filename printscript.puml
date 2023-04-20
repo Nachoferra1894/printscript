@@ -42,6 +42,22 @@ Formatter --> Lib
 Formatter --> Ast
 Formatter --> Token
 
+class Runner {
+    + analyze(file: File, version: String,configFile: File)
+    + format(file: File, version: String,configFile: File)
+    + execute(file: File, version: String,printFunction: Function)
+    + validate(file: File, version: String)
+}
+
+Runner --> Lib
+Runner --> Ast
+Runner --> Token
+Runner --> Parser
+Runner --> Lexer
+Runner --> Interpreter
+Runner --> Formatter
+Runner --> Linter
+
 class Cli {
     + analyze(absolutePath: String, version: String, arguments: String?)
     + format(absolutePath: String, version: String, arguments: String?)
@@ -49,14 +65,8 @@ class Cli {
     + validate(absolutePath: String, version: String, arguments: String?)
 }
 
+Cli --> Runner
 Cli --> Lib
-Cli --> Ast
-Cli --> Token
-Cli --> Parser
-Cli --> Lexer
-Cli --> Interpreter
-Cli --> Formatter
-Cli --> Linter
 
 class BuildSrc {
 }

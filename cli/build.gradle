@@ -6,12 +6,7 @@ plugins {
 dependencies {
     implementation 'com.github.ajalt.clikt:clikt:3.5.2'
     implementation project(':lib')
-    implementation project(':ast')
-    implementation project(':token')
-    implementation project(':parser')
-    implementation project(':lexer')
-    implementation project(':interpreter')
-    implementation project(':formatter')
+    implementation project(':runner')
 }
 
 application {
