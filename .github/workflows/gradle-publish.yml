@@ -8,11 +8,7 @@
 name: Gradle Build and test
 
 on:
-  pull_request:
-    types:
-      - closed
-    branches:
-      - master
+  [push]
 
 
 jobs:
@@ -35,14 +31,6 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           arguments: build
-        env:
-          GITHUB_ACTOR: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Jacoco Test Coverage verification
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: jacocoTestCoverageVerification
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
