@@ -1,5 +1,6 @@
 package generators
 
+import configuration.ConfigClasses
 import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitor
@@ -10,12 +11,12 @@ import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
 
-class LinterVisitor : ASTNodeVisitor {
+class LinterVisitor(private val configClasses: ArrayList<ConfigClasses>) : ASTNodeVisitor {
     private val lines: ArrayList<String> = ArrayList()
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
         val strategy = VariableStrategy()
-        if (!strategy.checkIdentifierCondition(variableDeclaration)) {
+        if (!strategy.checkIdentifierCondition(variableDeclaration, configClasses)) {
             lines.add(strategy.getIncorrectLine(variableDeclaration))
         }
     }
@@ -24,7 +25,7 @@ class LinterVisitor : ASTNodeVisitor {
 
     override fun visitPrint(printNode: PrintNode) {
         val strategy = PrintStrategy()
-        if (!strategy.checkContent(printNode)) {
+        if (!strategy.checkContent(printNode, configClasses)) {
             lines.add(strategy.getIncorrectLine(printNode))
         }
     }

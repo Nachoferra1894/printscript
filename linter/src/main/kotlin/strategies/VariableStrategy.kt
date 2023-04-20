@@ -1,19 +1,19 @@
 package strategies
 
+import configuration.CamelCase
+import configuration.ConfigClasses
+import configuration.SnakeCase
+import configuration.TextCase
 import types.VariableDeclarationNode
 
 class VariableStrategy {
-    var condition = "camelCase"
-
-    fun checkIdentifierCondition(node: VariableDeclarationNode): Boolean {
+    fun checkIdentifierCondition(node: VariableDeclarationNode, configClasses: ArrayList<ConfigClasses>): Boolean {
+        val case: TextCase = configClasses.find { it is TextCase } as TextCase
         val name = node.getName()
-        if (condition == "camelCase") {
-            return isCamelCase(name)
+        return when (case) {
+            is CamelCase -> isCamelCase(name)
+            is SnakeCase -> isSnakeCase(name)
         }
-        if (condition == "snakeCase") {
-            return isSnakeCase(name)
-        }
-        return true
     }
 
     fun getIncorrectLine(node: VariableDeclarationNode): String {

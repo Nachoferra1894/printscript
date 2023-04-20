@@ -6,4 +6,6 @@ dependencies {
     implementation project(':lib')
     implementation project(':ast')
     implementation project(':token')
+    implementation('com.google.code.gson:gson:2.8.9')
+
 }
