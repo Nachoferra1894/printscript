@@ -1,6 +1,10 @@
 package linter
 
-import configuration.*
+import configuration.CamelCase
+import configuration.ConfigClasses
+import configuration.PrintNormal
+import configuration.PrintOperations
+import configuration.SnakeCase
 import expresions.Operator
 import expresions.types.Operation
 import expresions.types.Variable

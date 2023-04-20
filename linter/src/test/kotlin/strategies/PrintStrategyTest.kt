@@ -6,7 +6,9 @@ import configuration.PrintOperations
 import expresions.Operator
 import expresions.types.Operation
 import expresions.types.Variable
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import types.PrintNode
 
