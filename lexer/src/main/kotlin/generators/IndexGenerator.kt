@@ -8,7 +8,7 @@ class IndexGenerator {
         fun defineIndex(tokens: ArrayList<Token>, index: Int): Int {
             val token: Token = tokens.last()
             if (token.prototypeType == PrototypeType.LET) return (index + 3)
-            if (token.prototypeType == PrototypeType.IDENTIFIER || token.prototypeType == PrototypeType.STRING || token.prototypeType == PrototypeType.NUMBER) {
+            if (token.prototypeType == PrototypeType.IDENTIFIER || token.prototypeType == PrototypeType.BOOLEAN || token.prototypeType == PrototypeType.STRING || token.prototypeType == PrototypeType.NUMBER) {
                 if (token.value != null) {
                     return if (token.prototypeType == PrototypeType.STRING) {
                         (index + token.value!!.length + 2)
@@ -27,13 +27,28 @@ class IndexGenerator {
             if (token.prototypeType == PrototypeType.METHOD_PRINT) {
                 return (index + 7)
             }
-
+            if (token.prototypeType == PrototypeType.METHOD_READ_INPUT) {
+                return (index + 9)
+            }
+            if (token.prototypeType == PrototypeType.IF) {
+                return (index + 2)
+            }
+            if (token.prototypeType == PrototypeType.ELSE) {
+                return (index + 4)
+            }
+            if (token.prototypeType == PrototypeType.BOOLEAN_TYPE) {
+                return (index + 7)
+            }
+            if (token.prototypeType == PrototypeType.CONST) {
+                return (index + 5)
+            }
             return 0
         }
 
         private fun parenthesis(prototypeType: PrototypeType): Boolean {
             return PrototypeType.OPEN_PARENTHESIS == prototypeType ||
-                PrototypeType.CLOSE_PARENTHESIS == prototypeType
+                PrototypeType.CLOSE_PARENTHESIS == prototypeType || PrototypeType.CLOSE_KEY == prototypeType ||
+                PrototypeType.OPEN_KEY == prototypeType
         }
 
         private fun operations(prototypeType: PrototypeType): Boolean {

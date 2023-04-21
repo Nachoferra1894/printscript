@@ -4,8 +4,9 @@ import Token
 import lexer.lexer.Lexer
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import version.V1
 
-class LexerTest {
+class LexerTestVersion1 {
     private val numberLine = "let a: number = 12;"
     private val stringLine = "let aS12 : string = \"HI!\";"
     private val expression = "a/b ; "
@@ -14,7 +15,7 @@ class LexerTest {
 
     @Test
     fun testNumberLine() {
-        val actualTokens: ArrayList<Token> = lexer.defineTokens(numberLine, 1)
+        val actualTokens: ArrayList<Token> = lexer.defineTokens(numberLine, 1, V1())
         val expectedTokens: ArrayList<Token> = ArrayList()
         expectedTokens.add(Token(PrototypeType.LET, null, 0, 3, 1))
         expectedTokens.add(Token(PrototypeType.SPACE, null, 3, 4, 1))
@@ -32,7 +33,7 @@ class LexerTest {
 
     @Test
     fun testStringLine() {
-        val actualTokens: ArrayList<Token> = lexer.defineTokens(stringLine, 1)
+        val actualTokens: ArrayList<Token> = lexer.defineTokens(stringLine, 1, V1())
         val expectedTokens: ArrayList<Token> = ArrayList()
         expectedTokens.add(Token(PrototypeType.LET, null, 0, 3, 1))
         expectedTokens.add(Token(PrototypeType.SPACE, null, 3, 4, 1))
@@ -51,7 +52,7 @@ class LexerTest {
 
     @Test
     fun testExpressionLine() {
-        val actualTokens: ArrayList<Token> = lexer.defineTokens(expression, 1)
+        val actualTokens: ArrayList<Token> = lexer.defineTokens(expression, 1, V1())
         val expectedTokens: ArrayList<Token> = ArrayList()
         println(actualTokens)
         expectedTokens.add(Token(PrototypeType.IDENTIFIER, "a", 0, 1, 1))
@@ -65,7 +66,7 @@ class LexerTest {
 
     @Test
     fun testPrintLine() {
-        val actualTokens: ArrayList<Token> = lexer.defineTokens(printLine, 1)
+        val actualTokens: ArrayList<Token> = lexer.defineTokens(printLine, 1, V1())
         val expectedTokens: ArrayList<Token> = ArrayList()
         expectedTokens.add(Token(PrototypeType.METHOD_PRINT, null, 0, 7, 1))
         expectedTokens.add(Token(PrototypeType.OPEN_PARENTHESIS, null, 7, 8, 1))
