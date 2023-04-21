@@ -5,6 +5,7 @@ import fromatter.Formatter
 import implementation.Interpreter
 import input.LexerFileInput
 import lexer.lexer.Lexer
+import version.V1
 import java.io.File
 
 class CommonPrintScriptRunner : PrintscriptRunner {
@@ -23,7 +24,7 @@ class CommonPrintScriptRunner : PrintscriptRunner {
         printFunction: (output: String) -> Unit
     ): String {
         val lexerFileInput = LexerFileInput(sourceFile)
-        val tokens = lexer.getTokens(lexerFileInput.getFlow())
+        val tokens = lexer.getTokens(lexerFileInput.getFlow(), V1()) // TODO SETEAR VERSION
         val ast = parser.parseTokens(tokens)
         println(ast)
         val finalString = interpreter.interpret(ast)
@@ -33,7 +34,7 @@ class CommonPrintScriptRunner : PrintscriptRunner {
 
     override fun runFormatting(sourceFile: File, version: String, configFile: File): String {
         val lexerFileInput = LexerFileInput(sourceFile)
-        val tokens = lexer.getTokens(lexerFileInput.getFlow())
+        val tokens = lexer.getTokens(lexerFileInput.getFlow(), V1()) // TODO SETEAR VERSION
         val ast = parser.parseTokens(tokens)
         val formatted = formatter.getFormattedCode(ast)
         println(formatted)

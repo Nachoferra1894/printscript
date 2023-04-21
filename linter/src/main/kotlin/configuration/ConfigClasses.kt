@@ -6,9 +6,7 @@ sealed interface PrintCase : ConfigClasses
 
 sealed interface TextCase : ConfigClasses
 
-open class CamelCase : TextCase {
-    companion object
-}
+open class CamelCase : TextCase
 open class SnakeCase : TextCase
 
 open class PrintNormal : PrintCase
