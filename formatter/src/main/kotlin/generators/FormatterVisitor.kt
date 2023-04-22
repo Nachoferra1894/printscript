@@ -1,6 +1,5 @@
 package generators
 
-import configuration.Config
 import configuration.ConfigClasses
 import expresions.Expression
 import interfaces.ASTNode
@@ -15,9 +14,9 @@ class FormatterVisitor(private val configClasses: ArrayList<ConfigClasses>) : AS
     private val lines: ArrayList<String> = ArrayList()
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
-        //val planeValue = variableDeclaration.toString()
+        // val planeValue = variableDeclaration.toString()
         val value = defineValue(this.configClasses, variableDeclaration)
-        //lines.add("$planeValue;")
+        // lines.add("$planeValue;")
     }
 
     override fun visitAssignment(assignmentNode: AssignmentNode) {

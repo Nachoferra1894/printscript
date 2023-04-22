@@ -6,7 +6,7 @@ sealed interface Space : ConfigClasses
 
 sealed interface LineBrake : ConfigClasses
 
-open class LineBrakeForPrintln(private val lines: Int) : LineBrake{
+open class LineBrakeForPrintln(private val lines: Int) : LineBrake {
     fun getLines(): Int {
         return this.lines
     }

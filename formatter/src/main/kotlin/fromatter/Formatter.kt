@@ -11,7 +11,7 @@ class Formatter : FormatterI {
     override fun getFormattedCode(node: ASTNode): String {
         val readConfig = ReadConfig()
         val configClasses = readConfig.getJsonDataFromAsset()
-        if(configClasses != null){
+        if (configClasses != null) {
             val formatterVisitor = FormatterVisitor(configClasses)
             node.accept(formatterVisitor)
             return formatterVisitor.getLines()
