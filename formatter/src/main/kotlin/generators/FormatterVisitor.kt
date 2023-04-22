@@ -1,19 +1,23 @@
 package generators
 
+import configuration.Config
+import configuration.ConfigClasses
 import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitor
+import strategies.DeclarationStrategy.Companion.defineValue
 import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
 
-class FormatterVisitor : ASTNodeVisitor {
+class FormatterVisitor(private val configClasses: ArrayList<ConfigClasses>) : ASTNodeVisitor {
     private val lines: ArrayList<String> = ArrayList()
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
-        val planeValue = variableDeclaration.toString()
-        lines.add("$planeValue;")
+        //val planeValue = variableDeclaration.toString()
+        val value = defineValue(this.configClasses, variableDeclaration)
+        //lines.add("$planeValue;")
     }
 
     override fun visitAssignment(assignmentNode: AssignmentNode) {

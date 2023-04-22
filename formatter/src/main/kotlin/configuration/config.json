@@ -1,0 +1,9 @@
+{
+  "v1":{
+    "spaceBeforeColon": true,
+    "spaceAfterColon": true,
+    "spaceBeforeAssignation": true,
+    "spaceAfterAssignation": true,
+    "lineBreakBeforePrintln": 1
+  }
+}
