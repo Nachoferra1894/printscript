@@ -7,7 +7,7 @@ data class Token(val prototypeType: PrototypeType, val value: String?, val from:
     }
 }
 
-enum class PrototypeType(val s: String) {
+enum class PrototypeType(private val s: String) {
     ASSIGNATION("="),
     SEMICOLON(";"),
     STRING_TYPE("string"),

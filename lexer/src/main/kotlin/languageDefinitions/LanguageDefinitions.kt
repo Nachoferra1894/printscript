@@ -13,6 +13,10 @@ class LanguageDefinitions {
             return line.length > (index + 7) && line.subSequence(index, index + 7) == "boolean"
         }
 
+        fun isTypeBoolean(line: String, index: Int): Boolean {
+            return line.length > (index + 7) && line.subSequence(index, index + 7) == "boolean"
+        }
+
         fun isPrintString(line: String, index: Int): Boolean {
             if (line.length > (index + 8) && line.subSequence(index, index + 8) == "println(") {
                 var isOpen = false

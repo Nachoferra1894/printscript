@@ -4,7 +4,7 @@ import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitor
 
-class PrintNode(val content: Expression, private val line: Int) : ASTNode {
+class PrintNode(val content: Expression, private val line: Int = 0) : ASTNode {
     override fun getLine(): Int {
         return line
     }

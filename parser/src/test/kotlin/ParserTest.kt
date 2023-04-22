@@ -1,10 +1,12 @@
 import fixtures.getFlowFromTokenList
+import fixtures.mutableNode6
 import fixtures.node0
 import fixtures.node1
 import fixtures.node2
 import fixtures.node3
 import fixtures.node4
 import fixtures.node5
+import fixtures.node6
 import fixtures.node7
 import fixtures.tokenList0
 import fixtures.tokenList1
@@ -12,9 +14,11 @@ import fixtures.tokenList2
 import fixtures.tokenList3
 import fixtures.tokenList4
 import fixtures.tokenList5
+import fixtures.tokenList6
 import fixtures.tokenList7
 import interfaces.Parser
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotEquals
 import org.junit.jupiter.api.Test
 
 class ParserTest {
@@ -92,5 +96,18 @@ class ParserTest {
 
         val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
         assertEquals(node.toString(), astNode.toString())
+    }
+
+    @Test
+    fun testConstAndBoolean() {
+        // Statement: const b: boolean = true;
+
+        val tokenList = tokenList6
+        val node = node6
+        val notNode = mutableNode6
+
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
+        assertEquals(node.toString(), astNode.toString())
+        assertNotEquals(notNode.toString(), astNode.toString())
     }
 }

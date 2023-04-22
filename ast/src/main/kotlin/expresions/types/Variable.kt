@@ -7,7 +7,7 @@ import expresions.Operator
 import interfaces.ASTNodeVisitor
 import variableTypes
 
-class Variable(private val value: String, private val variableType: PrototypeType, private val line: Int) : Expression {
+class Variable(private val value: String, private val variableType: PrototypeType, private val line: Int = 0) : Expression {
     init {
         require(variableTypes.contains(variableType)) {
             "Variable type must be either IDENTIFIER, NUMBER or STRING"
