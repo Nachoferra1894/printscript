@@ -3,7 +3,7 @@ package implementation
 import interfaces.Printer
 
 class PrinterImpl : Printer {
-    override fun print(string: String) {
-        println(string)
+    override fun print(value: String) {
+        println(value)
     }
 }
