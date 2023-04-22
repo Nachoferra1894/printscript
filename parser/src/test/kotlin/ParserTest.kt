@@ -9,6 +9,8 @@ import fixtures.node4
 import fixtures.node5
 import fixtures.node6
 import fixtures.node7
+import fixtures.node8
+import fixtures.node9
 import fixtures.tokenList0
 import fixtures.tokenList1
 import fixtures.tokenList2
@@ -17,6 +19,8 @@ import fixtures.tokenList4
 import fixtures.tokenList5
 import fixtures.tokenList6
 import fixtures.tokenList7
+import fixtures.tokenList8
+import fixtures.tokenList9
 import interfaces.Parser
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
@@ -143,4 +147,42 @@ class ParserTest {
         assertEquals(node.toString(), astNode.toString())
         assertNotEquals(notNode.toString(), astNode.toString())
     }
+
+    @Test
+    fun testReadInput() {
+        // Statement: const b: boolean = true;
+
+        val tokenList = tokenList8
+        val node = node8
+
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V2())
+        assertEquals(node.toString(), astNode.toString())
+    }
+
+    @Test
+    fun testReadInputWithAssignationAndExpression() {
+        // Statement: let a: string = readInput(a+b);
+
+        val tokenList = tokenList9
+        val node = node9
+
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V2())
+        assertEquals(node.toString(), astNode.toString())
+    }
+
+    @Test
+    fun testReadInputForV1ShouldBreak() {
+        // Statement: let a: string = readInput(a+b);
+
+        val tokenList = tokenList9
+
+        try {
+            parser.parseTokens(getFlowFromTokenList(tokenList), V1())
+        } catch (e: Exception) {
+            println(e)
+            assertTrue(e is WrongTokenException)
+            assertEquals("Token: ${PrototypeType.METHOD_READ_INPUT} not compatible with node", e.message)
+        }
+    }
+
 }

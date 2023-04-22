@@ -3,6 +3,7 @@ package fixtures
 import Token
 import expresions.Operator
 import expresions.types.Operation
+import expresions.types.ReadInputExp
 import expresions.types.Variable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -11,6 +12,14 @@ import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
 import version.V2
+
+fun getFlowFromTokenList(tokenList: List<Token>): Flow<Token> {
+    return flow {
+        tokenList.forEach { token ->
+            emit(token)
+        }
+    }
+}
 
 // Statement: a = 42;
 val tokenList0 = listOf(
@@ -189,10 +198,60 @@ val tokenList7 = listOf(
 )
 val node7 = AssignmentNode("a", Variable("42", PrototypeType.NUMBER, 1), 1)
 
-fun getFlowFromTokenList(tokenList: List<Token>): Flow<Token> {
-    return flow {
-        tokenList.forEach { token ->
-            emit(token)
-        }
-    }
-}
+// Statement: a = readInput("Enter a number: ");
+val tokenList8 = listOf(
+    Token(PrototypeType.IDENTIFIER, "a", 0, 1, 1),
+    Token(PrototypeType.ASSIGNATION, null, 2, 3, 1),
+    Token(PrototypeType.SPACE, null, 4, 5, 1),
+    Token(PrototypeType.METHOD_READ_INPUT, null, 6, 15, 1),
+    Token(PrototypeType.OPEN_PARENTHESIS, null, 15, 16, 1),
+    Token(PrototypeType.STRING, "Enter a number: ", 16, 32, 1),
+    Token(PrototypeType.CLOSE_PARENTHESIS, null, 32, 33, 1),
+    Token(
+        PrototypeType.SEMICOLON,
+        null,
+        34,
+        35,
+        1
+    )
+)
+val node8 = AssignmentNode(
+    "a",
+    ReadInputExp(
+        Variable("Enter a number: ", PrototypeType.STRING, 0),
+        0
+    ),
+    0
+)
+
+// Statement: let a: string = readInput(a+b);
+val tokenList9 = listOf(
+    Token(PrototypeType.LET, null, 0, 3, 0),
+    Token(PrototypeType.IDENTIFIER, "a", 4, 5, 0),
+    Token(PrototypeType.COLON, null, 5, 6, 0),
+    Token(PrototypeType.STRING_TYPE, null, 7, 12, 0),
+    Token(PrototypeType.ASSIGNATION, null, 13, 14, 0),
+    Token(PrototypeType.METHOD_READ_INPUT, null, 15, 24, 0),
+    Token(PrototypeType.OPEN_PARENTHESIS, null, 24, 25, 0),
+    Token(PrototypeType.IDENTIFIER, "a", 25, 26, 0),
+    Token(PrototypeType.PLUS, null, 26, 27, 0),
+    Token(PrototypeType.IDENTIFIER, "b", 27, 28, 0),
+    Token(PrototypeType.CLOSE_PARENTHESIS, null, 28, 29, 0),
+    Token(PrototypeType.SEMICOLON, null, 29, 30, 0)
+)
+val node9 = VariableDeclarationNode(
+    "a",
+    "string",
+    ReadInputExp(
+        Operation(
+            Variable("a", PrototypeType.IDENTIFIER, 0),
+            Operator.SUM,
+            Variable("b", PrototypeType.IDENTIFIER, 0),
+            0
+        ),
+        0
+    ),
+    0
+)
+
+

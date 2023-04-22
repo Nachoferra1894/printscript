@@ -1,19 +1,21 @@
 package subParsers
 
 import PrototypeType
+import SubParserController
 import Token
 import TokenMatcher
 import dataTypes
 import declarationTypes
 import exceptions.WrongTokenException
+import expresions.Expression
 import interfaces.SubParser
 import types.VariableDeclarationNode
 import version.Version
 
-class DeclarationSubParser(tokens: List<Token>, private val version: Version) : SubParser<VariableDeclarationNode>, TokenMatcher(tokens) {
+class DeclarationSubParser(private val tokens: List<Token>, private val version: Version) : SubParser<VariableDeclarationNode>, TokenMatcher(tokens) {
     // Statement: let g: number = 1 - 2 - 3;
     // Statement: let g: number;
-    private val expressionSubParser = ExpressionSubParser(tokens, version)
+    private val subParserController = SubParserController(version)
 
     override fun getAstNode(nextIndex: Int): Pair<VariableDeclarationNode, Int> {
         var (declarationType, index) = getNextTokenOrThrowError(nextIndex, declarationTypes(version))
@@ -36,11 +38,12 @@ class DeclarationSubParser(tokens: List<Token>, private val version: Version) : 
             Pair(newNode, index + 1)
         } catch (e: WrongTokenException) {
             index = getNextTokenOrThrowError(index, PrototypeType.ASSIGNATION).second
-            val (expression, expressionIndex) = expressionSubParser.getAstNode(index)
+            val subParser = subParserController.getExpressionParser(tokens, index)
+            val (expression, expressionIndex) = subParser.getAstNode(index)
             val newNode = VariableDeclarationNode(
                 variableName.value!!,
                 variableType.prototypeType.toString(),
-                expression,
+                expression as Expression,
                 variableName.line,
                 isMutable
             )
