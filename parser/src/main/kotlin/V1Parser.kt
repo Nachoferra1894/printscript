@@ -3,12 +3,13 @@ import interfaces.Parser
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.runBlocking
 import types.ParentNode
+import version.Version
 
 class V1Parser : Parser {
 
-    override fun parseTokens(tokens: Flow<Token>): ASTNode = runBlocking {
+    override fun parseTokens(tokens: Flow<Token>, version: Version): ASTNode = runBlocking {
         val parentNode = ParentNode()
-        val subParserController = SubParserController()
+        val subParserController = SubParserController(version)
         val lineTokens = mutableListOf<Token>()
 
         tokens.collect { token ->

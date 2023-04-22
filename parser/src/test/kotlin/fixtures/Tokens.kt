@@ -10,6 +10,7 @@ import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
+import version.V2
 
 // Statement: a = 42;
 val tokenList0 = listOf(
@@ -173,8 +174,8 @@ val tokenList6 = listOf(
     Token(PrototypeType.BOOLEAN, "true", 18, 22, 0),
     Token(PrototypeType.SEMICOLON, null, 22, 23, 0)
 )
-val node6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN), 0, false)
-val mutableNode6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN))
+val node6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN, 0, V2()), 0, false)
+val mutableNode6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN, 0, V2()))
 
 // Statement: a =    42;
 val tokenList7 = listOf(

@@ -4,6 +4,7 @@ import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitor
 import types.AssignmentNode
+import types.IfNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
@@ -34,6 +35,10 @@ class FormatterVisitor : ASTNodeVisitor {
     override fun visitExpressionNode(expressionNode: Expression): ASTNode? {
         lines.add("$expressionNode;")
         return null // TODO delete when interpreterVisitor is fixed
+    }
+
+    override fun visitIfNode(ifNode: IfNode) {
+        TODO("Not yet implemented")
     }
 
     fun getLines(): String {

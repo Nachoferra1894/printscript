@@ -8,4 +8,5 @@ plugins {
     id 'kotlin-conventions'
 }
 dependencies {
+    implementation project(':lib')
 }

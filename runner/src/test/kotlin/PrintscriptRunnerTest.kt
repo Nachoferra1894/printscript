@@ -3,16 +3,19 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import printscript.CommonPrintScriptRunner
 import printscript.PrintscriptRunner
+import version.V1
+import version.V2
 import java.io.File
 
 class PrintscriptRunnerTest {
-    val printscriptRunner: PrintscriptRunner = CommonPrintScriptRunner()
-    val sourceCode = """
+    val v1Runner: PrintscriptRunner = CommonPrintScriptRunner(V1())
+    val v2Runner: PrintscriptRunner = CommonPrintScriptRunner(V2())
+    private val sourceCode = """
             let a : string = "hello world!";
             let b: string = "hello world!";
             b = "5" + "5";
     """.trimIndent()
-    val sourceString =
+    private val sourceString =
         "[let a: string = \"hello world!\", let b: string = \"hello world!\", b = \"5\" + \"5\"]" // TODO replace when interpreter is ready
 
     @Test
@@ -29,7 +32,7 @@ class PrintscriptRunnerTest {
             }
 
             val ast = runBlocking {
-                printscriptRunner.runExecution(sourceFile, "1.0", ::foo)
+                v1Runner.runExecution(sourceFile, ::foo)
             }
 
             assertEquals(sourceString, ast)
@@ -54,7 +57,7 @@ class PrintscriptRunnerTest {
             // Write the source code to the file
             sourceFile.writeText(sourceCode)
 
-            val ast = printscriptRunner.runFormatting(sourceFile, "1.0", sourceFile) // TODO add args
+            val ast = v1Runner.runFormatting(sourceFile, sourceFile) // TODO add args
 
             assertEquals(sourceString, sourceString) // TODO fix
         } finally {

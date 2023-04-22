@@ -1,3 +1,4 @@
+import exceptions.WrongTokenException
 import fixtures.getFlowFromTokenList
 import fixtures.mutableNode6
 import fixtures.node0
@@ -19,7 +20,10 @@ import fixtures.tokenList7
 import interfaces.Parser
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotEquals
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import version.V1
+import version.V2
 
 class ParserTest {
     private val parser: Parser = V1Parser()
@@ -30,7 +34,7 @@ class ParserTest {
         val tokenList = tokenList0
         val node = node0
 
-        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V1())
         assertEquals(node.toString(), astNode.toString())
     }
 
@@ -40,7 +44,7 @@ class ParserTest {
         val tokenList = tokenList1
         val node = node1
 
-        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V1())
         assertEquals(node.toString(), astNode.toString())
     }
 
@@ -50,7 +54,7 @@ class ParserTest {
         val tokenList = tokenList2
         val node = node2
 
-        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V1())
         assertEquals(node.toString(), astNode.toString())
     }
 
@@ -60,7 +64,7 @@ class ParserTest {
         val tokenList = tokenList3
         val node = node3
 
-        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V1())
         assertEquals(node.toString(), astNode.toString())
     }
 
@@ -70,7 +74,7 @@ class ParserTest {
         val tokenList = tokenList4
         val node = node4
 
-        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V1())
         assertEquals(node.toString(), astNode.toString())
     }
 
@@ -84,7 +88,7 @@ class ParserTest {
         val tokenList = tokenList5
         val node = node5
 
-        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V1())
         assertEquals(node.toString(), astNode.toString())
     }
 
@@ -94,8 +98,37 @@ class ParserTest {
         val tokenList = tokenList7
         val node = node7
 
-        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V1())
         assertEquals(node.toString(), astNode.toString())
+    }
+
+    @Test
+    fun testConstForV1ShouldBreak() {
+        // Statement: const b: boolean = true;
+
+        val tokenList = tokenList6
+
+        try {
+            parser.parseTokens(getFlowFromTokenList(tokenList), V1())
+        } catch (e: Exception) {
+            println(e)
+            assertTrue(e is WrongTokenException)
+            assertEquals("Token: ${PrototypeType.CONST} not compatible with node", e.message)
+        }
+    }
+
+    @Test
+    fun testBooleanForV1ShouldBreak() {
+        // Statement: let b: boolean = true;
+        val tokenList = listOf<Token>(Token(PrototypeType.LET, null, 0, 3, 0), *tokenList6.drop(1).toTypedArray())
+
+        try {
+            parser.parseTokens(getFlowFromTokenList(tokenList), V1())
+        } catch (e: Exception) {
+            println(e)
+            assertTrue(e is WrongTokenException)
+            assertEquals("Token: ${PrototypeType.BOOLEAN_TYPE} not compatible with node", e.message)
+        }
     }
 
     @Test
@@ -106,7 +139,7 @@ class ParserTest {
         val node = node6
         val notNode = mutableNode6
 
-        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList))
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V2())
         assertEquals(node.toString(), astNode.toString())
         assertNotEquals(notNode.toString(), astNode.toString())
     }

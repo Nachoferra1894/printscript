@@ -8,19 +8,20 @@ import declarationTypes
 import exceptions.WrongTokenException
 import interfaces.SubParser
 import types.VariableDeclarationNode
+import version.Version
 
-class DeclarationSubParser(tokens: List<Token>) : SubParser<VariableDeclarationNode>, TokenMatcher(tokens) {
+class DeclarationSubParser(tokens: List<Token>, private val version: Version) : SubParser<VariableDeclarationNode>, TokenMatcher(tokens) {
     // Statement: let g: number = 1 - 2 - 3;
     // Statement: let g: number;
-    private val expressionSubParser = ExpressionSubParser(tokens)
+    private val expressionSubParser = ExpressionSubParser(tokens, version)
 
     override fun getAstNode(nextIndex: Int): Pair<VariableDeclarationNode, Int> {
-        var (declarationType, index) = getNextTokenOrThrowError(nextIndex, declarationTypes)
+        var (declarationType, index) = getNextTokenOrThrowError(nextIndex, declarationTypes(version))
         val identifier = getNextTokenOrThrowError(index, PrototypeType.IDENTIFIER)
         val variableName = identifier.first
         index = identifier.second
         index = getNextTokenOrThrowError(index, PrototypeType.COLON).second
-        val variable = getNextTokenOrThrowError(index, dataTypes)
+        val variable = getNextTokenOrThrowError(index, dataTypes(version))
         val variableType = variable.first
         index = variable.second
         val isMutable: Boolean = declarationType.prototypeType == PrototypeType.LET
