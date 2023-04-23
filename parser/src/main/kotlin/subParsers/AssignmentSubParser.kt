@@ -13,7 +13,7 @@ class AssignmentSubParser(private val tokens: List<Token>, version: Version) : S
 
     override fun getAstNode(nextIndex: Int): Pair<AssignmentNode, Int> {
         var (variableName, index) = getNextTokenOrThrowError(nextIndex, PrototypeType.IDENTIFIER)
-        index = getNextTokenOrThrowError(index, PrototypeType.ASSIGNATION).second
+        index = getNextTokenOrThrowError(index, PrototypeType.EQUALS).second
         val expressionSubParser = subParserController.getExpressionParser(tokens, index)
         val (expression, expressionIndex) = expressionSubParser.getAstNode(index)
         val newNode = AssignmentNode(variableName.value!!, expression as Expression, expression.getLine())

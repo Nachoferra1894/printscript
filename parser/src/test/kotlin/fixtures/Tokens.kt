@@ -8,6 +8,7 @@ import expresions.types.Variable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import types.AssignmentNode
+import types.IfNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
@@ -24,7 +25,7 @@ fun getFlowFromTokenList(tokenList: List<Token>): Flow<Token> {
 // Statement: a = 42;
 val tokenList0 = listOf(
     Token(PrototypeType.IDENTIFIER, "a", 0, 1, 0),
-    Token(PrototypeType.ASSIGNATION, null, 2, 3, 0),
+    Token(PrototypeType.EQUALS, null, 2, 3, 0),
     Token(PrototypeType.NUMBER, "42", 4, 6, 0),
     Token(PrototypeType.SEMICOLON, null, 6, 7, 0)
 )
@@ -33,7 +34,7 @@ val node0 = AssignmentNode("a", Variable("42", PrototypeType.NUMBER, 0), 1)
 // Statement: b = 22 + 20;
 val tokenList1 = listOf(
     Token(PrototypeType.IDENTIFIER, "B", 0, 1, 0),
-    Token(PrototypeType.ASSIGNATION, null, 2, 3, 0),
+    Token(PrototypeType.EQUALS, null, 2, 3, 0),
     Token(PrototypeType.NUMBER, "22", 4, 6, 0),
     Token(PrototypeType.PLUS, null, 7, 8, 0),
     Token(PrototypeType.NUMBER, "20", 9, 12, 0),
@@ -51,7 +52,7 @@ val tokenList2 = listOf(
     Token(PrototypeType.IDENTIFIER, "b", 4, 5, 0),
     Token(PrototypeType.COLON, null, 5, 6, 0),
     Token(PrototypeType.STRING_TYPE, null, 7, 13, 0),
-    Token(PrototypeType.ASSIGNATION, null, 14, 15, 0),
+    Token(PrototypeType.EQUALS, null, 14, 15, 0),
     Token(PrototypeType.STRING, "Hello, world!", 16, 29, 0),
     Token(PrototypeType.SEMICOLON, null, 29, 30, 0)
 )
@@ -63,7 +64,7 @@ val tokenList3 = listOf(
     Token(PrototypeType.IDENTIFIER, "c", 4, 5, 0),
     Token(PrototypeType.COLON, null, 5, 6, 0),
     Token(PrototypeType.NUMBER_TYPE, null, 7, 13, 0),
-    Token(PrototypeType.ASSIGNATION, null, 14, 15, 0),
+    Token(PrototypeType.EQUALS, null, 14, 15, 0),
     Token(PrototypeType.NUMBER, "3", 16, 17, 0),
     Token(PrototypeType.PLUS, null, 18, 19, 0),
     Token(PrototypeType.NUMBER, "4", 20, 21, 0),
@@ -103,7 +104,7 @@ val tokenList5 = listOf(
     Token(PrototypeType.IDENTIFIER, "a", 4, 5, 0),
     Token(PrototypeType.COLON, null, 5, 6, 0),
     Token(PrototypeType.NUMBER_TYPE, null, 7, 13, 0),
-    Token(PrototypeType.ASSIGNATION, null, 14, 15, 0),
+    Token(PrototypeType.EQUALS, null, 14, 15, 0),
     Token(PrototypeType.NUMBER, "1", 16, 17, 0),
     Token(PrototypeType.SUBTRACTION, null, 18, 19, 0),
     Token(PrototypeType.NUMBER, "2", 20, 21, 0),
@@ -118,7 +119,7 @@ val tokenList5 = listOf(
     Token(PrototypeType.SEMICOLON, null, 13, 14, 1),
 
     Token(PrototypeType.IDENTIFIER, "b", 0, 1, 2),
-    Token(PrototypeType.ASSIGNATION, null, 2, 4, 2),
+    Token(PrototypeType.EQUALS, null, 2, 4, 2),
     Token(PrototypeType.IDENTIFIER, "a", 5, 6, 2),
     Token(PrototypeType.PLUS, null, 7, 8, 2),
     Token(PrototypeType.NUMBER, "1", 9, 10, 2),
@@ -179,7 +180,7 @@ val tokenList6 = listOf(
     Token(PrototypeType.IDENTIFIER, "b", 5, 6, 0),
     Token(PrototypeType.COLON, null, 7, 8, 0),
     Token(PrototypeType.BOOLEAN_TYPE, null, 9, 15, 0),
-    Token(PrototypeType.ASSIGNATION, null, 16, 17, 0),
+    Token(PrototypeType.EQUALS, null, 16, 17, 0),
     Token(PrototypeType.BOOLEAN, "true", 18, 22, 0),
     Token(PrototypeType.SEMICOLON, null, 22, 23, 0)
 )
@@ -189,7 +190,7 @@ val mutableNode6 = VariableDeclarationNode("b", "boolean", Variable("true", Prot
 // Statement: a =    42;
 val tokenList7 = listOf(
     Token(PrototypeType.IDENTIFIER, "a", 0, 1, 1),
-    Token(PrototypeType.ASSIGNATION, null, 2, 3, 1),
+    Token(PrototypeType.EQUALS, null, 2, 3, 1),
     Token(PrototypeType.SPACE, null, 4, 5, 1),
     Token(PrototypeType.SPACE, null, 6, 7, 1),
     Token(PrototypeType.SPACE, null, 8, 9, 1),
@@ -201,7 +202,7 @@ val node7 = AssignmentNode("a", Variable("42", PrototypeType.NUMBER, 1), 1)
 // Statement: a = readInput("Enter a number: ");
 val tokenList8 = listOf(
     Token(PrototypeType.IDENTIFIER, "a", 0, 1, 1),
-    Token(PrototypeType.ASSIGNATION, null, 2, 3, 1),
+    Token(PrototypeType.EQUALS, null, 2, 3, 1),
     Token(PrototypeType.SPACE, null, 4, 5, 1),
     Token(PrototypeType.METHOD_READ_INPUT, null, 6, 15, 1),
     Token(PrototypeType.OPEN_PARENTHESIS, null, 15, 16, 1),
@@ -230,7 +231,7 @@ val tokenList9 = listOf(
     Token(PrototypeType.IDENTIFIER, "a", 4, 5, 0),
     Token(PrototypeType.COLON, null, 5, 6, 0),
     Token(PrototypeType.STRING_TYPE, null, 7, 12, 0),
-    Token(PrototypeType.ASSIGNATION, null, 13, 14, 0),
+    Token(PrototypeType.EQUALS, null, 13, 14, 0),
     Token(PrototypeType.METHOD_READ_INPUT, null, 15, 24, 0),
     Token(PrototypeType.OPEN_PARENTHESIS, null, 24, 25, 0),
     Token(PrototypeType.IDENTIFIER, "a", 25, 26, 0),
@@ -254,4 +255,27 @@ val node9 = VariableDeclarationNode(
     0
 )
 
-
+// Statement: if (true) { print("a is 1"); }
+val tokenList10 = listOf(
+    Token(PrototypeType.IF, null, 0, 2, 0),
+    Token(PrototypeType.OPEN_PARENTHESIS, null, 3, 4, 0),
+    Token(PrototypeType.BOOLEAN, "true", 4, 8, 0),
+    Token(PrototypeType.CLOSE_PARENTHESIS, null, 8, 9, 0),
+    Token(PrototypeType.OPEN_BRACE, null, 10, 11, 0),
+    Token(PrototypeType.METHOD_PRINT, null, 12, 17, 0),
+    Token(PrototypeType.OPEN_PARENTHESIS, null, 17, 18, 0),
+    Token(PrototypeType.STRING, "a is 1", 18, 24, 0),
+    Token(PrototypeType.CLOSE_PARENTHESIS, null, 24, 25, 0),
+    Token(PrototypeType.SEMICOLON, null, 25, 26, 0),
+    Token(PrototypeType.CLOSE_BRACE, null, 27, 28, 0)
+)
+val node10 = IfNode(
+    Variable("true", PrototypeType.BOOLEAN, 0),
+    ParentNode(
+        PrintNode(
+            Variable("a is 1", PrototypeType.STRING, 0),
+            0
+        )
+    ),
+    0
+)

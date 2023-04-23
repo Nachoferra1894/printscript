@@ -8,6 +8,6 @@ class AssignationStrategy : Strategy {
     }
 
     override fun getToken(line: String, index: Int, lineIndex: Int): Token {
-        return Token(PrototypeType.ASSIGNATION, null, index, index + 1, lineIndex)
+        return Token(PrototypeType.EQUALS, null, index, index + 1, lineIndex)
     }
 }

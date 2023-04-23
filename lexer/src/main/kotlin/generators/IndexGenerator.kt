@@ -47,14 +47,14 @@ class IndexGenerator {
 
         private fun parenthesis(prototypeType: PrototypeType): Boolean {
             return PrototypeType.OPEN_PARENTHESIS == prototypeType ||
-                PrototypeType.CLOSE_PARENTHESIS == prototypeType || PrototypeType.CLOSE_KEY == prototypeType ||
-                PrototypeType.OPEN_KEY == prototypeType
+                PrototypeType.CLOSE_PARENTHESIS == prototypeType || PrototypeType.CLOSE_BRACE == prototypeType ||
+                PrototypeType.OPEN_BRACE == prototypeType
         }
 
         private fun operations(prototypeType: PrototypeType): Boolean {
             return prototypeType == PrototypeType.COLON ||
                 prototypeType == PrototypeType.SUBTRACTION ||
-                prototypeType == PrototypeType.ASSIGNATION ||
+                prototypeType == PrototypeType.EQUALS ||
                 prototypeType == PrototypeType.SEMICOLON ||
                 prototypeType == PrototypeType.PLUS ||
                 prototypeType == PrototypeType.MULTIPLICATION ||

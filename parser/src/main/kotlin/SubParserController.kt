@@ -3,6 +3,7 @@ import interfaces.SubParser
 import subParsers.AssignmentSubParser
 import subParsers.DeclarationSubParser
 import subParsers.ExpressionSubParser
+import subParsers.IfSubParser
 import subParsers.PrintSubParser
 import subParsers.ReadInputSubParser
 import version.V2
@@ -14,6 +15,7 @@ class SubParserController(val version: Version) {
             PrototypeType.METHOD_PRINT -> PrintSubParser(tokens, version)
             PrototypeType.IDENTIFIER -> AssignmentSubParser(tokens, version)
             in declarationTypes(version) -> DeclarationSubParser(tokens, version)
+            PrototypeType.IF -> IfSubParser(tokens, version)
             else -> throw WrongTokenException(tokens[0]) // Having a readInput here does not make sense
         }
     }

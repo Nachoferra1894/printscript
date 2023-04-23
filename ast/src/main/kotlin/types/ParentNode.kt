@@ -8,6 +8,10 @@ class ParentNode : ASTNode {
 
     constructor()
 
+    constructor(child: ASTNode) {
+        children.add(child)
+    }
+
     constructor(child: List<ASTNode>) {
         children.addAll(child)
     }

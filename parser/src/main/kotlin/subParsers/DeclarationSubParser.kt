@@ -37,7 +37,7 @@ class DeclarationSubParser(private val tokens: List<Token>, private val version:
             )
             Pair(newNode, index + 1)
         } catch (e: WrongTokenException) {
-            index = getNextTokenOrThrowError(index, PrototypeType.ASSIGNATION).second
+            index = getNextTokenOrThrowError(index, PrototypeType.EQUALS).second
             val subParser = subParserController.getExpressionParser(tokens, index)
             val (expression, expressionIndex) = subParser.getAstNode(index)
             val newNode = VariableDeclarationNode(

@@ -7,8 +7,8 @@ import interfaces.ASTNodeVisitor
 class IfNode(
     private val condition: Expression,
     private val truthyNode: ParentNode,
-    private val falsyNode: ParentNode,
-    private val line: Int
+    private val line: Int,
+    private val falsyNode: ParentNode? = null
 ) : ASTNode {
     override fun getLine(): Int {
         return line
