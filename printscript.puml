@@ -1,11 +1,12 @@
 @startuml
-entity Token {
+class Token {
     + prototypeType: PrototypeType
     + value: String?
     + from: Int
     + to: Int
     + line: Int
 }
+Token --> Lib
 entity Ast {}
 
 Ast --> Lib

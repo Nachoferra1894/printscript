@@ -5,22 +5,28 @@ import expresions.Expression
 import expresions.ExpressionVisitor
 import expresions.Operator
 import interfaces.ASTNodeVisitor
+import version.V1
+import version.Version
 
 class Operation : Expression {
     private var l: Expression?
     private var operator: Operator? = null
     private var r: Expression? = null
     private var line: Int
-    constructor(value: String, variableType: PrototypeType, line: Int) {
+    private var version: Version
+
+    constructor(value: String, variableType: PrototypeType, line: Int = 0, version: Version = V1()) {
         this.line = line
-        this.l = Variable(value, variableType, this.line)
+        this.version = version
+        this.l = Variable(value, variableType, this.line, version)
     }
 
-    constructor(l: Expression?, operator: Operator?, r: Expression?, line: Int) {
+    constructor(l: Expression?, operator: Operator?, r: Expression?, line: Int = 0, version: Version = V1()) {
         this.l = l
         this.operator = operator
         this.r = r
         this.line = line
+        this.version = version
     }
 
     override fun accept(visitor: ExpressionVisitor) {
@@ -32,7 +38,7 @@ class Operation : Expression {
     }
 
     override fun addMember(operator: Operator, newMember: Expression): Expression {
-        return Operation(this, operator, newMember, this.line)
+        return Operation(this, operator, newMember, this.line, this.version)
     }
 
     override fun toString(): String {
@@ -46,6 +52,7 @@ class Operation : Expression {
     fun getL(): Expression? {
         return this.l
     }
+
     fun getOperator(): Operator? {
         return this.operator
     }

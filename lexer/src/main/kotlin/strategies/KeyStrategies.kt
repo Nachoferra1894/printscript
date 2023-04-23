@@ -9,9 +9,9 @@ class KeyStrategies : Strategy {
 
     override fun getToken(line: String, index: Int, lineIndex: Int): Token {
         return if (line[index] == '}') {
-            Token(PrototypeType.CLOSE_KEY, null, index, index + 1, lineIndex)
+            Token(PrototypeType.CLOSE_BRACE, null, index, index + 1, lineIndex)
         } else {
-            Token(PrototypeType.OPEN_KEY, null, index, index + 1, lineIndex)
+            Token(PrototypeType.OPEN_BRACE, null, index, index + 1, lineIndex)
         }
     }
 }

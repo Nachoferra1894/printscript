@@ -8,6 +8,7 @@ import strategiesFormatter.AssigmentStrategy.Companion.defineValue
 import strategiesFormatter.DeclarationStrategy.Companion.defineValue
 import strategiesFormatter.PrintlnStrategy.Companion.defineValue
 import types.AssignmentNode
+import types.IfNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
@@ -35,6 +36,10 @@ class FormatterVisitor(private val configClasses: ArrayList<ConfigClasses>) : AS
     override fun visitExpressionNode(expressionNode: Expression): ASTNode? {
         lines.add("$expressionNode;")
         return null // TODO delete when interpreterVisitor is fixed
+    }
+
+    override fun visitIfNode(ifNode: IfNode) {
+        TODO("Not yet implemented")
     }
 
     fun getLines(): String {

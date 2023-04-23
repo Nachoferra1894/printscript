@@ -2,9 +2,11 @@ package implementation
 
 import interfaces.ASTNode
 import interfaces.Interpreter
+import version.Version
 
 class Interpreter(
-    private val visitor: InterpreterVisitor
+    private val visitor: InterpreterVisitor,
+    private var version: Version
 ) : Interpreter {
 
     override fun interpret(ast: ASTNode) {
@@ -16,6 +18,6 @@ class Interpreter(
     }
 
     companion object InterpreterConstructor {
-        fun create(): Interpreter = Interpreter(InterpreterVisitor(InterpreterMap(mutableMapOf()), PrinterImpl()))
+        fun create(version: Version): Interpreter = Interpreter(InterpreterVisitor(InterpreterMap(mutableMapOf()), PrinterImpl(), version), version)
     }
 }

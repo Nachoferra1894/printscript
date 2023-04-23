@@ -6,13 +6,21 @@ import expresions.ExpressionVisitor
 import expresions.Operator
 import interfaces.ASTNodeVisitor
 import variableTypes
+import version.V1
+import version.Version
 
-class Variable(private val value: String, private val variableType: PrototypeType, private val line: Int) : Expression {
+class Variable(
+    private val value: String,
+    private val variableType: PrototypeType,
+    private val line: Int = 0,
+    private val version: Version = V1()
+) : Expression {
     init {
-        require(variableTypes.contains(variableType)) {
-            "Variable type must be either IDENTIFIER, NUMBER or STRING"
+        require(variableTypes(version).contains(variableType)) {
+            "Variable type must be either ${variableTypes(version).joinToString(", ")} but was $variableType"
         }
     }
+
     override fun accept(visitor: ExpressionVisitor) {
         visitor.visitVariable(this)
     }
@@ -22,7 +30,7 @@ class Variable(private val value: String, private val variableType: PrototypeTyp
     }
 
     override fun addMember(operator: Operator, newMember: Expression): Expression {
-        return Operation(this, operator, newMember, this.line)
+        return Operation(this, operator, newMember, this.line, this.version)
     }
 
     override fun toString(): String {

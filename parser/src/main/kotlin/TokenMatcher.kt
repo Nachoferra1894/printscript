@@ -17,4 +17,9 @@ abstract class TokenMatcher(private val tokens: List<Token>) {
     fun getNextTokenOrThrowError(index: Int, tokenType: PrototypeType): Pair<Token, Int> {
         return getNextTokenOrThrowError(index, listOf(tokenType))
     }
+
+    @Throws(WrongTokenException::class)
+    fun getEOL(index: Int): Pair<Token, Int> {
+        return getNextTokenOrThrowError(index, PrototypeType.SEMICOLON)
+    }
 }
