@@ -8,7 +8,7 @@ import interfaces.SubParser
 import types.ParentNode
 import version.Version
 
-class CodeParser(private val tokens: List<Token>, version: Version) : SubParser<ASTNode>, TokenMatcher(tokens) {
+class CodeParser(private val tokens: List<Token>, private val version: Version) : SubParser<ASTNode>, TokenMatcher(tokens) {
     private val parentNode = ParentNode()
     private val controllerGetter = ControllerGetter()
     private val subParserController = controllerGetter.getController(version)

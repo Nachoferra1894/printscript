@@ -1,3 +1,4 @@
+
 import interfaces.ASTNode
 import interfaces.Parser
 import kotlinx.coroutines.flow.Flow
@@ -11,11 +12,10 @@ class CommonParser : Parser {
     override fun parseTokens(tokens: Flow<Token>, version: Version): ASTNode = runBlocking {
         val lineTokens = mutableListOf<Token>()
         val parentNode = ParentNode()
-        var braceCount = 0
 
         tokens.collect { token ->
             lineTokens.add(token)
-            if (token.isEOL() && braceCount == 0) {
+            if (token.isEOL()) {
                 println("lineTokens: $lineTokens")
                 val codeParser = CodeParser(lineTokens, version)
                 val node = codeParser.getAstNode(0).first
@@ -23,10 +23,7 @@ class CommonParser : Parser {
                     node
                 )
                 lineTokens.clear()
-            } else if (token.prototypeType === PrototypeType.OPEN_BRACE) {
-                braceCount++
-            } else if (token.prototypeType === PrototypeType.CLOSE_BRACE) {
-                braceCount--
+            } else if (token.prototypeType === PrototypeType.OPEN_PARENTHESIS) {
             }
         }
         getParentOrFirstChild(parentNode)

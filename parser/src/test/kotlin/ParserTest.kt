@@ -117,7 +117,7 @@ class ParserTest {
         } catch (e: Exception) {
             println(e)
             assertTrue(e is WrongTokenException)
-            assertEquals("Token: ${PrototypeType.CONST} not compatible with node", e.message)
+            assertEquals("Token: ${PrototypeType.CONST} not compatible with node at line ${tokenList[0].line}", e.message)
         }
     }
 
@@ -131,7 +131,7 @@ class ParserTest {
         } catch (e: Exception) {
             println(e)
             assertTrue(e is WrongTokenException)
-            assertEquals("Token: ${PrototypeType.BOOLEAN_TYPE} not compatible with node", e.message)
+            assertEquals("Token: ${PrototypeType.BOOLEAN_TYPE} not compatible with node at line ${tokenList[0].line}", e.message)
         }
     }
 
@@ -181,10 +181,10 @@ class ParserTest {
         } catch (e: Exception) {
             println(e)
             assertTrue(e is WrongTokenException)
-            assertEquals("Token: ${PrototypeType.METHOD_READ_INPUT} not compatible with node", e.message)
+            assertEquals("Token: ${PrototypeType.METHOD_READ_INPUT} not compatible with node at line ${tokenList[0].line}", e.message)
         }
     }
-
+//
 //    @Test
 //    fun testSimpleIfBlock() {
 //        // Statement: if (true) { print("a is 1"); }

@@ -1,15 +1,17 @@
 package types
 
-import Token
+import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitor
 
 class IfNode(
-    private val condition: Token? = null,
-    private val truthyNode: ASTNode? = null, // TODO delete this and make it non optional
-    private val line: Int,
-    private val falsyNode: ASTNode? = null
+    condition: Expression,
+    private var line: Int = 0,
+    private var truthyNode: ASTNode? = null,
+    private var falsyNode: ASTNode? = null
 ) : ASTNode {
+    private var condition: Expression? = condition
+
     override fun getLine(): Int {
         return line
     }
@@ -20,5 +22,19 @@ class IfNode(
 
     override fun toString(): String {
         return ("if($condition) {\n$truthyNode\n} else {\n$falsyNode\n}")
+    }
+
+    fun addTruthyNode(node: ASTNode) {
+        truthyNode = node
+    }
+    fun addFalsyNode(node: ASTNode) {
+        falsyNode = node
+    }
+
+    fun getTruthyNode(): ASTNode? {
+        return truthyNode
+    }
+    fun getFalsyNode(): ASTNode? {
+        return falsyNode
     }
 }
