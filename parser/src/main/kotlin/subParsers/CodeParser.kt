@@ -1,24 +1,34 @@
 package subParsers
 
-import SubParserController
 import Token
 import TokenMatcher
+import controllers.ControllerGetter
+import interfaces.ASTNode
 import interfaces.SubParser
 import types.ParentNode
 import version.Version
 
-class CodeParser(private val tokens: List<Token>, version: Version) : SubParser<ParentNode>, TokenMatcher(tokens) {
+class CodeParser(private val tokens: List<Token>, version: Version) : SubParser<ASTNode>, TokenMatcher(tokens) {
     private val parentNode = ParentNode()
-    private val subParserController = SubParserController(version)
+    private val controllerGetter = ControllerGetter()
+    private val subParserController = controllerGetter.getController(version)
 
-    override fun getAstNode(nextIndex: Int): Pair<ParentNode, Int> {
+    override fun getAstNode(nextIndex: Int): Pair<ASTNode, Int> {
         var index = nextIndex
-        while(!tokens[index].isEOL()) {
+        while (index < tokens.size) {
             val subParser = subParserController.getSubParser(tokens)
-            val astNode = subParser.getAstNode(0)
-            parentNode.addChild(astNode.first)
-            lineTokens.clear()
+            val (astNode, astIndex) = subParser.getAstNode(0)
+            parentNode.addChild(astNode)
+            index = astIndex
         }
-        return Pair(parentNode, index)
+        return Pair(getParentOrFirstChild(parentNode), index)
+    }
+
+    private fun getParentOrFirstChild(node: ParentNode): ASTNode {
+        return if (node.getChildren().size == 1) {
+            node.getChildren()[0]
+        } else {
+            node
+        }
     }
 }

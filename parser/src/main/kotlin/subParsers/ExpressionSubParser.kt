@@ -11,7 +11,7 @@ import operatorTypes
 import variableTypes
 import version.Version
 
-class ExpressionSubParser(tokens: List<Token>, private val version: Version, val closeType: PrototypeType = PrototypeType.SEMICOLON) : SubParser<Expression>, TokenMatcher(tokens) {
+class ExpressionSubParser(private val tokens: List<Token>, private val version: Version, val closeType: PrototypeType = PrototypeType.SEMICOLON) : SubParser<Expression>, TokenMatcher(tokens) {
 
     val expressionMiddleTypes: List<PrototypeType> =
         listOf(

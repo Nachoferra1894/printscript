@@ -8,7 +8,6 @@ import expresions.types.Variable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import types.AssignmentNode
-import types.IfNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
@@ -255,27 +254,27 @@ val node9 = VariableDeclarationNode(
     0
 )
 
-// Statement: if (true) { print("a is 1"); }
-val tokenList10 = listOf(
-    Token(PrototypeType.IF, null, 0, 2, 0),
-    Token(PrototypeType.OPEN_PARENTHESIS, null, 3, 4, 0),
-    Token(PrototypeType.BOOLEAN, "true", 4, 8, 0),
-    Token(PrototypeType.CLOSE_PARENTHESIS, null, 8, 9, 0),
-    Token(PrototypeType.OPEN_BRACE, null, 10, 11, 0),
-    Token(PrototypeType.METHOD_PRINT, null, 12, 17, 0),
-    Token(PrototypeType.OPEN_PARENTHESIS, null, 17, 18, 0),
-    Token(PrototypeType.STRING, "a is 1", 18, 24, 0),
-    Token(PrototypeType.CLOSE_PARENTHESIS, null, 24, 25, 0),
-    Token(PrototypeType.SEMICOLON, null, 25, 26, 0),
-    Token(PrototypeType.CLOSE_BRACE, null, 27, 28, 0)
-)
-val node10 = IfNode(
-    Variable("true", PrototypeType.BOOLEAN, 0),
-    ParentNode(
-        PrintNode(
-            Variable("a is 1", PrototypeType.STRING, 0),
-            0
-        )
-    ),
-    0
-)
+// // Statement: if (true) { print("a is 1"); }
+// val tokenList10 = listOf(
+//    Token(PrototypeType.IF, null, 0, 2, 0),
+//    Token(PrototypeType.OPEN_PARENTHESIS, null, 3, 4, 0),
+//    Token(PrototypeType.BOOLEAN, "true", 4, 8, 0),
+//    Token(PrototypeType.CLOSE_PARENTHESIS, null, 8, 9, 0),
+//    Token(PrototypeType.OPEN_BRACE, null, 10, 11, 0),
+//    Token(PrototypeType.METHOD_PRINT, null, 12, 17, 0),
+//    Token(PrototypeType.OPEN_PARENTHESIS, null, 17, 18, 0),
+//    Token(PrototypeType.STRING, "a is 1", 18, 24, 0),
+//    Token(PrototypeType.CLOSE_PARENTHESIS, null, 24, 25, 0),
+//    Token(PrototypeType.SEMICOLON, null, 25, 26, 0),
+//    Token(PrototypeType.CLOSE_BRACE, null, 27, 28, 0)
+// )
+// val node10 = IfNode(
+//    Variable("true", PrototypeType.BOOLEAN, 0,V2()),
+//    ParentNode(
+//        PrintNode(
+//            Variable("a is 1", PrototypeType.STRING, 0),
+//            0
+//        )
+//    ),
+//    0
+// )

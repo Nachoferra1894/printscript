@@ -12,7 +12,6 @@ class PrintSubParser(tokens: List<Token>, version: Version) : SubParser<PrintNod
         var index = getNextTokenOrThrowError(nextIndex, PrototypeType.METHOD_PRINT).second
         index = getNextTokenOrThrowError(index, PrototypeType.OPEN_PARENTHESIS).second
         val (expression, expressionIndex) = expressionSubParser.getAstNode(index)
-        index = getNextTokenOrThrowError(expressionIndex, PrototypeType.SEMICOLON).second
-        return Pair(PrintNode(expression, expression.getLine()), index)
+        return Pair(PrintNode(expression, expression.getLine()), getEOL(expressionIndex).second)
     }
 }

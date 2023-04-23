@@ -1,24 +1,26 @@
 package subParsers
 
 import PrototypeType
-import SubParserController
 import Token
 import TokenMatcher
+import controllers.ControllerGetter
 import dataTypes
-import declarationTypes
 import exceptions.WrongTokenException
 import expresions.Expression
 import interfaces.SubParser
 import types.VariableDeclarationNode
 import version.Version
 
-class DeclarationSubParser(private val tokens: List<Token>, private val version: Version) : SubParser<VariableDeclarationNode>, TokenMatcher(tokens) {
+class DeclarationSubParser(private val tokens: List<Token>, private val version: Version) :
+    SubParser<VariableDeclarationNode>, TokenMatcher(tokens) {
     // Statement: let g: number = 1 - 2 - 3;
     // Statement: let g: number;
-    private val subParserController = SubParserController(version)
+
+    private val controllerGetter = ControllerGetter()
+    private val subParserController = controllerGetter.getController(version)
 
     override fun getAstNode(nextIndex: Int): Pair<VariableDeclarationNode, Int> {
-        var (declarationType, index) = getNextTokenOrThrowError(nextIndex, declarationTypes(version))
+        var (declarationType, index) = getNextTokenOrThrowError(nextIndex, subParserController.declarationTypes())
         val identifier = getNextTokenOrThrowError(index, PrototypeType.IDENTIFIER)
         val variableName = identifier.first
         index = identifier.second
@@ -27,15 +29,15 @@ class DeclarationSubParser(private val tokens: List<Token>, private val version:
         val variableType = variable.first
         index = variable.second
         val isMutable: Boolean = declarationType.prototypeType == PrototypeType.LET
-        return try {
-            index = getNextTokenOrThrowError(index, PrototypeType.SEMICOLON).second
+        try {
+            index = getEOL(index).second
             val newNode = VariableDeclarationNode(
                 variableName.value!!,
                 variableType.prototypeType.toString(),
                 variableName.line,
                 isMutable
             )
-            Pair(newNode, index + 1)
+            return Pair(newNode, index)
         } catch (e: WrongTokenException) {
             index = getNextTokenOrThrowError(index, PrototypeType.EQUALS).second
             val subParser = subParserController.getExpressionParser(tokens, index)
@@ -47,7 +49,7 @@ class DeclarationSubParser(private val tokens: List<Token>, private val version:
                 variableName.line,
                 isMutable
             )
-            Pair(newNode, expressionIndex)
+            return Pair(newNode, expressionIndex)
         }
     }
 }

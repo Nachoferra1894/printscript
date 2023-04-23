@@ -1,6 +1,6 @@
 package printscript
 
-import V1Parser
+import CommonParser
 import fromatter.Formatter
 import implementation.Interpreter
 import input.LexerFileInput
@@ -11,7 +11,7 @@ import java.io.File
 
 class CommonPrintScriptRunner(private val version: Version) : PrintscriptRunner {
     private val lexer = Lexer()
-    private val parser = V1Parser()
+    private val parser = CommonParser()
     private val interpreter = Interpreter.create(version)
     private val formatter = Formatter()
 

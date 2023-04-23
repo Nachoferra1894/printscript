@@ -5,7 +5,6 @@ import version.Version
 data class Token(val prototypeType: PrototypeType, val value: String?, val from: Int, val to: Int, val line: Int) {
     fun isEOL(): Boolean {
         return this.prototypeType === PrototypeType.SEMICOLON ||
-            this.prototypeType === PrototypeType.OPEN_BRACE ||
             this.prototypeType === PrototypeType.CLOSE_BRACE
     }
 
@@ -62,11 +61,3 @@ fun variableTypes(version: Version): List<PrototypeType> {
 
 val operatorTypes =
     listOf(PrototypeType.PLUS, PrototypeType.SUBTRACTION, PrototypeType.MULTIPLICATION, PrototypeType.DIVISION)
-val parenthesisTypes = listOf(PrototypeType.OPEN_PARENTHESIS, PrototypeType.CLOSE_PARENTHESIS)
-val keyTypes = listOf(PrototypeType.OPEN_BRACE, PrototypeType.CLOSE_BRACE)
-fun declarationTypes(version: Version): List<PrototypeType> {
-    return when (version) {
-        is V1 -> listOf(PrototypeType.LET)
-        is V2 -> listOf(PrototypeType.LET, PrototypeType.CONST)
-    }
-}

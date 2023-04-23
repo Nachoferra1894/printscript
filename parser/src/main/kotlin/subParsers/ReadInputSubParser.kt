@@ -12,6 +12,6 @@ class ReadInputSubParser(tokens: List<Token>, private val version: Version) : Su
         var index: Int = getNextTokenOrThrowError(nextIndex, PrototypeType.METHOD_READ_INPUT).second
         index = getNextTokenOrThrowError(index, PrototypeType.OPEN_PARENTHESIS).second
         val (expression, expressionIndex) = expressionSubParser.getAstNode(index)
-        return Pair(ReadInputExp(expression, expression.getLine()), expressionIndex)
+        return Pair(ReadInputExp(expression, expression.getLine()), getEOL(expressionIndex).second)
     }
 }

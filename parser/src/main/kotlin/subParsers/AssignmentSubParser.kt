@@ -1,15 +1,16 @@
 package subParsers
 
-import SubParserController
 import Token
 import TokenMatcher
+import controllers.ControllerGetter
 import expresions.Expression
 import interfaces.SubParser
 import types.AssignmentNode
 import version.Version
 
 class AssignmentSubParser(private val tokens: List<Token>, version: Version) : SubParser<AssignmentNode>, TokenMatcher(tokens) {
-    private val subParserController = SubParserController(version)
+    private val controllerGetter = ControllerGetter()
+    private val subParserController = controllerGetter.getController(version)
 
     override fun getAstNode(nextIndex: Int): Pair<AssignmentNode, Int> {
         var (variableName, index) = getNextTokenOrThrowError(nextIndex, PrototypeType.IDENTIFIER)
