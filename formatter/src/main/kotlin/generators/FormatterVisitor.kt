@@ -4,7 +4,9 @@ import configuration.ConfigClasses
 import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitor
-import strategies.DeclarationStrategy.Companion.defineValue
+import strategiesFormatter.AssigmentStrategy.Companion.defineValue
+import strategiesFormatter.DeclarationStrategy.Companion.defineValue
+import strategiesFormatter.PrintlnStrategy.Companion.defineValue
 import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
@@ -14,20 +16,16 @@ class FormatterVisitor(private val configClasses: ArrayList<ConfigClasses>) : AS
     private val lines: ArrayList<String> = ArrayList()
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
-        // val planeValue = variableDeclaration.toString()
         val value = defineValue(this.configClasses, variableDeclaration)
-        // lines.add("$planeValue;")
+        lines.add("$value;")
     }
 
     override fun visitAssignment(assignmentNode: AssignmentNode) {
-        val name = assignmentNode.name
-        val planeValue = assignmentNode.value.toString()
-        lines.add("$name = $planeValue;")
+        lines.add("${defineValue(this.configClasses, assignmentNode)};")
     }
 
     override fun visitPrint(printNode: PrintNode) {
-        val planeValue = printNode.content.toString()
-        lines.add("println($planeValue);")
+        lines.add("${defineValue(this.configClasses, printNode)};")
     }
 
     override fun visitParentNode(parentNode: ParentNode) {

@@ -9,7 +9,7 @@ class ReadConfig {
     fun getJsonDataFromAsset(): ArrayList<ConfigClasses>? {
         return try {
             val jsonString: String
-            val file = File("./src/main/kotlin/configuration/config.json")
+            val file = File("../formatter/src/main/kotlin/configuration/configFormatter.json")
             jsonString = file.bufferedReader().use { it.readText() }
             val gson = Gson()
             val config = gson.fromJson(jsonString, Config::class.java)
@@ -21,34 +21,31 @@ class ReadConfig {
         }
     }
 
-    //TODO: acomodar esto
-    private fun defineConfigClass(config: Config){
+    // TODO: acomodar esto
+    private fun defineConfigClass(config: Config) {
         val map = config.v1
         map.forEach {
-            key, value ->
-            if(key == "spaceBeforeColon" && value == "true"){
+                key, value ->
+            if (key == "spaceBeforeColon" && value == "true") {
                 configClasses.add(SpaceBeforeColon())
             }
-            if(key == "spaceAfterColon" && value == "true"){
+            if (key == "spaceAfterColon" && value == "true") {
                 configClasses.add(SpaceAfterColon())
             }
-            if(key == "spaceBeforeAssignation" && value == "true"){
+            if (key == "spaceBeforeAssignation" && value == "true") {
                 configClasses.add(SpaceBeforeAssignation())
             }
-            if(key == "spaceAfterAssignation" && value == "true"){
+            if (key == "spaceAfterAssignation" && value == "true") {
                 configClasses.add(SpaceBeforeAssignation())
             }
-            if(key == "spaceAfterAssignation" && value == "true"){
+            if (key == "spaceAfterAssignation" && value == "true") {
                 configClasses.add(SpaceAfterAssignation())
             }
-            if(key == "lineBreakBeforePrintln"){
+            if (key == "lineBreakBeforePrintln") {
                 configClasses.add(LineBrakeForPrintln(value.toInt()))
             }
-
         }
-
     }
-
 
     fun getConfigClasses(): ArrayList<ConfigClasses> {
         return configClasses
