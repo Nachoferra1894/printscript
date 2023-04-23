@@ -7,8 +7,10 @@ import org.junit.jupiter.api.Test
 import version.V1
 
 class LexerTestVersion1 {
-    private val numberLine = "let a: number = 12;"
+    private val numberLine = "let a: number = 12,1;"
+    private val numberLine2 = "let a: number = 121;"
     private val stringLine = "let aS12 : string = \"HI!\";"
+    private val stringLine2 = "let aS12 : string = 'HI!';"
     private val expression = "a/b ; "
     private val printLine = "println(\"HI!\" + a);"
     private val lexer = Lexer()
@@ -26,8 +28,26 @@ class LexerTestVersion1 {
         expectedTokens.add(Token(PrototypeType.SPACE, null, 13, 14, 1))
         expectedTokens.add(Token(PrototypeType.EQUALS, null, 14, 15, 1))
         expectedTokens.add(Token(PrototypeType.SPACE, null, 15, 16, 1))
-        expectedTokens.add(Token(PrototypeType.NUMBER, "12", 16, 18, 1))
-        expectedTokens.add(Token(PrototypeType.SEMICOLON, null, 18, 19, 1))
+        expectedTokens.add(Token(PrototypeType.NUMBER, "12,1", 16, 20, 1))
+        expectedTokens.add(Token(PrototypeType.SEMICOLON, null, 20, 21, 1))
+        assertEquals(expectedTokens, actualTokens)
+    }
+
+    @Test
+    fun testNumberLine2() {
+        val actualTokens: ArrayList<Token> = lexer.defineTokens(numberLine2, 1, V1())
+        val expectedTokens: ArrayList<Token> = ArrayList()
+        expectedTokens.add(Token(PrototypeType.LET, null, 0, 3, 1))
+        expectedTokens.add(Token(PrototypeType.SPACE, null, 3, 4, 1))
+        expectedTokens.add(Token(PrototypeType.IDENTIFIER, "a", 4, 5, 1))
+        expectedTokens.add(Token(PrototypeType.COLON, null, 5, 6, 1))
+        expectedTokens.add(Token(PrototypeType.SPACE, null, 6, 7, 1))
+        expectedTokens.add(Token(PrototypeType.NUMBER_TYPE, null, 7, 13, 1))
+        expectedTokens.add(Token(PrototypeType.SPACE, null, 13, 14, 1))
+        expectedTokens.add(Token(PrototypeType.ASSIGNATION, null, 14, 15, 1))
+        expectedTokens.add(Token(PrototypeType.SPACE, null, 15, 16, 1))
+        expectedTokens.add(Token(PrototypeType.NUMBER, "121", 16, 19, 1))
+        expectedTokens.add(Token(PrototypeType.SEMICOLON, null, 19, 20, 1))
         assertEquals(expectedTokens, actualTokens)
     }
 
@@ -44,6 +64,25 @@ class LexerTestVersion1 {
         expectedTokens.add(Token(PrototypeType.STRING_TYPE, null, 11, 17, 1))
         expectedTokens.add(Token(PrototypeType.SPACE, null, 17, 18, 1))
         expectedTokens.add(Token(PrototypeType.EQUALS, null, 18, 19, 1))
+        expectedTokens.add(Token(PrototypeType.SPACE, null, 19, 20, 1))
+        expectedTokens.add(Token(PrototypeType.STRING, "HI!", 20, 23, 1))
+        expectedTokens.add(Token(PrototypeType.SEMICOLON, null, 25, 26, 1))
+        assertEquals(expectedTokens, actualTokens)
+    }
+
+    @Test
+    fun testStringLine2() {
+        val actualTokens: ArrayList<Token> = lexer.defineTokens(stringLine2, 1, V1())
+        val expectedTokens: ArrayList<Token> = ArrayList()
+        expectedTokens.add(Token(PrototypeType.LET, null, 0, 3, 1))
+        expectedTokens.add(Token(PrototypeType.SPACE, null, 3, 4, 1))
+        expectedTokens.add(Token(PrototypeType.IDENTIFIER, "aS12", 4, 8, 1))
+        expectedTokens.add(Token(PrototypeType.SPACE, null, 8, 9, 1))
+        expectedTokens.add(Token(PrototypeType.COLON, null, 9, 10, 1))
+        expectedTokens.add(Token(PrototypeType.SPACE, null, 10, 11, 1))
+        expectedTokens.add(Token(PrototypeType.STRING_TYPE, null, 11, 17, 1))
+        expectedTokens.add(Token(PrototypeType.SPACE, null, 17, 18, 1))
+        expectedTokens.add(Token(PrototypeType.ASSIGNATION, null, 18, 19, 1))
         expectedTokens.add(Token(PrototypeType.SPACE, null, 19, 20, 1))
         expectedTokens.add(Token(PrototypeType.STRING, "HI!", 20, 23, 1))
         expectedTokens.add(Token(PrototypeType.SEMICOLON, null, 25, 26, 1))
