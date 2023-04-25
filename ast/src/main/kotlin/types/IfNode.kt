@@ -1,8 +1,10 @@
 package types
 
+import exceptions.DifferentVersionError
 import expresions.Expression
 import interfaces.ASTNode
-import interfaces.ASTNodeVisitor
+import interfaces.ASTNodeVisitorCommon
+import interfaces.ASTNodeVisitorV2
 
 class IfNode(
     condition: Expression,
@@ -16,8 +18,12 @@ class IfNode(
         return line
     }
 
-    override fun accept(visitor: ASTNodeVisitor) {
-        visitor.visitIfNode(this)
+    override fun accept(visitor: ASTNodeVisitorCommon) {
+        if (visitor is ASTNodeVisitorV2) {
+            visitor.visitIfNode(this)
+        } else {
+            throw DifferentVersionError("Using v1 in v2")
+        }
     }
 
     override fun toString(): String {

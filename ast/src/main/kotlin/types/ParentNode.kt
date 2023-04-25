@@ -1,7 +1,7 @@
 package types
 
 import interfaces.ASTNode
-import interfaces.ASTNodeVisitor
+import interfaces.ASTNodeVisitorCommon
 
 class ParentNode : ASTNode {
     private val children: MutableList<ASTNode> = ArrayList()
@@ -28,7 +28,7 @@ class ParentNode : ASTNode {
         return 0
     }
 
-    override fun accept(visitor: ASTNodeVisitor) {
+    override fun accept(visitor: ASTNodeVisitorCommon) {
         visitor.visitParentNode(this)
     }
 

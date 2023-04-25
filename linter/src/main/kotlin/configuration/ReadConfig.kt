@@ -13,6 +13,7 @@ class ReadConfig {
             val config = gson.fromJson(jsonString, Config::class.java)
             configClasses.add(defineCaseClass(config))
             configClasses.add(definePrintClass(config))
+            configClasses.add(defineReadInputClass(config))
             configClasses
         } catch (ioException: IOException) {
             ioException.printStackTrace()
@@ -25,6 +26,13 @@ class ReadConfig {
             return PrintOperations()
         }
         return PrintNormal()
+    }
+
+    fun defineReadInputClass(config: Config): ReadInputCase {
+        if (config.v1["readInputWithOperation"] == true) {
+            return ReadInputOperations()
+        }
+        return ReadInputNormal()
     }
 
     fun defineCaseClass(config: Config): TextCase {

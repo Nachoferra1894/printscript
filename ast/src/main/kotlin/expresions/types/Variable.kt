@@ -4,7 +4,10 @@ import PrototypeType
 import expresions.Expression
 import expresions.ExpressionVisitor
 import expresions.Operator
-import interfaces.ASTNodeVisitor
+import interfaces.ASTNodeVisitorCommon
+import variableTypes
+import version.V1
+import version.Version
 
 class Variable(
     private val value: String,
@@ -15,7 +18,7 @@ class Variable(
         visitor.visitVariable(this)
     }
 
-    override fun accept(visitor: ASTNodeVisitor) {
+    override fun accept(visitor: ASTNodeVisitorCommon) {
         visitor.visitExpressionNode(this)
     }
 

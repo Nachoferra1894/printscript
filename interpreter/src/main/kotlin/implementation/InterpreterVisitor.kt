@@ -5,9 +5,8 @@ import expresions.Expression
 import expresions.Operator
 import expresions.types.Operation
 import expresions.types.Variable
-import interfaces.ASTNodeVisitor
+import interfaces.ASTNodeVisitorV1
 import types.AssignmentNode
-import types.IfNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
@@ -18,7 +17,7 @@ class InterpreterVisitor(
     val map: InterpreterMap,
     private val printer: PrinterImpl,
     private val version: Version
-) : ASTNodeVisitor {
+) : ASTNodeVisitorV1 {
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
         val name = variableDeclaration.getName()
@@ -99,10 +98,6 @@ class InterpreterVisitor(
             }
         }
         throw Error("Invalid Expression!")
-    }
-
-    override fun visitIfNode(ifNode: IfNode) {
-        TODO("Not yet implemented")
     }
 
     private fun sumValues(left: Variable, right: Variable): Variable {

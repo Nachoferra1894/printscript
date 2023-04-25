@@ -1,6 +1,7 @@
 {
   "v1":{
     "camelCaseApproved": true,
-    "printWithOperation": true
+    "printWithOperation": true,
+    "readInputWithOperation": true
   }
 }
