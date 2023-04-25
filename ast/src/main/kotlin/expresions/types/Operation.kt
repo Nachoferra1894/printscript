@@ -5,8 +5,6 @@ import expresions.Expression
 import expresions.ExpressionVisitor
 import expresions.Operator
 import interfaces.ASTNodeVisitorCommon
-import version.V1
-import version.Version
 
 class Operation : Expression {
     private var l: Expression?

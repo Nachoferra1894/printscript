@@ -343,80 +343,10 @@ val node12 = IfNode(
         PrintNode(
             Variable("a is 1", PrototypeType.STRING, 0)
         )
-    )
-)
-
-// Statement: if (true) { print("a is 1"); print("b is 2"); }
-val tokenList11 = listOf(
-    Token(PrototypeType.IF, null, 0, 2, 0),
-    Token(PrototypeType.OPEN_PARENTHESIS, null, 3, 4, 0),
-    Token(PrototypeType.BOOLEAN, "true", 4, 8, 0),
-    Token(PrototypeType.CLOSE_PARENTHESIS, null, 8, 9, 0),
-    Token(PrototypeType.OPEN_BRACE, null, 10, 11, 0),
-    Token(PrototypeType.METHOD_PRINT, null, 12, 17, 0),
-    Token(PrototypeType.OPEN_PARENTHESIS, null, 17, 18, 0),
-    Token(PrototypeType.STRING, "a is 1", 18, 24, 0),
-    Token(PrototypeType.CLOSE_PARENTHESIS, null, 24, 25, 0),
-    Token(PrototypeType.SEMICOLON, null, 25, 26, 0),
-    Token(PrototypeType.METHOD_PRINT, null, 27, 32, 0),
-    Token(PrototypeType.OPEN_PARENTHESIS, null, 32, 33, 0),
-    Token(PrototypeType.STRING, "b is 2", 33, 39, 0),
-    Token(PrototypeType.CLOSE_PARENTHESIS, null, 39, 40, 0),
-    Token(PrototypeType.SEMICOLON, null, 40, 41, 0),
-    Token(PrototypeType.CLOSE_BRACE, null, 42, 43, 0)
-)
-val node11 = IfNode(
-    Variable("true", PrototypeType.BOOLEAN, 0, V2()),
-    0,
-    ParentNode(
-        listOf(
-            PrintNode(
-                Variable("a is 1", PrototypeType.STRING, 0),
-                0
-            ),
-            PrintNode(
-                Variable("b is 2", PrototypeType.STRING, 0),
-                0
-            )
-        )
-    )
-)
-
-// Statement: if (a) { print("a is 1"); } else { print("a is not 1"); }
-val tokenList12 = listOf(
-    Token(PrototypeType.IF, null, 0, 2, 0),
-    Token(PrototypeType.OPEN_PARENTHESIS, null, 3, 4, 0),
-    Token(PrototypeType.IDENTIFIER, "a", 4, 8, 0),
-    Token(PrototypeType.CLOSE_PARENTHESIS, null, 8, 9, 0),
-    Token(PrototypeType.OPEN_BRACE, null, 10, 11, 0),
-    Token(PrototypeType.METHOD_PRINT, null, 12, 17, 0),
-    Token(PrototypeType.OPEN_PARENTHESIS, null, 17, 18, 0),
-    Token(PrototypeType.STRING, "a is 1", 18, 24, 0),
-    Token(PrototypeType.CLOSE_PARENTHESIS, null, 24, 25, 0),
-    Token(PrototypeType.SEMICOLON, null, 25, 26, 0),
-    Token(PrototypeType.CLOSE_BRACE, null, 27, 28, 0),
-    Token(PrototypeType.ELSE, null, 29, 33, 0),
-    Token(PrototypeType.OPEN_BRACE, null, 34, 35, 0),
-    Token(PrototypeType.METHOD_PRINT, null, 36, 41, 0),
-    Token(PrototypeType.OPEN_PARENTHESIS, null, 41, 42, 0),
-    Token(PrototypeType.STRING, "a is not 1", 42, 52, 0),
-    Token(PrototypeType.CLOSE_PARENTHESIS, null, 52, 53, 0),
-    Token(PrototypeType.SEMICOLON, null, 53, 54, 0),
-    Token(PrototypeType.CLOSE_BRACE, null, 55, 56, 0)
-)
-val node12 = IfNode(
-    Variable("a", PrototypeType.IDENTIFIER, 0, V2()),
-    0,
-    ParentNode(
-        PrintNode(
-            Variable("a is 1", PrototypeType.STRING, 0),
-            0
-        )
     ),
     ParentNode(
         PrintNode(
-            Variable("a is not 1", PrototypeType.STRING, 0),
-            0
+            Variable("a is not 1", PrototypeType.STRING, 0)
         )
     )
 )

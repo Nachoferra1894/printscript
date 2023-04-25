@@ -4,7 +4,6 @@ import expresions.Expression
 import expresions.ExpressionVisitor
 import expresions.Operator
 import interfaces.ASTNodeVisitorCommon
-import version.V2
 
 // ReadInput is an expression because it behaves like so, it returns a value
 class ReadInputExp(var expression: Expression, private val line: Int) : Expression {

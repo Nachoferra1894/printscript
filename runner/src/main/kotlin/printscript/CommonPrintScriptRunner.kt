@@ -57,6 +57,6 @@ class CommonPrintScriptRunner(private val version: Version) : PrintscriptRunner 
 
     override fun runAnalyzing(sourceFile: File, configFile: File): String {
         val ast = getNode(sourceFile)
-        return linter.getLintedCodeCorrection(ast, configFile)
+        return linter.getLintedCodeCorrection(ast, configFile, version)
     }
 }

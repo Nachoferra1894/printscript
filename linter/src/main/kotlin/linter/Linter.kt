@@ -7,13 +7,13 @@ import generators.LinterVisitorV2
 import interfaces.ASTNode
 import interfaces.LinterI
 import lexer.exceptions.NoConfigFile
-import java.io.File
 import version.V1
 import version.V2
 import version.Version
+import java.io.File
 
 class Linter : LinterI {
-    override fun getLintedCodeCorrection(node: ASTNode, configFile: File,version: Version): String {
+    override fun getLintedCodeCorrection(node: ASTNode, configFile: File, version: Version): String {
         val readConfig = ReadConfig()
         val configClasses = readConfig.getJsonDataFromAsset(configFile)
         if (configClasses != null) {
