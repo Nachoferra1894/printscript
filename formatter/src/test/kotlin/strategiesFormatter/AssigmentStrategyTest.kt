@@ -21,12 +21,12 @@ class AssigmentStrategyTest {
         Assertions.assertEquals("a =42", defineValue(configClasses, nodeNumber))
     }
 
-    /*@Test
+    @Test
     fun testAssigmentWithBeforeBoolean() {
         val configClasses: ArrayList<ConfigClasses> = ArrayList()
         configClasses.add(SpaceBeforeAssignation())
         Assertions.assertEquals("a =true", defineValue(configClasses, nodeBoolean))
-    }*/
+    }
 
     @Test
     fun testAssigmentWithAfter() {
