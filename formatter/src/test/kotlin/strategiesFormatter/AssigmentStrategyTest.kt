@@ -14,7 +14,6 @@ class AssigmentStrategyTest {
     val nodeNumber = AssignmentNode("a", Variable("42", PrototypeType.NUMBER, 1), 1)
     val nodeBoolean = AssignmentNode("a", Variable("true", PrototypeType.BOOLEAN, 1), 1)
 
-
     @Test
     fun testAssigmentWithBefore() {
         val configClasses: ArrayList<ConfigClasses> = ArrayList()
