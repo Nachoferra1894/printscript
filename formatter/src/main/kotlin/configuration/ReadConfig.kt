@@ -42,6 +42,9 @@ class ReadConfig {
             if (key == "lineBreakBeforePrintln") {
                 configClasses.add(LineBrakeForPrintln(value.toInt()))
             }
+            if (key == "spaceIndexedForIf") {
+                configClasses.add(SpaceIndexedForIf(value.toInt()))
+            }
         }
     }
 

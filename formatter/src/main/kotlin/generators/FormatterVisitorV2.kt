@@ -4,9 +4,10 @@ import configuration.ConfigClasses
 import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitorV2
-import strategiesFormatter.AssigmentStrategy
+import strategiesFormatter.AssigmentStrategy.Companion.defineValue
 import strategiesFormatter.DeclarationStrategy.Companion.defineValueV2
-import strategiesFormatter.PrintlnStrategy
+import strategiesFormatter.IfStrategy.Companion.defineValue
+import strategiesFormatter.PrintlnStrategy.Companion.defineValue
 import types.AssignmentNode
 import types.IfNode
 import types.ParentNode
@@ -17,7 +18,7 @@ class FormatterVisitorV2(private val configClasses: ArrayList<ConfigClasses>) : 
     private val lines: ArrayList<String> = ArrayList()
 
     override fun visitIfNode(ifNode: IfNode) {
-        TODO("Not yet implemented")
+        lines.add(defineValue(this.configClasses, ifNode))
     }
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
@@ -26,11 +27,11 @@ class FormatterVisitorV2(private val configClasses: ArrayList<ConfigClasses>) : 
     }
 
     override fun visitAssignment(assignmentNode: AssignmentNode) {
-        lines.add("${AssigmentStrategy.defineValue(this.configClasses, assignmentNode)};")
+        lines.add("${defineValue(this.configClasses, assignmentNode)};")
     }
 
     override fun visitPrint(printNode: PrintNode) {
-        lines.add("${PrintlnStrategy.defineValue(this.configClasses, printNode)};")
+        lines.add("${defineValue(this.configClasses, printNode)};")
     }
 
     override fun visitParentNode(parentNode: ParentNode) {
