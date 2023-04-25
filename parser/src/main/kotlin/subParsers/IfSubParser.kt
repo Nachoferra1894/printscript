@@ -3,24 +3,46 @@ package subParsers
 import PrototypeType
 import Token
 import TokenMatcher
+import interfaces.ASTNode
 import interfaces.SubParser
+import kotlinx.coroutines.flow.Flow
 import types.IfNode
 import version.Version
+import java.util.*
 
-class IfSubParser(private val tokens: List<Token>, private val version: Version) : SubParser<IfNode>, TokenMatcher(tokens) {
+class IfSubParser(tokens: Queue<Token>, private val version: Version) : SubParser<IfNode>, TokenMatcher(tokens) {
     val ifConditionTypes = listOf(
         PrototypeType.IDENTIFIER,
         PrototypeType.BOOLEAN
     )
-    val expressionParser = ExpressionSubParser(tokens, version, PrototypeType.CLOSE_PARENTHESIS)
+    private val expressionParser = ExpressionSubParser(tokens, version, PrototypeType.CLOSE_PARENTHESIS)
+    private val codeParser = CodeParser(tokens, version)
 
     // Returns only the condition
-    override fun getAstNode(nextIndex: Int): Pair<IfNode, Int> {
-        var index = getNextTokenOrThrowError(nextIndex, PrototypeType.IF).second
-        index = getNextTokenOrThrowError(index, PrototypeType.OPEN_PARENTHESIS).second
-        val conditionExp = expressionParser.getAstNode(index)
-        val condition = conditionExp.first
-        index = getNextTokenOrThrowError(conditionExp.second, PrototypeType.OPEN_BRACE).second
-        return Pair(IfNode(condition, condition.getLine()), index)
+    override fun getAstNode(): IfNode {
+        getNextTokenOrThrowError(PrototypeType.IF)
+        getNextTokenOrThrowError(PrototypeType.OPEN_PARENTHESIS)
+        val condition = expressionParser.getAstNode()
+        getNextTokenOrThrowError(PrototypeType.OPEN_BRACE)
+        val code = codeParser.getAstNode(PrototypeType.CLOSE_BRACE)
+        getNextTokenOrThrowError(PrototypeType.CLOSE_BRACE)
+        try {
+            getNextTokenOrThrowError(PrototypeType.ELSE)
+            getNextTokenOrThrowError(PrototypeType.OPEN_BRACE)
+            val elseCode = codeParser.getAstNode(PrototypeType.CLOSE_BRACE)
+            getNextTokenOrThrowError(PrototypeType.CLOSE_BRACE)
+            return IfNode(
+                condition,
+                condition.getLine(),
+                code,
+                elseCode
+            )
+        } catch (e: Exception) {
+            return IfNode(
+                condition,
+                condition.getLine(),
+                code,
+            )
+        }
     }
 }

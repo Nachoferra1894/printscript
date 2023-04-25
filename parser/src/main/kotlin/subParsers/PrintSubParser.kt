@@ -3,15 +3,18 @@ package subParsers
 import Token
 import TokenMatcher
 import interfaces.SubParser
+import kotlinx.coroutines.flow.Flow
 import types.PrintNode
 import version.Version
+import java.util.*
 
-class PrintSubParser(tokens: List<Token>, version: Version) : SubParser<PrintNode>, TokenMatcher(tokens) {
+class PrintSubParser(tokens: Queue<Token>, version: Version) : SubParser<PrintNode>, TokenMatcher(tokens) {
     private val expressionSubParser = ExpressionSubParser(tokens, version, PrototypeType.CLOSE_PARENTHESIS)
-    override fun getAstNode(nextIndex: Int): Pair<PrintNode, Int> {
-        var index = getNextTokenOrThrowError(nextIndex, PrototypeType.METHOD_PRINT).second
-        index = getNextTokenOrThrowError(index, PrototypeType.OPEN_PARENTHESIS).second
-        val (expression, expressionIndex) = expressionSubParser.getAstNode(index)
-        return Pair(PrintNode(expression, expression.getLine()), getEOL(expressionIndex).second)
+    override fun getAstNode(): PrintNode {
+        getNextTokenOrThrowError(PrototypeType.METHOD_PRINT)
+        getNextTokenOrThrowError( PrototypeType.OPEN_PARENTHESIS)
+        val expression = expressionSubParser.getAstNode()
+        getEOL()
+        return PrintNode(expression, expression.getLine())
     }
 }

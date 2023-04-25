@@ -1,34 +1,25 @@
 package subParsers
 
+import PrototypeType
 import Token
-import TokenMatcher
 import controllers.ControllerGetter
 import interfaces.ASTNode
-import interfaces.SubParser
+import kotlinx.coroutines.flow.Flow
 import types.ParentNode
 import version.Version
+import java.util.Queue
 
-class CodeParser(private val tokens: List<Token>, private val version: Version) : SubParser<ASTNode>, TokenMatcher(tokens) {
-    private val parentNode = ParentNode()
+class CodeParser(private val tokens: Queue<Token>, version: Version) {
     private val controllerGetter = ControllerGetter()
     private val subParserController = controllerGetter.getController(version)
 
-    override fun getAstNode(nextIndex: Int): Pair<ASTNode, Int> {
-        var index = nextIndex
-        while (index < tokens.size) {
-            val subParser = subParserController.getSubParser(tokens)
-            val (astNode, astIndex) = subParser.getAstNode(0)
-            parentNode.addChild(astNode)
-            index = astIndex
+    fun getAstNode(closeType: PrototypeType? = null): ParentNode {
+        val parentNode = ParentNode()
+        while (!tokens.isEmpty() && tokens.peek().prototypeType != closeType) {
+            parentNode.addChild(
+                subParserController.getSubParserToken(tokens)
+            )
         }
-        return Pair(getParentOrFirstChild(parentNode), index)
-    }
-
-    private fun getParentOrFirstChild(node: ParentNode): ASTNode {
-        return if (node.getChildren().size == 1) {
-            node.getChildren()[0]
-        } else {
-            node
-        }
+        return parentNode
     }
 }

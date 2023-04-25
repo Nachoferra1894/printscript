@@ -3,40 +3,46 @@ package subParsers
 import PrototypeType
 import Token
 import TokenMatcher
+import exceptions.WrongTokenException
 import expresions.Expression
 import expresions.Operator
 import expresions.types.Variable
 import interfaces.SubParser
+import kotlinx.coroutines.flow.Flow
 import operatorTypes
 import variableTypes
 import version.Version
+import java.util.*
 
-class ExpressionSubParser(private val tokens: List<Token>, private val version: Version, val closeType: PrototypeType = PrototypeType.SEMICOLON) : SubParser<Expression>, TokenMatcher(tokens) {
+class ExpressionSubParser(
+    tokens: Queue<Token>,
+    private val version: Version,
+    private val closeType: PrototypeType = PrototypeType.SEMICOLON
+) : SubParser<Expression>, TokenMatcher(tokens) {
 
-    val expressionMiddleTypes: List<PrototypeType> =
+    private val expressionMiddleTypes: List<PrototypeType> =
         listOf(
             *operatorTypes.toTypedArray(),
             closeType
         )
 
-    override fun getAstNode(nextIndex: Int): Pair<Expression, Int> {
-        val expressionInitial = getNextTokenOrThrowError(nextIndex, variableTypes(version))
-        var index = expressionInitial.second
-        val variable = expressionInitial.first
+    override fun getAstNode(): Expression{
+        val variable = getNextTokenOrThrowError(variableTypes(version))
         var result: Expression = Variable(variable.value!!, variable.prototypeType, variable.line, version)
-        val expressionMiddleType = getNextTokenOrThrowError(index, expressionMiddleTypes)
-        var nextToken = expressionMiddleType.first
-        index = expressionMiddleType.second
-        while (nextToken.prototypeType != closeType) {
-            val opNode = getNextTokenOrThrowError(index, variableTypes(version))
-            val currentToken = opNode.first
-            index = opNode.second
-            val operator: Operator = Operator.getByPrototypeType(nextToken.prototypeType)
-            result = result.addMember(operator, Variable(currentToken.value!!, currentToken.prototypeType, currentToken.line))
-            val leftExp = getNextTokenOrThrowError(index, expressionMiddleTypes)
-            index = leftExp.second
-            nextToken = leftExp.first
+        try {
+            getEOL()
+        } catch (e:WrongTokenException) {
+            var expressionMiddleType = getNextTokenOrThrowError(expressionMiddleTypes)
+            while (expressionMiddleType.prototypeType != closeType) {
+                val opNode = getNextTokenOrThrowError(variableTypes(version))
+                val operator: Operator = Operator.getByPrototypeType(expressionMiddleType.prototypeType)
+                result = result.addMember(
+                    operator,
+                    Variable(opNode.value!!, opNode.prototypeType, opNode.line)
+                )
+                expressionMiddleType = getNextTokenOrThrowError(expressionMiddleTypes)
+            }
         }
-        return Pair(result, index)
+        return result
     }
 }

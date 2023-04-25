@@ -8,10 +8,12 @@ import dataTypes
 import exceptions.WrongTokenException
 import expresions.Expression
 import interfaces.SubParser
+import kotlinx.coroutines.flow.Flow
 import types.VariableDeclarationNode
 import version.Version
+import java.util.*
 
-class DeclarationSubParser(private val tokens: List<Token>, private val version: Version) :
+class DeclarationSubParser(tokens: Queue<Token>, private val version: Version) :
     SubParser<VariableDeclarationNode>, TokenMatcher(tokens) {
     // Statement: let g: number = 1 - 2 - 3;
     // Statement: let g: number;
@@ -19,37 +21,31 @@ class DeclarationSubParser(private val tokens: List<Token>, private val version:
     private val controllerGetter = ControllerGetter()
     private val subParserController = controllerGetter.getController(version)
 
-    override fun getAstNode(nextIndex: Int): Pair<VariableDeclarationNode, Int> {
-        var (declarationType, index) = getNextTokenOrThrowError(nextIndex, subParserController.declarationTypes())
-        val identifier = getNextTokenOrThrowError(index, PrototypeType.IDENTIFIER)
-        val variableName = identifier.first
-        index = identifier.second
-        index = getNextTokenOrThrowError(index, PrototypeType.COLON).second
-        val variable = getNextTokenOrThrowError(index, dataTypes(version))
-        val variableType = variable.first
-        index = variable.second
+    override fun getAstNode(): VariableDeclarationNode {
+        val declarationType = getNextTokenOrThrowError(subParserController.declarationTypes())
+        val variableName = getNextTokenOrThrowError(PrototypeType.IDENTIFIER)
+        getNextTokenOrThrowError(PrototypeType.COLON)
+        val variableType = getNextTokenOrThrowError(dataTypes(version))
         val isMutable: Boolean = declarationType.prototypeType == PrototypeType.LET
         try {
-            index = getEOL(index).second
-            val newNode = VariableDeclarationNode(
+            getEOL()
+            return VariableDeclarationNode(
                 variableName.value!!,
                 variableType.prototypeType.toString(),
                 variableName.line,
                 isMutable
             )
-            return Pair(newNode, index)
         } catch (e: WrongTokenException) {
-            index = getNextTokenOrThrowError(index, PrototypeType.EQUALS).second
-            val subParser = subParserController.getExpressionParser(tokens, index)
-            val (expression, expressionIndex) = subParser.getAstNode(index)
-            val newNode = VariableDeclarationNode(
+            getNextTokenOrThrowError(PrototypeType.EQUALS)
+            val subParser = subParserController.getExpressionParser(tokens)
+            val expression = subParser.getAstNode()
+            return VariableDeclarationNode(
                 variableName.value!!,
                 variableType.prototypeType.toString(),
                 expression as Expression,
                 variableName.line,
                 isMutable
             )
-            return Pair(newNode, expressionIndex)
         }
     }
 }

@@ -4,14 +4,17 @@ import Token
 import TokenMatcher
 import expresions.types.ReadInputExp
 import interfaces.SubParser
+import kotlinx.coroutines.flow.Flow
 import version.Version
+import java.util.*
 
-class ReadInputSubParser(tokens: List<Token>, private val version: Version) : SubParser<ReadInputExp>, TokenMatcher(tokens) {
+class ReadInputSubParser(tokens: Queue<Token>, version: Version) : SubParser<ReadInputExp>, TokenMatcher(tokens) {
     private val expressionSubParser = ExpressionSubParser(tokens, version, PrototypeType.CLOSE_PARENTHESIS)
-    override fun getAstNode(nextIndex: Int): Pair<ReadInputExp, Int> {
-        var index: Int = getNextTokenOrThrowError(nextIndex, PrototypeType.METHOD_READ_INPUT).second
-        index = getNextTokenOrThrowError(index, PrototypeType.OPEN_PARENTHESIS).second
-        val (expression, expressionIndex) = expressionSubParser.getAstNode(index)
-        return Pair(ReadInputExp(expression, expression.getLine()), getEOL(expressionIndex).second)
+    override fun getAstNode(): ReadInputExp {
+        getNextTokenOrThrowError(PrototypeType.METHOD_READ_INPUT)
+        getNextTokenOrThrowError(PrototypeType.OPEN_PARENTHESIS)
+        val expression = expressionSubParser.getAstNode()
+        getEOL()
+        return ReadInputExp(expression, expression.getLine())
     }
 }

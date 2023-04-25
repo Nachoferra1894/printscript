@@ -1,25 +1,33 @@
 
 import exceptions.NoEOLException
 import exceptions.WrongTokenException
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.single
+import kotlinx.coroutines.flow.take
+import kotlinx.coroutines.runBlocking
+import java.util.Queue
 import kotlin.jvm.Throws
 
-abstract class TokenMatcher(private val tokens: List<Token>) {
+abstract class TokenMatcher(val tokens: Queue<Token>) {
     @Throws(WrongTokenException::class, NoEOLException::class)
-    fun getNextTokenOrThrowError(index: Int, tokenTypes: List<PrototypeType>): Pair<Token, Int> {
-        if (index >= tokens.size) throw NoEOLException()
-        val nextToken = tokens[index]
-        if (nextToken.prototypeType === PrototypeType.SPACE) return getNextTokenOrThrowError(index + 1, tokenTypes)
-        if (!tokenTypes.contains(nextToken.prototypeType)) throw WrongTokenException(nextToken)
-        return Pair(nextToken, index + 1)
+    fun getNextTokenOrThrowError(tokenTypes: List<PrototypeType>): Token = runBlocking {
+        val firstToken = tokens.peek() ?: throw NoEOLException()
+        if (firstToken.prototypeType === PrototypeType.SPACE) {
+            tokens.poll()
+            getNextTokenOrThrowError(tokenTypes)
+        }
+        if (!tokenTypes.contains(firstToken.prototypeType)) throw WrongTokenException(firstToken)
+        tokens.poll()
+        firstToken
     }
 
     @Throws(WrongTokenException::class)
-    fun getNextTokenOrThrowError(index: Int, tokenType: PrototypeType): Pair<Token, Int> {
-        return getNextTokenOrThrowError(index, listOf(tokenType))
+    fun getNextTokenOrThrowError(tokenType: PrototypeType): Token {
+        return getNextTokenOrThrowError(listOf(tokenType))
     }
 
     @Throws(WrongTokenException::class)
-    fun getEOL(index: Int): Pair<Token, Int> {
-        return getNextTokenOrThrowError(index, PrototypeType.SEMICOLON)
+    fun getEOL(): Token {
+        return getNextTokenOrThrowError(PrototypeType.SEMICOLON)
     }
 }
