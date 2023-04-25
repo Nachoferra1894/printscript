@@ -4,8 +4,7 @@ import version.Version
 
 data class Token(val prototypeType: PrototypeType, val value: String?, val from: Int, val to: Int, val line: Int) {
     fun isEOL(): Boolean {
-        return this.prototypeType === PrototypeType.SEMICOLON ||
-            this.prototypeType === PrototypeType.CLOSE_BRACE
+        return this.prototypeType === PrototypeType.SEMICOLON
     }
 
     fun isNextLine(): Boolean {

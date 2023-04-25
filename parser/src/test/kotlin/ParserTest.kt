@@ -3,6 +3,9 @@ import fixtures.getFlowFromTokenList
 import fixtures.mutableNode6
 import fixtures.node0
 import fixtures.node1
+import fixtures.node10
+import fixtures.node11
+import fixtures.node12
 import fixtures.node2
 import fixtures.node3
 import fixtures.node4
@@ -13,6 +16,9 @@ import fixtures.node8
 import fixtures.node9
 import fixtures.tokenList0
 import fixtures.tokenList1
+import fixtures.tokenList10
+import fixtures.tokenList11
+import fixtures.tokenList12
 import fixtures.tokenList2
 import fixtures.tokenList3
 import fixtures.tokenList4
@@ -44,7 +50,7 @@ class ParserTest {
 
     @Test
     fun testSimpleSumToken() {
-        // Statement: 22 + 20;
+        // Statement: b = 22 + 20;
         val tokenList = tokenList1
         val node = node1
 
@@ -184,14 +190,34 @@ class ParserTest {
             assertEquals("Token: ${PrototypeType.METHOD_READ_INPUT} not compatible with node at line ${tokenList[0].line}", e.message)
         }
     }
-//
-//    @Test
-//    fun testSimpleIfBlock() {
-//        // Statement: if (true) { print("a is 1"); }
-//        val tokenList = tokenList10
-//        val node = node10
-//
-//        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V2())
-//        assertEquals(node.toString(), astNode.toString())
-//    }
+
+    @Test
+    fun testSimpleIfBlock() {
+        // Statement: if (true) { print("a is 1"); }
+        val tokenList = tokenList10
+        val node = node10
+
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V2())
+        assertEquals(node.toString(), astNode.toString())
+    }
+
+    @Test
+    fun testMultipleBlock() {
+        // Statement: if (true) { print("a is 1"); print("b is 2"); }
+        val tokenList = tokenList11
+        val node = node11
+
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V2())
+        assertEquals(node.toString(), astNode.toString())
+    }
+
+    @Test
+    fun testSimpleIfElseBlock() {
+        // Statement: if (true) { print("a is 1"); } else { print("a is not 1"); }
+        val tokenList = tokenList12
+        val node = node12
+
+        val astNode = parser.parseTokens(getFlowFromTokenList(tokenList), V2())
+        assertEquals(node.toString(), astNode.toString())
+    }
 }

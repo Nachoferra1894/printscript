@@ -1,3 +1,0 @@
-package types
-
-class InputNode
