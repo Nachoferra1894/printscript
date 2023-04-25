@@ -44,7 +44,7 @@ class CommonPrintScriptRunner(private val version: Version) : PrintscriptRunner 
 
     override fun runFormatting(sourceFile: File, configFile: File): String {
         val ast = getNode(sourceFile)
-        val formatted = formatter.getFormattedCode(ast, configFile)
+        val formatted = formatter.getFormattedCode(ast, configFile, version)
         println(formatted)
         return formatted
     }

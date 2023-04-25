@@ -14,11 +14,11 @@ class PrintlnStrategy {
             val linesBrake = config.filterIsInstance<LineBrakeForPrintln>()
             if (linesBrake.isNotEmpty()) {
                 val lineBrake = linesBrake[0]
-                when (lineBrake.getLines()) {
-                    0 -> return ""
-                    1 -> return "\n"
-                    2 -> return "\n\n"
-                    else -> return "\n\n"
+                return when (lineBrake.getLines()) {
+                    0 -> ""
+                    1 -> "\n"
+                    2 -> "\n\n"
+                    else -> "\n\n"
                 }
             }
             return ""
