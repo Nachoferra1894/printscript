@@ -8,7 +8,7 @@ import expresions.Expression
 import expresions.types.Operation
 import types.PrintNode
 
-class PrintStrategy {
+class LinterPrintStrategy {
 
     fun checkContent(node: PrintNode, configClasses: ArrayList<ConfigClasses>): Boolean {
         val case: PrintCase = configClasses.find { it is PrintCase } as PrintCase

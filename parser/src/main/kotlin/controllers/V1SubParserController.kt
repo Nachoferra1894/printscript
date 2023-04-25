@@ -11,7 +11,7 @@ import subParsers.AssignmentSubParser
 import subParsers.DeclarationSubParser
 import subParsers.ExpressionSubParser
 import subParsers.PrintSubParser
-import variableTypes
+import variableTypesV2
 import version.V1
 import java.util.Queue
 
@@ -34,7 +34,7 @@ class V1SubParserController : SubParserController {
                 tokens.poll()
                 getExpressionParser(tokens)
             }
-            in variableTypes(version) -> {
+            in variableTypesV2 -> {
                 ExpressionSubParser(tokens, version)
             }
             else -> throw WrongTokenException(fToken)

@@ -4,13 +4,12 @@ import expresions.Expression
 import expresions.ExpressionVisitor
 import expresions.Operator
 import interfaces.ASTNodeVisitorCommon
-import version.V2
 
 // ReadInput is an expression because it behaves like so, it returns a value
 class ReadInputExp(var expression: Expression, private val line: Int) : Expression {
 
     override fun addMember(operator: Operator, newMember: Expression): Expression {
-        return Operation(this, operator, newMember, this.line, V2()) // ReadInputExp is only used in V2
+        return Operation(this, operator, newMember, this.line) // ReadInputExp is only used in V2
     }
 
     fun accept(visitor: ExpressionVisitor) {

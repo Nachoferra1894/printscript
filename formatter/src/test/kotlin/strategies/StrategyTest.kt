@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import strategies.NodeStrategy.Companion.assigmentStrategy
 import strategies.NodeStrategy.Companion.parentStrategy
-import strategies.NodeStrategy.Companion.printStrategy
+import strategies.NodeStrategy.Companion.printerStrategy
 import strategies.NodeStrategy.Companion.variableDeclarationStrategy
 import types.AssignmentNode
 import types.ParentNode
@@ -42,7 +42,7 @@ class StrategyTest {
 
     @Test
     fun testPrintStrategy() {
-        assertTrue(printStrategy(printNode))
+        assertTrue(printerStrategy(printNode))
         assertFalse(assigmentStrategy(variableDeclarationNode))
     }
 

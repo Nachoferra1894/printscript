@@ -16,14 +16,14 @@ class PrintStrategyTest {
 
     @Test
     fun testMessage() {
-        val readConfig = PrintStrategy()
+        val readConfig = LinterPrintStrategy()
         val node = PrintNode(Operation(Variable("3", PrototypeType.NUMBER, 1), Operator.SUM, Operation(Variable("4", PrototypeType.NUMBER, 1), Operator.MUL, Variable("5", PrototypeType.NUMBER, 1), 1), 1), 1)
         assertEquals("Incorrect println format [line: 1 ]", readConfig.getIncorrectLine(node))
     }
 
     @Test
     fun testIsNormalPrint() {
-        val readConfig = PrintStrategy()
+        val readConfig = LinterPrintStrategy()
         val configs: ArrayList<ConfigClasses> = ArrayList()
         configs.add(PrintNormal())
         val node = PrintNode(Operation(Variable("3", PrototypeType.NUMBER, 1), Operator.SUM, Operation(Variable("4", PrototypeType.NUMBER, 1), Operator.MUL, Variable("5", PrototypeType.NUMBER, 1), 1), 1), 1)
@@ -34,7 +34,7 @@ class PrintStrategyTest {
 
     @Test
     fun testIsOperationPrint() {
-        val readConfig = PrintStrategy()
+        val readConfig = LinterPrintStrategy()
         val configs: ArrayList<ConfigClasses> = ArrayList()
         configs.add(PrintOperations())
         val node = PrintNode(Operation(Variable("3", PrototypeType.NUMBER, 1), Operator.SUM, Operation(Variable("4", PrototypeType.NUMBER, 1), Operator.MUL, Variable("5", PrototypeType.NUMBER, 1), 1), 1), 1)

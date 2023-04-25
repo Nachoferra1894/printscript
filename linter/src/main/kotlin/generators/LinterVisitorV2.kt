@@ -5,8 +5,8 @@ import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitorV2
 import strategies.ExpressionStrategy
-import strategies.PrintStrategy
-import strategies.VariableStrategy
+import strategies.LinterPrintStrategy
+import strategies.LinterVariableStrategy
 import types.AssignmentNode
 import types.IfNode
 import types.ParentNode
@@ -19,7 +19,7 @@ class LinterVisitorV2(private val configClasses: ArrayList<ConfigClasses>) : AST
     override fun visitIfNode(ifNode: IfNode) {}
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
-        val strategy = VariableStrategy()
+        val strategy = LinterVariableStrategy()
         if (!strategy.checkIdentifierCondition(variableDeclaration, configClasses)) {
             lines.add(strategy.getIncorrectLine(variableDeclaration))
         }
@@ -39,7 +39,7 @@ class LinterVisitorV2(private val configClasses: ArrayList<ConfigClasses>) : AST
     }
 
     override fun visitPrint(printNode: PrintNode) {
-        val strategy = PrintStrategy()
+        val strategy = LinterPrintStrategy()
         if (!strategy.checkContent(printNode, configClasses)) {
             lines.add(strategy.getIncorrectLine(printNode))
         }
