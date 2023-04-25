@@ -11,7 +11,7 @@ import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
 
-class LinterVisitor(private val configClasses: ArrayList<ConfigClasses>) : ASTNodeVisitorV1 {
+class LinterVisitorV1(private val configClasses: ArrayList<ConfigClasses>) : ASTNodeVisitorV1 {
     private val lines: ArrayList<String> = ArrayList()
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
