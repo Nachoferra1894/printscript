@@ -12,7 +12,7 @@ import subParsers.ExpressionSubParser
 import subParsers.IfSubParser
 import subParsers.PrintSubParser
 import subParsers.ReadInputSubParser
-import variableTypes
+import variableTypesV2
 import version.V2
 import java.util.*
 
@@ -36,7 +36,7 @@ class V2SubParserController : SubParserController {
                 tokens.poll()
                 getExpressionParser(tokens)
             }
-            in variableTypes(version) -> {
+            in variableTypesV2 -> {
                 ExpressionSubParser(tokens, version)
             }
             PrototypeType.METHOD_READ_INPUT -> {

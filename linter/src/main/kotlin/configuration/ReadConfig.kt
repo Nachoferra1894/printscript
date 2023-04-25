@@ -6,11 +6,9 @@ import java.io.IOException
 
 class ReadConfig {
     private val configClasses: ArrayList<ConfigClasses> = ArrayList()
-    fun getJsonDataFromAsset(): ArrayList<ConfigClasses>? {
+    fun getJsonDataFromAsset(file: File): ArrayList<ConfigClasses>? {
         return try {
-            val jsonString: String
-            val file = File("./src/main/kotlin/configuration/config.json")
-            jsonString = file.bufferedReader().use { it.readText() }
+            val jsonString = file.bufferedReader().use { it.readText() }
             val gson = Gson()
             val config = gson.fromJson(jsonString, Config::class.java)
             configClasses.add(defineCaseClass(config))

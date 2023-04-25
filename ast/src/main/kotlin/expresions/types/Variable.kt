@@ -5,22 +5,12 @@ import expresions.Expression
 import expresions.ExpressionVisitor
 import expresions.Operator
 import interfaces.ASTNodeVisitor
-import variableTypes
-import version.V1
-import version.Version
 
 class Variable(
     private val value: String,
     private val variableType: PrototypeType,
-    private val line: Int = 0,
-    private val version: Version = V1()
+    private val line: Int = 0
 ) : Expression {
-    init {
-        require(variableTypes(version).contains(variableType)) {
-            "Variable type must be either ${variableTypes(version).joinToString(", ")} but was $variableType"
-        }
-    }
-
     override fun accept(visitor: ExpressionVisitor) {
         visitor.visitVariable(this)
     }
@@ -30,7 +20,7 @@ class Variable(
     }
 
     override fun addMember(operator: Operator, newMember: Expression): Expression {
-        return Operation(this, operator, newMember, this.line, this.version)
+        return Operation(this, operator, newMember, this.line)
     }
 
     override fun toString(): String {

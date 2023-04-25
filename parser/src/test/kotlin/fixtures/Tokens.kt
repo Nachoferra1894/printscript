@@ -12,7 +12,6 @@ import types.IfNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
-import version.V2
 
 fun getFlowFromTokenList(tokenList: List<Token>): Flow<Token> {
     return flow {
@@ -184,8 +183,8 @@ val tokenList6 = listOf(
     Token(PrototypeType.BOOLEAN, "true", 18, 22, 0),
     Token(PrototypeType.SEMICOLON, null, 22, 23, 0)
 )
-val node6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN, 0, V2()), 0, false)
-val mutableNode6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN, 0, V2()))
+val node6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN, 0), 0, false)
+val mutableNode6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN, 0))
 
 // Statement: a =    42;
 val tokenList7 = listOf(
@@ -270,7 +269,7 @@ val tokenList10 = listOf(
     Token(PrototypeType.CLOSE_BRACE, null, 27, 28, 0)
 )
 val node10 = IfNode(
-    Variable("true", PrototypeType.BOOLEAN, 0, V2()),
+    Variable("true", PrototypeType.BOOLEAN, 0),
     0,
     ParentNode(
         PrintNode(
@@ -299,7 +298,7 @@ val tokenList11 = listOf(
     Token(PrototypeType.CLOSE_BRACE, null, 42, 43, 0)
 )
 val node11 = IfNode(
-    Variable("true", PrototypeType.BOOLEAN, 0, V2()),
+    Variable("true", PrototypeType.BOOLEAN, 0),
     0,
     ParentNode(
         listOf(
@@ -338,7 +337,7 @@ val tokenList12 = listOf(
     Token(PrototypeType.CLOSE_BRACE, null, 55, 56, 0)
 )
 val node12 = IfNode(
-    Variable("a", PrototypeType.IDENTIFIER, 0, V2()),
+    Variable("a", PrototypeType.IDENTIFIER, 0),
     0,
     ParentNode(
         PrintNode(

@@ -71,9 +71,7 @@ class InterpreterVisitor(
                 return Variable(
                     variableVT.value.toString(),
                     getPrototypeFromType(variableVT.type),
-                    expressionNode.getLine(),
-                    version
-
+                    expressionNode.getLine()
                 )
             }
             return expressionNode
@@ -122,32 +120,28 @@ class InterpreterVisitor(
             lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() + rValue.toDouble()).toString(),
                 lType,
-                left.getLine(),
-                version
+                left.getLine()
 
             )
 
             lType == PrototypeType.STRING && rType == PrototypeType.NUMBER -> Variable(
                 lValue + rValue,
                 lType,
-                left.getLine(),
-                version
+                left.getLine()
 
             )
 
             lType == PrototypeType.NUMBER && rType == PrototypeType.STRING -> Variable(
                 lValue + rValue,
                 rType,
-                right.getLine(),
-                version
+                right.getLine()
 
             )
 
             lType == PrototypeType.STRING && rType == PrototypeType.STRING -> Variable(
                 lValue + rValue,
                 lType,
-                left.getLine(),
-                version
+                left.getLine()
             )
 
             else -> throw Error("Can not sum values")
@@ -167,8 +161,7 @@ class InterpreterVisitor(
             left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() - rValue.toDouble()).toString(),
                 PrototypeType.NUMBER,
-                left.getLine(),
-                version
+                left.getLine()
             )
 
             else -> throw Error("Can not subtract values")
@@ -188,8 +181,7 @@ class InterpreterVisitor(
             left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() * rValue.toDouble()).toString(),
                 PrototypeType.NUMBER,
-                left.getLine(),
-                version
+                left.getLine()
             )
 
             else -> throw Error("Can not multiply values")
@@ -209,8 +201,7 @@ class InterpreterVisitor(
             left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() / rValue.toDouble()).toString(),
                 PrototypeType.NUMBER,
-                right.getLine(),
-                version
+                right.getLine()
 
             )
 

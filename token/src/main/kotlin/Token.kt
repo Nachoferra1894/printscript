@@ -51,12 +51,10 @@ fun dataTypes(version: Version): List<PrototypeType> {
     }
 }
 
-fun variableTypes(version: Version): List<PrototypeType> {
-    return when (version) {
-        is V1 -> listOf(PrototypeType.STRING, PrototypeType.NUMBER, PrototypeType.IDENTIFIER)
-        is V2 -> listOf(PrototypeType.STRING, PrototypeType.NUMBER, PrototypeType.IDENTIFIER, PrototypeType.BOOLEAN)
-    }
-}
+val variableTypesV1 =
+    listOf(PrototypeType.STRING, PrototypeType.NUMBER, PrototypeType.IDENTIFIER)
 
+val variableTypesV2 =
+    listOf(*variableTypesV1.toTypedArray(), PrototypeType.BOOLEAN)
 val operatorTypes =
     listOf(PrototypeType.PLUS, PrototypeType.SUBTRACTION, PrototypeType.MULTIPLICATION, PrototypeType.DIVISION)

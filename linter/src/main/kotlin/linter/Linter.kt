@@ -5,11 +5,12 @@ import generators.LinterVisitor
 import interfaces.ASTNode
 import interfaces.LinterI
 import lexer.exceptions.NoConfigFile
+import java.io.File
 
 class Linter : LinterI {
-    override fun getLinteredCodeCorrection(node: ASTNode): String {
+    override fun getLintedCodeCorrection(node: ASTNode, configFile: File): String {
         val readConfig = ReadConfig()
-        val configClasses = readConfig.getJsonDataFromAsset()
+        val configClasses = readConfig.getJsonDataFromAsset(configFile)
         if (configClasses != null) {
             val formatterVisitor = LinterVisitor(configClasses)
             node.accept(formatterVisitor)

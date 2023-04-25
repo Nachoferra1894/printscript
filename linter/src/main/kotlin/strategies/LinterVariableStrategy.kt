@@ -6,7 +6,7 @@ import configuration.SnakeCase
 import configuration.TextCase
 import types.VariableDeclarationNode
 
-class VariableStrategy {
+class LinterVariableStrategy {
     fun checkIdentifierCondition(node: VariableDeclarationNode, configClasses: ArrayList<ConfigClasses>): Boolean {
         val case: TextCase = configClasses.find { it is TextCase } as TextCase
         val name = node.getName()
