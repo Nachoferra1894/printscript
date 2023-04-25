@@ -4,6 +4,8 @@
     "spaceAfterColon": true,
     "spaceBeforeAssignation": true,
     "spaceAfterAssignation": true,
-    "lineBreakBeforePrintln": 1
+    "lineBreakBeforePrintln": 1,
+    "spaceIndexedForIf": 1
+
   }
 }

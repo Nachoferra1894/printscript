@@ -16,7 +16,14 @@ import types.VariableDeclarationNode
 class LinterVisitorV2(private val configClasses: ArrayList<ConfigClasses>) : ASTNodeVisitorV2 {
     private val lines: ArrayList<String> = ArrayList()
 
-    override fun visitIfNode(ifNode: IfNode) {}
+    override fun visitIfNode(ifNode: IfNode) {
+        if (ifNode.getTruthyNode() != null && ifNode.getTruthyNode() is ParentNode) {
+            (ifNode.getTruthyNode() as ParentNode).getChildren().forEach { it.accept(this) }
+        }
+        if (ifNode.getFalsyNode() != null && ifNode.getFalsyNode() is ParentNode) {
+            (ifNode.getFalsyNode() as ParentNode).getChildren().forEach { it.accept(this) }
+        }
+    }
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
         val strategy = LinterVariableStrategy()

@@ -18,6 +18,10 @@ class IfNode(
         return line
     }
 
+    fun getCondition(): Expression? {
+        return condition
+    }
+
     override fun accept(visitor: ASTNodeVisitorCommon) {
         if (visitor is ASTNodeVisitorV2) {
             visitor.visitIfNode(this)

@@ -41,6 +41,10 @@ class VariableDeclarationNode : ASTNode {
         return this.type
     }
 
+    fun isMutable(): Boolean {
+        return this.isMutable
+    }
+
     fun getValue(): Expression? {
         return this.value
     }
