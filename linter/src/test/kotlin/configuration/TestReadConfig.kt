@@ -10,7 +10,7 @@ class TestReadConfig {
         val readConfig = ReadConfig()
         readConfig.getJsonDataFromAsset()
         val configs = readConfig.getConfigClasses()
-        assertEquals(2, configs.size)
+        assertEquals(3, configs.size)
     }
 
     @Test
@@ -39,5 +39,19 @@ class TestReadConfig {
         config = Config(map)
         val printNormal = readConfig.definePrintClass(config)
         assertTrue(printNormal is PrintNormal)
+    }
+
+    @Test
+    fun testReadInputClass() {
+        val readConfig = ReadConfig()
+        val map = mutableMapOf<String, Boolean>()
+        map["readInputWithOperation"] = true
+        var config = Config(map)
+        val readInputWithOperations = readConfig.defineReadInputClass(config)
+        assertTrue(readInputWithOperations is ReadInputOperations)
+        map["readInputWithOperation"] = false
+        config = Config(map)
+        val readInputWithNormal = readConfig.defineReadInputClass(config)
+        assertTrue(readInputWithNormal is ReadInputNormal)
     }
 }

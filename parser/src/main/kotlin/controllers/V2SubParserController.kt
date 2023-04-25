@@ -3,7 +3,9 @@ package controllers
 import PrototypeType
 import Token
 import exceptions.WrongTokenException
+import interfaces.ASTNode
 import interfaces.SubParser
+import kotlinx.coroutines.runBlocking
 import subParsers.AssignmentSubParser
 import subParsers.DeclarationSubParser
 import subParsers.ExpressionSubParser
@@ -12,23 +14,27 @@ import subParsers.PrintSubParser
 import subParsers.ReadInputSubParser
 import variableTypes
 import version.V2
+import java.util.*
 
 class V2SubParserController : SubParserController {
     val version = V2()
-    override fun getSubParser(tokens: List<Token>): SubParser<*> {
-        return when (tokens[0].prototypeType) {
-            PrototypeType.METHOD_PRINT -> PrintSubParser(tokens, version)
-            PrototypeType.IDENTIFIER -> AssignmentSubParser(tokens, version)
-            in declarationTypes() -> DeclarationSubParser(tokens, version)
-            PrototypeType.IF -> IfSubParser(tokens, version)
-            else -> throw WrongTokenException(tokens[0]) // Having a readInput here does not make sense
+    override fun getSubParserToken(tokens: Queue<Token>): ASTNode = runBlocking {
+        val fToken = tokens.peek()
+        when (fToken.prototypeType) {
+            PrototypeType.METHOD_PRINT -> PrintSubParser(tokens, version).getAstNode()
+            PrototypeType.IDENTIFIER -> AssignmentSubParser(tokens, version).getAstNode()
+            in declarationTypes() -> DeclarationSubParser(tokens, version).getAstNode()
+            PrototypeType.IF -> IfSubParser(tokens, version).getAstNode()
+            else -> throw WrongTokenException(fToken) // Having a readInput here does not make sense
         }
     }
 
-    override fun getExpressionParser(tokens: List<Token>, index: Int): SubParser<*> {
-        return when (tokens[index].prototypeType) {
+    override fun getExpressionParser(tokens: Queue<Token>): SubParser<*> = runBlocking {
+        val fToken = tokens.peek()
+        when (fToken.prototypeType) {
             PrototypeType.SPACE -> {
-                getExpressionParser(tokens, index + 1)
+                tokens.poll()
+                getExpressionParser(tokens)
             }
             in variableTypes(version) -> {
                 ExpressionSubParser(tokens, version)
@@ -37,7 +43,7 @@ class V2SubParserController : SubParserController {
                 ReadInputSubParser(tokens, version)
             }
             else -> {
-                throw WrongTokenException(tokens[index]) // Having a readInput here does not make sense
+                throw WrongTokenException(fToken) // Having a readInput here does not make sense
             }
         }
     }

@@ -34,7 +34,7 @@ class CommonPrintScriptRunner(private val version: Version) : PrintscriptRunner 
 
     override fun runFormatting(sourceFile: File, configFile: File): String {
         val lexerFileInput = LexerFileInput(sourceFile)
-        val tokens = lexer.getTokens(lexerFileInput.getFlow(), version) // TODO SETEAR VERSION
+        val tokens = lexer.getTokens(lexerFileInput.getFlow(), version)
         val ast = parser.parseTokens(tokens, version)
         val formatted = formatter.getFormattedCode(ast, V1()) // TODO SETEAR VERSION
         println(formatted)
