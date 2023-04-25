@@ -21,12 +21,17 @@ class IfNode(
     }
 
     override fun toString(): String {
-        return ("if($condition) {\n$truthyNode\n} else {\n$falsyNode\n}")
+        return if (falsyNode !== null) {
+            "if($condition) {\n$truthyNode\n} else {\n$falsyNode\n}"
+        } else {
+            "if($condition) {\n$truthyNode\n}"
+        }
     }
 
     fun addTruthyNode(node: ASTNode) {
         truthyNode = node
     }
+
     fun addFalsyNode(node: ASTNode) {
         falsyNode = node
     }
@@ -34,6 +39,7 @@ class IfNode(
     fun getTruthyNode(): ASTNode? {
         return truthyNode
     }
+
     fun getFalsyNode(): ASTNode? {
         return falsyNode
     }

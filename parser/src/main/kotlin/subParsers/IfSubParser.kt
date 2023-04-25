@@ -3,9 +3,7 @@ package subParsers
 import PrototypeType
 import Token
 import TokenMatcher
-import interfaces.ASTNode
 import interfaces.SubParser
-import kotlinx.coroutines.flow.Flow
 import types.IfNode
 import version.Version
 import java.util.*
@@ -41,7 +39,7 @@ class IfSubParser(tokens: Queue<Token>, private val version: Version) : SubParse
             return IfNode(
                 condition,
                 condition.getLine(),
-                code,
+                code
             )
         }
     }

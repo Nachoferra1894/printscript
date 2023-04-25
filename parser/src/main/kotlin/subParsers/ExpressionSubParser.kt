@@ -8,7 +8,6 @@ import expresions.Expression
 import expresions.Operator
 import expresions.types.Variable
 import interfaces.SubParser
-import kotlinx.coroutines.flow.Flow
 import operatorTypes
 import variableTypes
 import version.Version
@@ -26,12 +25,12 @@ class ExpressionSubParser(
             closeType
         )
 
-    override fun getAstNode(): Expression{
+    override fun getAstNode(): Expression {
         val variable = getNextTokenOrThrowError(variableTypes(version))
         var result: Expression = Variable(variable.value!!, variable.prototypeType, variable.line, version)
         try {
             getEOL()
-        } catch (e:WrongTokenException) {
+        } catch (e: WrongTokenException) {
             var expressionMiddleType = getNextTokenOrThrowError(expressionMiddleTypes)
             while (expressionMiddleType.prototypeType != closeType) {
                 val opNode = getNextTokenOrThrowError(variableTypes(version))

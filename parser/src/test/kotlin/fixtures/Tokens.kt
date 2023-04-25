@@ -272,9 +272,10 @@ val tokenList10 = listOf(
 val node10 = IfNode(
     Variable("true", PrototypeType.BOOLEAN, 0, V2()),
     0,
-    PrintNode(
-        Variable("a is 1", PrototypeType.STRING, 0),
-        0
+    ParentNode(
+        PrintNode(
+            Variable("a is 1", PrototypeType.STRING, 0)
+        )
     )
 )
 
@@ -309,16 +310,16 @@ val node11 = IfNode(
             PrintNode(
                 Variable("b is 2", PrototypeType.STRING, 0),
                 0
-            ),
+            )
         )
     )
 )
 
-// Statement: if (true) { print("a is 1"); } else { print("a is not 1"); }
+// Statement: if (a) { print("a is 1"); } else { print("a is not 1"); }
 val tokenList12 = listOf(
     Token(PrototypeType.IF, null, 0, 2, 0),
     Token(PrototypeType.OPEN_PARENTHESIS, null, 3, 4, 0),
-    Token(PrototypeType.BOOLEAN, "true", 4, 8, 0),
+    Token(PrototypeType.IDENTIFIER, "a", 4, 8, 0),
     Token(PrototypeType.CLOSE_PARENTHESIS, null, 8, 9, 0),
     Token(PrototypeType.OPEN_BRACE, null, 10, 11, 0),
     Token(PrototypeType.METHOD_PRINT, null, 12, 17, 0),
@@ -337,7 +338,7 @@ val tokenList12 = listOf(
     Token(PrototypeType.CLOSE_BRACE, null, 55, 56, 0)
 )
 val node12 = IfNode(
-    Variable("true", PrototypeType.BOOLEAN, 0, V2()),
+    Variable("a", PrototypeType.IDENTIFIER, 0, V2()),
     0,
     ParentNode(
         PrintNode(
