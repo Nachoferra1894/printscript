@@ -3,7 +3,7 @@ package expresions.types
 import expresions.Expression
 import expresions.ExpressionVisitor
 import expresions.Operator
-import interfaces.ASTNodeVisitor
+import interfaces.ASTNodeVisitorCommon
 import version.V2
 
 // ReadInput is an expression because it behaves like so, it returns a value
@@ -13,11 +13,11 @@ class ReadInputExp(var expression: Expression, private val line: Int) : Expressi
         return Operation(this, operator, newMember, this.line, V2()) // ReadInputExp is only used in V2
     }
 
-    override fun accept(visitor: ExpressionVisitor) {
+    fun accept(visitor: ExpressionVisitor) {
         visitor.visitReadInput(this)
     }
 
-    override fun accept(visitor: ASTNodeVisitor) {
+    override fun accept(visitor: ASTNodeVisitorCommon) {
         visitor.visitExpressionNode(this)
     }
 

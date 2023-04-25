@@ -1,9 +1,10 @@
 package expresions
 
 import interfaces.ASTNode
+import interfaces.ASTNodeVisitorCommon
 
 interface Expression : ASTNode {
-    fun accept(visitor: ExpressionVisitor): Any
+    override fun accept(visitor: ASTNodeVisitorCommon): Any
     fun addMember(operator: Operator, newMember: Expression): Expression
     override fun toString(): String
 }

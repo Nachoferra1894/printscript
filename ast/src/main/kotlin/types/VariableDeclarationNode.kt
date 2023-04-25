@@ -2,7 +2,7 @@ package types
 
 import expresions.Expression
 import interfaces.ASTNode
-import interfaces.ASTNodeVisitor
+import interfaces.ASTNodeVisitorCommon
 
 class VariableDeclarationNode : ASTNode {
     private var name: String
@@ -45,7 +45,7 @@ class VariableDeclarationNode : ASTNode {
         return this.value
     }
 
-    override fun accept(visitor: ASTNodeVisitor) {
+    override fun accept(visitor: ASTNodeVisitorCommon) {
         visitor.visitDeclaration(this)
     }
 
