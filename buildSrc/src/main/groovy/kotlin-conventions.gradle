@@ -48,7 +48,7 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             limit {
-                minimum = 0.0 // TODO change this
+                minimum = 0.8 // TODO change this
             }
         }
     }
@@ -72,3 +72,4 @@ publishing {
     }
 }
 
+// TODO agregar reglas default de ktlint para formatter y analyser publishToMavenLocal
