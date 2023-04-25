@@ -8,7 +8,7 @@ import configuration.SnakeCase
 import expresions.Operator
 import expresions.types.Operation
 import expresions.types.Variable
-import generators.LinterVisitor
+import generators.LinterVisitorV1
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import types.AssignmentNode
@@ -24,7 +24,7 @@ class LinterTest {
         val configs: ArrayList<ConfigClasses> = ArrayList()
         configs.add(PrintNormal())
         configs.add((CamelCase()))
-        val linter = LinterVisitor(configs)
+        val linter = LinterVisitorV1(configs)
         val node = ParentNode(
             listOf(
                 VariableDeclarationNode(
@@ -82,7 +82,7 @@ class LinterTest {
         val configs: ArrayList<ConfigClasses> = ArrayList()
         configs.add(PrintOperations())
         configs.add((CamelCase()))
-        val linter = LinterVisitor(configs)
+        val linter = LinterVisitorV1(configs)
         val node = ParentNode(
             listOf(
                 VariableDeclarationNode(
@@ -140,7 +140,7 @@ class LinterTest {
         val configs: ArrayList<ConfigClasses> = ArrayList()
         configs.add(PrintNormal())
         configs.add((SnakeCase()))
-        val linter = LinterVisitor(configs)
+        val linter = LinterVisitorV1(configs)
         val node = ParentNode(
             listOf(
                 VariableDeclarationNode(
@@ -198,7 +198,7 @@ class LinterTest {
         val configs: ArrayList<ConfigClasses> = ArrayList()
         configs.add(PrintOperations())
         configs.add((SnakeCase()))
-        val linter = LinterVisitor(configs)
+        val linter = LinterVisitorV1(configs)
         val node = ParentNode(
             listOf(
                 VariableDeclarationNode(
