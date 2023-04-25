@@ -5,18 +5,18 @@ import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitorV1
 import strategiesFormatter.AssigmentStrategy.Companion.defineValue
-import strategiesFormatter.DeclarationStrategy.Companion.defineValue
+import strategiesFormatter.DeclarationStrategy.Companion.defineValueV1
 import strategiesFormatter.PrintlnStrategy.Companion.defineValue
 import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
 
-class FormatterVisitor(private val configClasses: ArrayList<ConfigClasses>) : ASTNodeVisitorV1 {
+class FormatterVisitorV1(private val configClasses: ArrayList<ConfigClasses>) : ASTNodeVisitorV1 {
     private val lines: ArrayList<String> = ArrayList()
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
-        val value = defineValue(this.configClasses, variableDeclaration)
+        val value = defineValueV1(this.configClasses, variableDeclaration)
         lines.add("$value;")
     }
 

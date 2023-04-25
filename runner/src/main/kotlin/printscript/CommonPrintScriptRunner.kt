@@ -36,7 +36,7 @@ class CommonPrintScriptRunner(private val version: Version) : PrintscriptRunner 
         val lexerFileInput = LexerFileInput(sourceFile)
         val tokens = lexer.getTokens(lexerFileInput.getFlow(), version) // TODO SETEAR VERSION
         val ast = parser.parseTokens(tokens, version)
-        val formatted = formatter.getFormattedCode(ast)
+        val formatted = formatter.getFormattedCode(ast, V1()) // TODO SETEAR VERSION
         println(formatted)
         return formatted
     }
