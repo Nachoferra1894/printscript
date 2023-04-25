@@ -3,6 +3,7 @@ import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.optional
 import com.github.ajalt.clikt.parameters.types.enum
 import com.github.ajalt.clikt.parameters.types.file
+import input.LexerFileInput
 import kotlinx.coroutines.runBlocking
 import printscript.CommonPrintScriptRunner
 import printscript.PrintscriptRunner
@@ -41,7 +42,8 @@ class App : CliktCommand() {
             echo("No arguments specified")
             return
         }
-        runner.runAnalyzing(File(absolutePath), File(ruleFileName))
+        val lexerInput = LexerFileInput(File(absolutePath))
+        runner.runAnalyzing(lexerInput.getFlow(), File(ruleFileName))
     }
 
     private fun format(absolutePath: String, runner: PrintscriptRunner, ruleFileName: String?) {
@@ -49,9 +51,9 @@ class App : CliktCommand() {
             echo("No arguments specified")
             return
         }
-        val file = File(absolutePath)
         val ruleFile = File(ruleFileName)
-        runner.runFormatting(file, ruleFile)
+        val lexerInput = LexerFileInput(File(absolutePath))
+        runner.runFormatting(lexerInput.getFlow(), ruleFile)
     }
 
     private fun execute(absolutePath: String, runner: PrintscriptRunner) {
@@ -64,14 +66,14 @@ class App : CliktCommand() {
             return readln()
         }
         runBlocking {
-            val file = File(absolutePath)
-            runner.runExecution(file, ::printFunction, ::inputFunction)
+            val lexerInput = LexerFileInput(File(absolutePath))
+            runner.runExecution(lexerInput.getFlow(), ::printFunction, ::inputFunction)
         }
     }
 
     private fun validate(absolutePath: String, runner: PrintscriptRunner) {
-        val file = File(absolutePath)
-        runner.runValidation(file)
+        val lexerInput = LexerFileInput(File(absolutePath))
+        runner.runValidation(lexerInput.getFlow())
     }
 }
 
