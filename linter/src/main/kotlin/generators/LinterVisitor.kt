@@ -3,16 +3,15 @@ package generators
 import configuration.ConfigClasses
 import expresions.Expression
 import interfaces.ASTNode
-import interfaces.ASTNodeVisitor
+import interfaces.ASTNodeVisitorV1
 import strategies.PrintStrategy
 import strategies.VariableStrategy
 import types.AssignmentNode
-import types.IfNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
 
-class LinterVisitor(private val configClasses: ArrayList<ConfigClasses>) : ASTNodeVisitor {
+class LinterVisitor(private val configClasses: ArrayList<ConfigClasses>) : ASTNodeVisitorV1 {
     private val lines: ArrayList<String> = ArrayList()
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
@@ -37,10 +36,6 @@ class LinterVisitor(private val configClasses: ArrayList<ConfigClasses>) : ASTNo
 
     override fun visitExpressionNode(expressionNode: Expression): ASTNode? {
         return null
-    }
-
-    override fun visitIfNode(ifNode: IfNode) {
-        TODO("Not yet implemented")
     }
 
     fun getLines(): String {
