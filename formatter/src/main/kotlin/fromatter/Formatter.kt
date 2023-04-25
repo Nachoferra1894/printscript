@@ -5,12 +5,13 @@ import generators.FormatterVisitor
 import interfaces.ASTNode
 import interfaces.FormatterI
 import lexer.exceptions.NoConfigFile
+import java.io.File
 
 class Formatter : FormatterI {
 
-    override fun getFormattedCode(node: ASTNode): String {
+    override fun getFormattedCode(node: ASTNode, configFile: File): String {
         val readConfig = ReadConfig()
-        val configClasses = readConfig.getJsonDataFromAsset()
+        val configClasses = readConfig.getJsonDataFromAsset(configFile)
         if (configClasses != null) {
             val formatterVisitor = FormatterVisitor(configClasses)
             node.accept(formatterVisitor)

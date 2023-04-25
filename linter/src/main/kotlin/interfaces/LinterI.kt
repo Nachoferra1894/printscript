@@ -1,7 +1,8 @@
 package interfaces
 
 import version.Version
+import java.io.File
 
 interface LinterI {
-    fun getLinteredCodeCorrection(node: ASTNode, version: Version): String
+    fun getLintedCodeCorrection(node: ASTNode, configFile: File, version: Version): String
 }

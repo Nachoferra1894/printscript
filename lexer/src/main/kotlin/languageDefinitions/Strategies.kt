@@ -30,53 +30,51 @@ import version.Version
 
 class Strategies {
 
-    private val listV1: ArrayList<Strategy> = ArrayList()
-    private val listV2: ArrayList<Strategy> = ArrayList()
+    private val listV1: MutableSet<Strategy> = mutableSetOf()
+    private val listV2: MutableSet<Strategy> = mutableSetOf()
 
     init {
-        addStrategiesV1()
-        addStrategiesV2()
-    }
-    private fun addStrategiesV1() {
-        listV1.add(SpaceStrategy())
-        listV1.add(LetStrategy())
-        listV1.add(StringStrategy())
-        listV1.add(NumberStrategy())
-        listV1.add(ColonStrategy())
-        listV1.add(DivisionStrategy())
-        listV1.add(AssignationStrategy())
-        listV1.add(MultiplicationStrategy())
-        listV1.add(PlusStrategy())
-        listV1.add(SubstractionStrategy())
-        listV1.add(FinalStrategy())
-        listV1.add(PrintStrategy())
-        listV1.add(ValueStrategy())
-        listV1.add(IdentifierStrategy())
-        listV1.add(ParenthesisStrategy())
+        listV1.addAll(
+            addStrategiesV1()
+        )
+        listV2.addAll(
+            addStrategiesV2()
+        )
+        listV2.addAll(
+            addStrategiesV1()
+        )
     }
 
-    private fun addStrategiesV2() {
-        listV2.add(SpaceStrategy())
-        listV2.add(LetStrategy())
-        listV2.add(StringStrategy())
-        listV2.add(NumberStrategy())
-        listV2.add(BooleanStrategy())
-        listV2.add(IfStrategy())
-        listV2.add(ElseStrategy())
-        listV2.add(ConstStrategy())
-        listV2.add(ColonStrategy())
-        listV2.add(DivisionStrategy())
-        listV2.add(AssignationStrategy())
-        listV2.add(MultiplicationStrategy())
-        listV2.add(PlusStrategy())
-        listV2.add(SubstractionStrategy())
-        listV2.add(FinalStrategy())
-        listV2.add(PrintStrategy())
-        listV2.add(ReadInputStrategy())
-        listV2.add(ValueStrategy())
-        listV2.add(IdentifierStrategy())
-        listV2.add(ParenthesisStrategy())
-        listV2.add(KeyStrategies())
+    private fun addStrategiesV1(): List<Strategy> {
+        return listOf(
+            SpaceStrategy(),
+            StringStrategy(),
+            LetStrategy(),
+            StringStrategy(),
+            NumberStrategy(),
+            ColonStrategy(),
+            DivisionStrategy(),
+            AssignationStrategy(),
+            MultiplicationStrategy(),
+            PlusStrategy(),
+            SubstractionStrategy(),
+            FinalStrategy(),
+            PrintStrategy(),
+            ValueStrategy(),
+            IdentifierStrategy(),
+            ParenthesisStrategy()
+        )
+    }
+
+    private fun addStrategiesV2(): List<Strategy> {
+        return listOf(
+            ReadInputStrategy(),
+            KeyStrategies(),
+            BooleanStrategy(),
+            ElseStrategy(),
+            ConstStrategy(),
+            IfStrategy()
+        )
     }
 
     fun defineTokens(line: String, index: Int, lineIndex: Int, version: Version): Token {
@@ -91,6 +89,7 @@ class Strategies {
             ?: throw NoTokenException("No token with this expression " + line[index])
         return strategy.getToken(line, index, lineIndex)
     }
+
     private fun strategyV2(line: String, index: Int, lineIndex: Int): Token {
         val strategy: Strategy = listV2.find { it.isStrategy(line, index) }
             ?: throw NoTokenException("No token with this expression " + line[index])

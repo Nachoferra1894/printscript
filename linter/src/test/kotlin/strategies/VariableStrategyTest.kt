@@ -13,14 +13,14 @@ import types.VariableDeclarationNode
 class VariableStrategyTest {
     @Test
     fun testMessage() {
-        val readConfig = VariableStrategy()
+        val readConfig = LinterVariableStrategy()
         val node = VariableDeclarationNode("b", "string", Variable("Hello, world!", PrototypeType.STRING, 1), 1)
         assertEquals("Incorrect identifier format [line: 1 ]", readConfig.getIncorrectLine(node))
     }
 
     @Test
     fun testIsCamelCase() {
-        val readConfig = VariableStrategy()
+        val readConfig = LinterVariableStrategy()
         val configs: ArrayList<ConfigClasses> = ArrayList()
         configs.add((CamelCase()))
         val node = VariableDeclarationNode("bAa", "string", Variable("Hello, world!", PrototypeType.STRING, 1), 1)
@@ -31,7 +31,7 @@ class VariableStrategyTest {
 
     @Test
     fun testIsSnakeCase() {
-        val readConfig = VariableStrategy()
+        val readConfig = LinterVariableStrategy()
         val configs: ArrayList<ConfigClasses> = ArrayList()
         configs.add((SnakeCase()))
         val node = VariableDeclarationNode("bAa", "string", Variable("Hello, world!", PrototypeType.STRING, 1), 1)

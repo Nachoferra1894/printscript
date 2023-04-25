@@ -16,7 +16,7 @@ class NodeStrategy {
             return astNode is ParentNode
         }
 
-        fun printStrategy(astNode: ASTNode): Boolean {
+        fun printerStrategy(astNode: ASTNode): Boolean {
             return astNode is PrintNode
         }
 

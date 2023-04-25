@@ -10,11 +10,12 @@ import lexer.exceptions.NoConfigFile
 import version.V1
 import version.V2
 import version.Version
+import java.io.File
 
 class Linter : LinterI {
-    override fun getLinteredCodeCorrection(node: ASTNode, version: Version): String {
+    override fun getLintedCodeCorrection(node: ASTNode, configFile: File, version: Version): String {
         val readConfig = ReadConfig()
-        val configClasses = readConfig.getJsonDataFromAsset()
+        val configClasses = readConfig.getJsonDataFromAsset(configFile)
         if (configClasses != null) {
             return defineLine(configClasses, node, version)
         }

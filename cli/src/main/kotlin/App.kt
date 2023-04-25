@@ -28,8 +28,8 @@ class App : CliktCommand() {
         val v = getVersionFromString(version ?: "v1")
         val runner = CommonPrintScriptRunner(v)
         when (operation) {
-            Operation.Validation -> validate(sourceFile.absolutePath, runner, arguments)
-            Operation.Execution -> execute(sourceFile.absolutePath, runner, arguments)
+            Operation.Validation -> validate(sourceFile.absolutePath, runner)
+            Operation.Execution -> execute(sourceFile.absolutePath, runner)
             Operation.Formatting -> format(sourceFile.absolutePath, runner, arguments)
             Operation.Analyzing -> analyze(sourceFile.absolutePath, runner, arguments)
             null -> echo("No operation specified")
@@ -37,7 +37,11 @@ class App : CliktCommand() {
     }
 
     private fun analyze(absolutePath: String, runner: PrintscriptRunner, ruleFileName: String?) {
-        format(absolutePath, runner, ruleFileName)
+        if (ruleFileName == null) {
+            echo("No arguments specified")
+            return
+        }
+        runner.runAnalyzing(File(absolutePath), File(ruleFileName))
     }
 
     private fun format(absolutePath: String, runner: PrintscriptRunner, ruleFileName: String?) {
@@ -50,18 +54,22 @@ class App : CliktCommand() {
         runner.runFormatting(file, ruleFile)
     }
 
-    private fun execute(absolutePath: String, runner: PrintscriptRunner, arguments: String?) {
+    private fun execute(absolutePath: String, runner: PrintscriptRunner) {
         echo("exec")
         fun printFunction(output: String) {
             echo(output)
         }
+        fun inputFunction(input: String): String {
+            echo(input)
+            return readln()
+        }
         runBlocking {
             val file = File(absolutePath)
-            runner.runExecution(file, ::printFunction)
+            runner.runExecution(file, ::printFunction, ::inputFunction)
         }
     }
 
-    private fun validate(absolutePath: String, runner: PrintscriptRunner, arguments: String?) {
+    private fun validate(absolutePath: String, runner: PrintscriptRunner) {
         val file = File(absolutePath)
         runner.runValidation(file)
     }
