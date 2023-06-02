@@ -9,10 +9,6 @@ import version.Version
 import java.util.*
 
 class IfSubParser(tokens: Queue<Token>, private val version: Version) : SubParser<IfNode>, TokenMatcher(tokens) {
-    val ifConditionTypes = listOf(
-        PrototypeType.IDENTIFIER,
-        PrototypeType.BOOLEAN
-    )
     private val expressionParser = ExpressionSubParser(tokens, version, PrototypeType.CLOSE_PARENTHESIS)
     private val codeParser = CodeParser(tokens, version)
 
@@ -21,26 +17,37 @@ class IfSubParser(tokens: Queue<Token>, private val version: Version) : SubParse
         getNextTokenOrThrowError(PrototypeType.IF)
         getNextTokenOrThrowError(PrototypeType.OPEN_PARENTHESIS)
         val condition = expressionParser.getAstNode()
-        getNextTokenOrThrowError(PrototypeType.OPEN_BRACE)
-        val code = codeParser.getAstNode(PrototypeType.CLOSE_BRACE)
-        getNextTokenOrThrowError(PrototypeType.CLOSE_BRACE)
-        try {
-            getNextTokenOrThrowError(PrototypeType.ELSE)
-            getNextTokenOrThrowError(PrototypeType.OPEN_BRACE)
-            val elseCode = codeParser.getAstNode(PrototypeType.CLOSE_BRACE)
-            getNextTokenOrThrowError(PrototypeType.CLOSE_BRACE)
-            return IfNode(
-                condition,
-                condition.getLine(),
-                code,
-                elseCode
-            )
-        } catch (e: Exception) {
-            return IfNode(
-                condition,
-                condition.getLine(),
-                code
-            )
-        }
+        return IfNode(
+            condition,
+            condition.getLine()
+        )
+//        try {
+//            getNextTokenOrThrowError(PrototypeType.OPEN_BRACE)
+//            val code = codeParser.getAstNode(PrototypeType.CLOSE_BRACE)
+//            getNextTokenOrThrowError(PrototypeType.CLOSE_BRACE)
+//            try {
+//                getNextTokenOrThrowError(PrototypeType.ELSE)
+//                getNextTokenOrThrowError(PrototypeType.OPEN_BRACE)
+//                val elseCode = codeParser.getAstNode(PrototypeType.CLOSE_BRACE)
+//                getNextTokenOrThrowError(PrototypeType.CLOSE_BRACE)
+//                return IfNode(
+//                    condition,
+//                    condition.getLine(),
+//                    code,
+//                    elseCode
+//                )
+//            } catch (e: Exception) {
+//                return IfNode(
+//                    condition,
+//                    condition.getLine(),
+//                    code
+//                )
+//            }
+//        } catch (e: Exception) {
+//            return IfNode(
+//                condition,
+//                condition.getLine(),
+//            )
+//        }
     }
 }

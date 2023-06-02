@@ -32,7 +32,7 @@ class ExpressionSubParser(
         val variable = getNextTokenOrThrowError(variableTypes)
         var result: Expression = Variable(variable.value!!, variable.prototypeType, variable.line)
         try {
-            getEOL()
+            getEOL(closeType)
         } catch (e: WrongTokenException) {
             var expressionMiddleType = getNextTokenOrThrowError(expressionMiddleTypes)
             while (expressionMiddleType.prototypeType != closeType) {
