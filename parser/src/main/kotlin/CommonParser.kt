@@ -31,25 +31,12 @@ class CommonParser : Parser {
                 tokenQueue.add(token)
                 isInIfCondition = true
             } else if (token.isCloseIf() && isInIfCondition) {
-                tokenQueue.add(token)
-                val codeParser = CodeParser(tokenQueue, version)
-                val node = codeParser.getAstNode(PrototypeType.CLOSE_PARENTHESIS).getFirstChild()
-                parentNode.addChild(node)
+                closeIf(tokenQueue,token,version,parentNode);
                 isInIfCondition = false
             } else if (token.isOpenBlock()) {
                 isInIf = true
             } else if (token.isCloseBlock() && isInIf) {
-                val ifNode = parentNode.getFirstChild()
-                if (ifNode is IfNode) {
-                    val codeParser = CodeParser(tokenQueue, version)
-                    if (!isInElse) {
-                        ifNode.addTruthyNode(codeParser.getAstNode(PrototypeType.CLOSE_BRACE))
-                    } else {
-                        ifNode.addFalsyNode(codeParser.getAstNode(PrototypeType.CLOSE_BRACE))
-                    }
-                } else {
-                    throw WrongTokenException(token)
-                }
+                openIf(tokenQueue,token,version,parentNode,isInElse);
                 isInIf = false
                 isInElse = false
             } else if (token.isElseBlock()) {
@@ -67,5 +54,25 @@ class CommonParser : Parser {
         } else {
             node
         }
+    }
+
+    private fun openIf(tokenQueue: Queue<Token>,token : Token, version: Version,parentNode: ParentNode,isInElse: Boolean) {
+        val ifNode = parentNode.getFirstChild()
+        if (ifNode is IfNode) {
+            val codeParser = CodeParser(tokenQueue, version)
+            if (!isInElse) {
+                ifNode.addTruthyNode(codeParser.getAstNode(PrototypeType.CLOSE_BRACE))
+            } else {
+                ifNode.addFalsyNode(codeParser.getAstNode(PrototypeType.CLOSE_BRACE))
+            }
+        } else {
+            throw WrongTokenException(token)
+        }
+    }
+    private fun closeIf(tokenQueue: Queue<Token>,token : Token, version: Version,parentNode: ParentNode) {
+        tokenQueue.add(token)
+        val codeParser = CodeParser(tokenQueue, version)
+        val node = codeParser.getAstNode(PrototypeType.CLOSE_PARENTHESIS).getFirstChild()
+        parentNode.addChild(node)
     }
 }
