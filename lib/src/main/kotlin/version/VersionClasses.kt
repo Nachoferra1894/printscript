@@ -12,3 +12,7 @@ fun getVersionFromString(version: String): Version {
         else -> throw IllegalArgumentException("Unknown version: $version")
     }
 }
+
+fun getLatestVersion(): Version {
+    return V2()
+}

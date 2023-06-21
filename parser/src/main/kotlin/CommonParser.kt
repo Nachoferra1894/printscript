@@ -31,12 +31,12 @@ class CommonParser : Parser {
                 tokenQueue.add(token)
                 isInIfCondition = true
             } else if (token.isCloseIf() && isInIfCondition) {
-                closeIf(tokenQueue,token,version,parentNode);
+                closeIf(tokenQueue, token, version, parentNode)
                 isInIfCondition = false
             } else if (token.isOpenBlock()) {
                 isInIf = true
             } else if (token.isCloseBlock() && isInIf) {
-                openIf(tokenQueue,token,version,parentNode,isInElse);
+                openIf(tokenQueue, token, version, parentNode, isInElse)
                 isInIf = false
                 isInElse = false
             } else if (token.isElseBlock()) {
@@ -56,7 +56,7 @@ class CommonParser : Parser {
         }
     }
 
-    private fun openIf(tokenQueue: Queue<Token>,token : Token, version: Version,parentNode: ParentNode,isInElse: Boolean) {
+    private fun openIf(tokenQueue: Queue<Token>, token: Token, version: Version, parentNode: ParentNode, isInElse: Boolean) {
         val ifNode = parentNode.getFirstChild()
         if (ifNode is IfNode) {
             val codeParser = CodeParser(tokenQueue, version)
@@ -69,7 +69,7 @@ class CommonParser : Parser {
             throw WrongTokenException(token)
         }
     }
-    private fun closeIf(tokenQueue: Queue<Token>,token : Token, version: Version,parentNode: ParentNode) {
+    private fun closeIf(tokenQueue: Queue<Token>, token: Token, version: Version, parentNode: ParentNode) {
         tokenQueue.add(token)
         val codeParser = CodeParser(tokenQueue, version)
         val node = codeParser.getAstNode(PrototypeType.CLOSE_PARENTHESIS).getFirstChild()
