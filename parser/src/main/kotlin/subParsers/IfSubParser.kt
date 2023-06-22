@@ -21,33 +21,5 @@ class IfSubParser(tokens: Queue<Token>, private val version: Version) : SubParse
             condition,
             condition.getLine()
         )
-//        try {
-//            getNextTokenOrThrowError(PrototypeType.OPEN_BRACE)
-//            val code = codeParser.getAstNode(PrototypeType.CLOSE_BRACE)
-//            getNextTokenOrThrowError(PrototypeType.CLOSE_BRACE)
-//            try {
-//                getNextTokenOrThrowError(PrototypeType.ELSE)
-//                getNextTokenOrThrowError(PrototypeType.OPEN_BRACE)
-//                val elseCode = codeParser.getAstNode(PrototypeType.CLOSE_BRACE)
-//                getNextTokenOrThrowError(PrototypeType.CLOSE_BRACE)
-//                return IfNode(
-//                    condition,
-//                    condition.getLine(),
-//                    code,
-//                    elseCode
-//                )
-//            } catch (e: Exception) {
-//                return IfNode(
-//                    condition,
-//                    condition.getLine(),
-//                    code
-//                )
-//            }
-//        } catch (e: Exception) {
-//            return IfNode(
-//                condition,
-//                condition.getLine(),
-//            )
-//        }
     }
 }
