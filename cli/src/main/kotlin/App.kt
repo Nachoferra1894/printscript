@@ -11,7 +11,7 @@ import version.getVersionFromString
 import java.io.File
 
 class App : CliktCommand() {
-    enum class Operation { Validation, Execution, Formatting, Analyzing }
+    enum class Operation { VALI, EXEC, FORMAT, ANA }
 
     private val operation: Operation? by argument(help = "The operation type").enum<Operation>()
 
@@ -26,13 +26,13 @@ class App : CliktCommand() {
         echo("Source file: ${sourceFile.absolutePath}")
 
         arguments?.let { echo("Arguments: $it") }
-        val v = getVersionFromString(version ?: "v1")
+        val v = getVersionFromString(version ?: "1.0")
         val runner = CommonPrintScriptRunner(v)
         when (operation) {
-            Operation.Validation -> validate(sourceFile.absolutePath, runner)
-            Operation.Execution -> execute(sourceFile.absolutePath, runner)
-            Operation.Formatting -> format(sourceFile.absolutePath, runner, arguments)
-            Operation.Analyzing -> analyze(sourceFile.absolutePath, runner, arguments)
+            Operation.VALI -> validate(sourceFile.absolutePath, runner)
+            Operation.EXEC -> execute(sourceFile.absolutePath, runner)
+            Operation.FORMAT -> format(sourceFile.absolutePath, runner, arguments)
+            Operation.ANA -> analyze(sourceFile.absolutePath, runner, arguments)
             null -> echo("No operation specified")
         }
     }

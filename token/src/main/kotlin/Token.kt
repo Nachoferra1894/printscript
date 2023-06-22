@@ -7,8 +7,24 @@ data class Token(val prototypeType: PrototypeType, val value: String?, val from:
         return this.prototypeType === PrototypeType.SEMICOLON
     }
 
-    fun isNextLine(): Boolean {
-        return this.prototypeType === PrototypeType.SEMICOLON
+    fun isOpenBlock(): Boolean {
+        return this.prototypeType === PrototypeType.OPEN_BRACE
+    }
+
+    fun isIf(): Boolean {
+        return this.prototypeType === PrototypeType.IF
+    }
+
+    fun isCloseIf(): Boolean {
+        return this.prototypeType === PrototypeType.CLOSE_PARENTHESIS
+    }
+
+    fun isCloseBlock(): Boolean {
+        return this.prototypeType === PrototypeType.CLOSE_BRACE
+    }
+
+    fun isElseBlock(): Boolean {
+        return this.prototypeType === PrototypeType.ELSE
     }
 }
 
