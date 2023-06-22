@@ -8,10 +8,8 @@
 name: Gradle Build and test
 
 on:
-  pull_request:
-    types:
-      - closed
-    branches:
+  push:
+    branches: 
       - master
 
 
