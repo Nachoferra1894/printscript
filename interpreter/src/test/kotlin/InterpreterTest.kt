@@ -5,6 +5,7 @@ import implementation.ValueAndTypeV2
 import org.junit.jupiter.api.Test
 import types.*
 import version.V1
+import kotlin.math.log
 
 class InterpreterTest {
 
@@ -14,10 +15,10 @@ class InterpreterTest {
         val node0 = VariableDeclarationNode("a", "number")
         val node1 = AssignmentNode("a", Variable("42", PrototypeType.NUMBER, 0), 1)
 
-        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        val interpreter = Interpreter.create(V1())
         interpreter.interpret(node0)
         interpreter.interpret(node1)
-        var memory: InterpreterVisitorV2 = interpreter.getMemory() as InterpreterVisitorV2
+        var memory : InterpreterVisitorV2 = interpreter.getMemory() as InterpreterVisitorV2
         assert(memory.map.getValue("a").value == ValueAndTypeV2("42","number",true))
     }
 
