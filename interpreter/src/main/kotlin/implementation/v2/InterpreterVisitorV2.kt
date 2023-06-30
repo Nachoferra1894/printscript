@@ -1,4 +1,4 @@
-package implementation
+package implementation.v2
 
 import PrototypeType
 import expresions.Expression
@@ -29,7 +29,7 @@ class InterpreterVisitorV2(
 
         if (variableDeclaration.getValue() != null) {
             val literal = visitExpressionNode(variableDeclaration.getValue()!!)
-            map.put(name,ValueAndTypeV2(literal.getValue(), type, isMutable))
+            map.put(name, ValueAndTypeV2(literal.getValue(), type, isMutable))
         }else {
             map.put(name, ValueAndTypeV2(null, type, isMutable))
         }

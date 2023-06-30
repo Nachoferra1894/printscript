@@ -1,11 +1,12 @@
+import expresions.Operator
+import expresions.types.Operation
 import expresions.types.Variable
 import implementation.Interpreter
-import implementation.InterpreterVisitorV2
-import implementation.ValueAndTypeV2
+import implementation.v2.InterpreterVisitorV2
+import implementation.v2.ValueAndTypeV2
 import org.junit.jupiter.api.Test
 import types.*
 import version.V1
-import kotlin.math.log
 
 class InterpreterTest {
 
@@ -18,8 +19,8 @@ class InterpreterTest {
         val interpreter = Interpreter.create(V1())
         interpreter.interpret(node0)
         interpreter.interpret(node1)
-        var memory : InterpreterVisitorV2 = interpreter.getMemory() as InterpreterVisitorV2
-        assert(memory.map.getValue("a").value == ValueAndTypeV2("42","number",true))
+        var result = interpreter.getValue("a")
+        assert(result == 42)
     }
 
 //    @Test
@@ -35,7 +36,9 @@ class InterpreterTest {
 //        val interpreter = Interpreter.InterpreterConstructor.create(V1())
 //        interpreter.interpret(node0)
 //        interpreter.interpret(node1)
-//        assert(interpreter.getMemory().getValue("B").value == ValueAndType("42","number",true))
+//        var result = interpreter.getValue("B")
+//        println(result)
+//        assert(result == 42)
 //    }
 //
 //    @Test

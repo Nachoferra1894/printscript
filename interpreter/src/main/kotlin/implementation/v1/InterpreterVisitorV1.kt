@@ -1,4 +1,4 @@
-package implementation
+package implementation.v1
 
 import PrototypeType
 import expresions.Expression
@@ -11,7 +11,6 @@ import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
-import version.Version
 import kotlin.Error
 
 class InterpreterVisitorV1(
@@ -23,7 +22,10 @@ class InterpreterVisitorV1(
         val name = variableDeclaration.getName()
         val type = variableDeclaration.getType()
 
-        map.put(name, ValueAndTypeV1(null, type))
+        if (!map.exist(name)) {
+            map.put(name, ValueAndTypeV1(null, type))
+        }
+
         if (variableDeclaration.getValue() != null) {
             val assigment = AssignmentNode(name, variableDeclaration.getValue()!!, variableDeclaration.getLine())
             visitAssignment(assigment)
@@ -34,7 +36,7 @@ class InterpreterVisitorV1(
         val variableName = assignmentNode.name
         if (map.exist(variableName)) {
             val variableType: String = map.getValue(variableName).type
-            val literal = assignmentNode.value.accept(this)
+            val literal = assignmentNode.value
             if (literal is Variable && variableType == getTypeFromPrototype(literal.getType())) {
                 map.put(variableName, ValueAndTypeV1(literal.getValue(), variableType))
             }

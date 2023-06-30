@@ -1,10 +1,11 @@
 package interfaces
 
-import implementation.InterpreterMapV1
+import version.Version
 
 interface Interpreter {
     fun interpret(ast: ASTNode)
-    fun getMemory(): Any
+    fun getValue(variable: String) : Any?
+
 }
 
 interface InterpreterVisitor {

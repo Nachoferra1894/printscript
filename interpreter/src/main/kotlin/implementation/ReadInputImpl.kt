@@ -7,4 +7,5 @@ class ReadInputImpl : ReadInput {
         print(message)
         return readLine() ?: ""
     }
+
 }
