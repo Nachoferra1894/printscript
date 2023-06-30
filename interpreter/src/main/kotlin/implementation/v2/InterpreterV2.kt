@@ -14,16 +14,16 @@ class InterpreterV2 (private val visitor: InterpreterVisitorV2) : Interpreter(V2
     }
 
     override fun getValue(variable: String) : Any? {
-        val map = this.getMemory()
-        val value = map.getValue(variable)
+        val map: InterpreterMapV2 = this.getMemory()
+        val value: ValueAndTypeV2 = map.getValue(variable)
 
         if (value.type === "string"){
             return value.value
         }else if(value.type === "number"){
-            if ((value.value as String).contains(".")){
-                return (value.value as String).toFloat()
+            return if (!(value.value as String).contains(".")){
+                value.value.toInt()
             } else {
-                return (value.value as String).toInt()
+                value.value.toFloat()
             }
         }else if(value.type === "boolean"){
             return value.value === "true"

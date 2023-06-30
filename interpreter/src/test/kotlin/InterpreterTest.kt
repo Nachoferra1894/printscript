@@ -1,9 +1,5 @@
-import expresions.Operator
-import expresions.types.Operation
 import expresions.types.Variable
 import implementation.Interpreter
-import implementation.v2.InterpreterVisitorV2
-import implementation.v2.ValueAndTypeV2
 import org.junit.jupiter.api.Test
 import types.*
 import version.V1
@@ -19,7 +15,7 @@ class InterpreterTest {
         val interpreter = Interpreter.create(V1())
         interpreter.interpret(node0)
         interpreter.interpret(node1)
-        var result = interpreter.getValue("a")
+        var result: Any? = interpreter.getValue("a")
         assert(result == 42)
     }
 

@@ -11,20 +11,20 @@ class InterpreterV1 (private val visitor: InterpreterVisitorV1): Interpreter(V1(
     }
 
     override fun getValue(variable: String) : Any? {
-        var map = this.getMemory()
-        var value = map.getValue(variable)
+        val map: InterpreterMapV1 = this.getMemory()
+        val value: ValueAndTypeV1 = map.getValue(variable)
 
-        return if (value.type === "string"){
-            value.value
+        if (value.type === "string"){
+            return value.value
         }else if(value.type === "number"){
-            if (!(value.value as String).contains(".")){
-                (value.value as String).toInt()
+            return if (!(value.value as String).contains(".")){
+                value.value.toInt()
             } else {
-                (value.value as String).toFloat()
+                value.value.toFloat()
             }
-        }else{
-            throw Error("No existe otro tipo en la version 1");
         }
+
+        return value.value
 
     }
 
