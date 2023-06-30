@@ -1,3 +1,5 @@
+import expresions.Operator
+import expresions.types.Operation
 import expresions.types.Variable
 import implementation.Interpreter
 import org.junit.jupiter.api.Test
@@ -19,34 +21,35 @@ class InterpreterTest {
         assert(result == 42)
     }
 
-//    @Test
-//    fun testSimpleSumToken() {
-//        // Statement: b = 22 + 20;
-//        val node0 = VariableDeclarationNode("B", "number")
-//        val node1 = AssignmentNode(
-//            "B",
-//            Operation(Variable("22", PrototypeType.NUMBER, 0), Operator.SUM, Variable("20", PrototypeType.NUMBER, 0), 0),
-//            0
-//        )
-//
-//        val interpreter = Interpreter.InterpreterConstructor.create(V1())
-//        interpreter.interpret(node0)
-//        interpreter.interpret(node1)
-//        var result = interpreter.getValue("B")
-//        println(result)
-//        assert(result == 42)
-//    }
-//
-//    @Test
-//    fun testDeclarationForString() {
-//        // Statement: let b: string = "Hello, world!";
-//        val node2 = VariableDeclarationNode("b", "string", Variable("Hello, world!", PrototypeType.STRING, 0), 0)
-//
-//        val interpreter = Interpreter.InterpreterConstructor.create(V1())
-//        interpreter.interpret(node2)
-//        assert(interpreter.getMemory().getValue("b").value == ValueAndType("Hello, world!","string",true))
-//    }
-//
+    @Test
+    fun testSimpleSumToken() {
+        // Statement: b = 22 + 20;
+        val node0 = VariableDeclarationNode("B", "number")
+        val node1 = AssignmentNode(
+            "B",
+            Operation(Variable("22.5", PrototypeType.NUMBER, 0), Operator.SUM, Variable("20", PrototypeType.NUMBER, 0), 0),
+            0
+        )
+
+        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        interpreter.interpret(node0)
+        interpreter.interpret(node1)
+        var result : Any? = interpreter.getValue("B")
+        println(result)
+        assert(result == 42.5F)
+    }
+
+    @Test
+    fun testDeclarationForString() {
+        // Statement: let b: string = "Hello, world!";
+        val node2 = VariableDeclarationNode("b", "string", Variable("Hello, world!", PrototypeType.STRING, 0), 0)
+
+        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        interpreter.interpret(node2)
+        var result = interpreter.getValue("b")
+        assert(result === "Hello, world!")
+    }
+
 //    @Test
 //    fun testDeclarationForIntAndExpression() {
 //        // Statement: let c: number = 3 + 4 * 5;
@@ -64,9 +67,10 @@ class InterpreterTest {
 //
 //        val interpreter = Interpreter.InterpreterConstructor.create(V1())
 //        interpreter.interpret(node3)
-//        assert(interpreter.getMemory().getValue("c").value == ValueAndType("23","number",true))
+//        var result = interpreter.getValue("c")
+//        assert(result === 23F)
 //    }
-//
+////
 ////    @Test
 ////    fun testPrint() {
 ////        // Statement: print("Hello, world!");

@@ -36,7 +36,10 @@ class InterpreterVisitorV1(
         val variableName = assignmentNode.name
         if (map.exist(variableName)) {
             val variableType: String = map.getValue(variableName).type
-            val literal = assignmentNode.value
+            var literal: Expression = assignmentNode.value
+            if (literal is Operation){
+                literal = visitExpressionNode(assignmentNode.value)
+            }
             if (literal is Variable && variableType == getTypeFromPrototype(literal.getType())) {
                 map.put(variableName, ValueAndTypeV1(literal.getValue(), variableType))
             }
