@@ -1,29 +1,32 @@
-package implementation
+package implementation.v1
 
 import PrototypeType
 import expresions.Expression
 import expresions.Operator
 import expresions.types.Operation
 import expresions.types.Variable
+import interfaces.ASTNode
 import interfaces.ASTNodeVisitorV1
+import interfaces.Printer
 import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
-import version.Version
 import kotlin.Error
 
-class InterpreterVisitor(
-    val map: InterpreterMap,
-    private val printer: PrinterImpl,
-    private val version: Version
+class InterpreterVisitorV1(
+    val map: InterpreterMapV1,
+    private val printer: Printer
 ) : ASTNodeVisitorV1 {
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
         val name = variableDeclaration.getName()
         val type = variableDeclaration.getType()
 
-        map.put(name, ValueAndType(null, type))
+        if (!map.exist(name)) {
+            map.put(name, ValueAndTypeV1(null, type))
+        }
+
         if (variableDeclaration.getValue() != null) {
             val assigment = AssignmentNode(name, variableDeclaration.getValue()!!, variableDeclaration.getLine())
             visitAssignment(assigment)
@@ -34,9 +37,12 @@ class InterpreterVisitor(
         val variableName = assignmentNode.name
         if (map.exist(variableName)) {
             val variableType: String = map.getValue(variableName).type
-            val literal = assignmentNode.value.accept(this)
+            var literal: Expression = assignmentNode.value
+            if (literal is Operation) {
+                literal = visitExpressionNode(assignmentNode.value)
+            }
             if (literal is Variable && variableType == getTypeFromPrototype(literal.getType())) {
-                map.put(variableName, ValueAndType(literal.getValue(), variableType))
+                map.put(variableName, ValueAndTypeV1(literal.getValue(), variableType))
             }
         } else {
             throw Error("The variable: $variableName does not exist!")
@@ -100,19 +106,34 @@ class InterpreterVisitor(
         throw Error("Invalid Expression!")
     }
 
+    private fun setValue(variable: Variable): String {
+        var value = variable.getValue()
+        if (variable.getType() == PrototypeType.IDENTIFIER) {
+            value = map.getValue(value).value.toString()
+        }
+        return value
+    }
+
+    private fun setType(variable: Variable): PrototypeType {
+        var type = variable.getType()
+        if (variable.getType() == PrototypeType.IDENTIFIER) {
+            var variableMap = map.getValue(variable.getValue())
+            if (variableMap.type == "string") {
+                type = PrototypeType.STRING
+            } else if (variableMap.type == "number") {
+                type = PrototypeType.NUMBER
+            }
+        }
+        return type
+    }
+
     private fun sumValues(left: Variable, right: Variable): Variable {
-        var lValue = left.getValue()
-        var rValue = right.getValue()
-        val lType = left.getType()
-        val rType = right.getType()
-        if (lType == PrototypeType.IDENTIFIER) {
-            lValue = map.getValue(lValue).toString()
-        }
-        if (rType == PrototypeType.IDENTIFIER) {
-            rValue = map.getValue(rValue).toString()
-        }
+        val lValue = setValue(left)
+        val rValue = setValue(right)
+        val lType = setType(left)
+        val rType = setType(right)
         return when {
-            lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable(
+            (lType == PrototypeType.NUMBER) && rType == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() + rValue.toDouble()).toString(),
                 lType,
                 left.getLine()
@@ -144,16 +165,12 @@ class InterpreterVisitor(
     }
 
     private fun subtractValues(left: Variable, right: Variable): Variable {
-        var lValue = left.getValue()
-        var rValue = right.getValue()
-        if (left.getType() == PrototypeType.IDENTIFIER) {
-            lValue = map.getValue(lValue).toString()
-        }
-        if (right.getType() == PrototypeType.IDENTIFIER) {
-            rValue = map.getValue(rValue).toString()
-        }
+        val lValue = setValue(left)
+        val rValue = setValue(right)
+        val lType = setType(left)
+        val rType = setType(right)
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable(
+            lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() - rValue.toDouble()).toString(),
                 PrototypeType.NUMBER,
                 left.getLine()
@@ -164,16 +181,12 @@ class InterpreterVisitor(
     }
 
     private fun multiplyValues(left: Variable, right: Variable): Variable {
-        var lValue = left.getValue()
-        var rValue = right.getValue()
-        if (left.getType() == PrototypeType.IDENTIFIER) {
-            lValue = map.getValue(lValue).toString()
-        }
-        if (right.getType() == PrototypeType.IDENTIFIER) {
-            rValue = map.getValue(rValue).toString()
-        }
+        val lValue = setValue(left)
+        val rValue = setValue(right)
+        val lType = setType(left)
+        val rType = setType(right)
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable(
+            lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() * rValue.toDouble()).toString(),
                 PrototypeType.NUMBER,
                 left.getLine()
@@ -184,16 +197,12 @@ class InterpreterVisitor(
     }
 
     private fun divideValues(left: Variable, right: Variable): Variable {
-        var lValue = left.getValue()
-        var rValue = right.getValue()
-        if (left.getType() == PrototypeType.IDENTIFIER) {
-            lValue = map.getValue(lValue).toString()
-        }
-        if (right.getType() == PrototypeType.IDENTIFIER) {
-            rValue = map.getValue(rValue).toString()
-        }
+        val lValue = setValue(left)
+        val rValue = setValue(right)
+        val lType = setType(left)
+        val rType = setType(right)
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable(
+            lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() / rValue.toDouble()).toString(),
                 PrototypeType.NUMBER,
                 right.getLine()
@@ -210,8 +219,20 @@ class InterpreterVisitor(
     }
 
     override fun visitParentNode(parentNode: ParentNode) {
-        for (child in parentNode.getChildren()) {
-            child.accept(this)
+        for (child: ASTNode in parentNode.getChildren()) {
+            when (child) {
+                is VariableDeclarationNode -> {
+                    visitDeclaration(child)
+                }
+
+                is AssignmentNode -> {
+                    visitAssignment(child)
+                }
+
+                is PrintNode -> {
+                    visitPrint(child)
+                }
+            }
         }
     }
 }

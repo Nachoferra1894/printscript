@@ -15,30 +15,24 @@ import java.io.File
 class CommonPrintScriptRunner(private val version: Version = getLatestVersion()) : PrintscriptRunner {
     private val lexer = Lexer()
     private val parser = CommonParser()
-    private val interpreter = Interpreter.create(version)
+    private val interpreter = Interpreter.InterpreterConstructor.create(version)
     private val formatter = Formatter()
     private val linter = Linter()
 
-    override fun runValidation(source: Flow<String>): Boolean {
+    override fun runValidation(source: Flow<String>) {
         val tokens = lexer.getTokens(source, version)
         val ast = parser.parseTokens(tokens, version)
-        println(ast)
-        val finalString = interpreter.interpret(ast)
-        // TODO add interpreter
-        return true
+        interpreter.interpret(ast)
     }
 
     override suspend fun runExecution(
         source: Flow<String>,
         printFunction: (output: String) -> Unit,
         readFunction: (output: String) -> String
-    ): String {
+    ) {
         val tokens = lexer.getTokens(source, V1())
         val ast = parser.parseTokens(tokens, version)
-        println(ast)
-        val finalString = interpreter.interpret(ast)
-        // TODO add interpreter
-        return ast.toString()
+        interpreter.interpret(ast)
     }
 
     override fun runFormatting(source: Flow<String>, configFile: File): String {
