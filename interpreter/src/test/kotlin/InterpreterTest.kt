@@ -162,6 +162,8 @@ class InterpreterTest {
         }
     }
 
+    // no se pueden correr los tests por el readLine()
+
 //    @Test
 //    fun testReadInput() {
 //        // Statement: a = readInput("Enter a number: ");
