@@ -1,6 +1,6 @@
 {
   "v1":{
-    "spaceBeforeColon": true,
+    "spaceBeforeColon": false,
     "spaceAfterColon": true,
     "spaceBeforeAssignation": true,
     "spaceAfterAssignation": true,

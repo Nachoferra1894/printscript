@@ -23,7 +23,7 @@ abstract class TokenMatcher(val tokens: Queue<Token>) {
     }
 
     @Throws(WrongTokenException::class)
-    fun getEOL(): Token {
-        return getNextTokenOrThrowError(PrototypeType.SEMICOLON)
+    fun getEOL(closeType: PrototypeType = PrototypeType.SEMICOLON): Token {
+        return getNextTokenOrThrowError(closeType)
     }
 }

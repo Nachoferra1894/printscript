@@ -9,7 +9,6 @@ class ControllerGetter {
         return when (version) {
             is V1 -> V1SubParserController()
             is V2 -> V2SubParserController()
-            else -> throw Exception("Version not found")
         }
     }
 }

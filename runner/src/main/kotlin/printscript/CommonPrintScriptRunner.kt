@@ -9,9 +9,10 @@ import lexer.lexer.Lexer
 import linter.Linter
 import version.V1
 import version.Version
+import version.getLatestVersion
 import java.io.File
 
-class CommonPrintScriptRunner(private val version: Version) : PrintscriptRunner {
+class CommonPrintScriptRunner(private val version: Version = getLatestVersion()) : PrintscriptRunner {
     private val lexer = Lexer()
     private val parser = CommonParser()
     private val interpreter = Interpreter.create(version)
@@ -19,7 +20,7 @@ class CommonPrintScriptRunner(private val version: Version) : PrintscriptRunner 
     private val linter = Linter()
 
     override fun runValidation(source: Flow<String>): Boolean {
-        val tokens = lexer.getTokens(source, V1())
+        val tokens = lexer.getTokens(source, version)
         val ast = parser.parseTokens(tokens, version)
         println(ast)
         val finalString = interpreter.interpret(ast)

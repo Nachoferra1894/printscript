@@ -72,3 +72,4 @@ publishing {
     }
 }
 
+// TODO agregar reglas default de ktlint para formatter y analyser publishToMavenLocal
