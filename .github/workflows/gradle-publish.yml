@@ -9,8 +9,9 @@ name: Gradle Build and test
 
 on:
   push:
-    branches: 
+    branches:
       - master
+      - v1.0
 
 
 jobs:

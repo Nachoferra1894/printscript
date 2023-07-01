@@ -12,7 +12,8 @@ import version.Version
 import version.getLatestVersion
 import java.io.File
 
-class CommonPrintScriptRunner(private val version: Version = getLatestVersion()) : PrintscriptRunner {
+class CommonPrintScriptRunner: PrintscriptRunner {
+    private val version = V1()
     private val lexer = Lexer()
     private val parser = CommonParser()
     private val interpreter = Interpreter.InterpreterConstructor.create(version)

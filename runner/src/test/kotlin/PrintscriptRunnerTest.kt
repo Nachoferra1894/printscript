@@ -5,8 +5,6 @@ import version.V1
 import version.V2
 
 class PrintscriptRunnerTest {
-    val v1Runner: PrintscriptRunner = CommonPrintScriptRunner(V1())
-    val v2Runner: PrintscriptRunner = CommonPrintScriptRunner(V2())
     private val sourceCode = """
             let a : string = "hello world!";
             let b : string = "hello world!";

@@ -17,8 +17,6 @@ class App : CliktCommand() {
 
     private val sourceFile by argument(help = "Source file path").file()
 
-    private val version by argument(help = "Source file version").optional()
-
     private val arguments by argument(help = "Operation arguments").optional()
 
     override fun run() {
@@ -26,8 +24,7 @@ class App : CliktCommand() {
         echo("Source file: ${sourceFile.absolutePath}")
 
         arguments?.let { echo("Arguments: $it") }
-        val v = getVersionFromString(version ?: "1.0")
-        val runner = CommonPrintScriptRunner(v)
+        val runner = CommonPrintScriptRunner()
         when (operation) {
             Operation.VALI -> validate(sourceFile.absolutePath, runner)
             Operation.EXEC -> execute(sourceFile.absolutePath, runner)
