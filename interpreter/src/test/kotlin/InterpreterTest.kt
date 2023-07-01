@@ -305,12 +305,12 @@ class InterpreterTest {
 
     @Test
     fun testConst() {
-        var node0 = VariableDeclarationNode("a", "boolean",Variable("2.0", PrototypeType.NUMBER), isMutable = false)
-        var node1 = AssignmentNode("a", Variable("4.0",PrototypeType.BOOLEAN))
+        var node0 = VariableDeclarationNode("a", "boolean", Variable("2.0", PrototypeType.NUMBER), isMutable = false)
+        var node1 = AssignmentNode("a", Variable("4.0", PrototypeType.BOOLEAN))
         val interpreter = Interpreter.InterpreterConstructor.create(V2())
         interpreter.interpret(node0)
         assert(!node0.isMutable())
-        var error = assertThrows<Error>{
+        var error = assertThrows<Error> {
             interpreter.interpret(node1)
         }
         assert(error.message == "a is not mutable")

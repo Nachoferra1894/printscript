@@ -84,10 +84,10 @@ class InterpreterVisitorV2(
     }
 
     private fun setPrototypeType(value: String): PrototypeType {
-        if (value == "true" || value == "false"){
+        if (value == "true" || value == "false") {
             return PrototypeType.BOOLEAN
         }
-        if (isNumber(value)){
+        if (isNumber(value)) {
             return PrototypeType.NUMBER
         }
         return PrototypeType.STRING
