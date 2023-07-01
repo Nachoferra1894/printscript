@@ -1,8 +1,10 @@
+
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.optional
 import com.github.ajalt.clikt.parameters.types.enum
 import com.github.ajalt.clikt.parameters.types.file
+import errorHandler.ErrorHandler
 import input.LexerFileInput
 import kotlinx.coroutines.runBlocking
 import printscript.CommonPrintScriptRunner
@@ -10,6 +12,7 @@ import printscript.PrintscriptRunner
 import java.io.File
 
 class App : CliktCommand() {
+
     enum class Operation { VALI, EXEC, FORMAT, ANA }
 
     private val operation: Operation? by argument(help = "The operation type").enum<Operation>()
@@ -53,17 +56,25 @@ class App : CliktCommand() {
     }
 
     private fun execute(absolutePath: String, runner: PrintscriptRunner) {
+        class CliErrorHandler : ErrorHandler {
+            override fun reportError(message: String?) {
+                echo(message)
+            }
+        }
+
         echo("exec")
         fun printFunction(output: String) {
             echo(output)
         }
+
         fun inputFunction(input: String): String {
             echo(input)
             return readln()
         }
         runBlocking {
             val lexerInput = LexerFileInput(File(absolutePath))
-            runner.runExecution(lexerInput.getFlow(), ::printFunction, ::inputFunction)
+            val errorHandler = CliErrorHandler()
+            runner.runExecution(lexerInput.getFlow(), ::printFunction, ::inputFunction, errorHandler)
         }
     }
 
