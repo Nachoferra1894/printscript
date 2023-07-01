@@ -44,7 +44,7 @@ class InterpreterVisitorV2(
             if (map.getValue(variableName).isMutable){
                 val variableType: String = map.getValue(variableName).type
                 var literal: Expression = assignmentNode.value
-                if (literal is Operation){
+                if (literal is Operation || literal is ReadInputExp){
                     literal = visitExpressionNode(assignmentNode.value)
                 }
                 if (literal is Variable && variableType == getTypeFromPrototype(literal.getType())) {
@@ -146,6 +146,14 @@ class InterpreterVisitorV2(
                 }else{
                     throw Error("Invalid if statement condition")
                 }
+            }else if(conditionValue.getType() == PrototypeType.BOOLEAN){
+                if (ifNode.getFalsyNode() == null) {
+                    onlyIf(ifNode, conditionValue)
+                } else {
+                    ifElse(ifNode, conditionValue)
+                }
+            }else{
+                throw Error("Invalid if statement condition")
             }
         }else{
             throw Error("Condition must be only true / false / variable: Boolean")
@@ -283,7 +291,23 @@ class InterpreterVisitorV2(
 
     override fun visitParentNode(parentNode: ParentNode) {
         for (child in parentNode.getChildren()) {
-            child.accept(this)
+            when (child) {
+                is VariableDeclarationNode -> {
+                    visitDeclaration(child)
+                }
+
+                is AssignmentNode -> {
+                    visitAssignment(child)
+                }
+
+                is PrintNode -> {
+                    visitPrint(child)
+                }
+
+                is IfNode -> {
+                    visitIfNode(child)
+                }
+            }
         }
     }
 }

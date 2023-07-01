@@ -1,5 +1,6 @@
 import expresions.Operator
 import expresions.types.Operation
+import expresions.types.ReadInputExp
 import expresions.types.Variable
 import implementation.Interpreter
 import org.junit.jupiter.api.Test
@@ -150,10 +151,22 @@ class InterpreterTest {
         assert(result == true)
     }
 
+    interface ConsoleInput {
+        fun readLine(): String?
+    }
+
+    class MyConsoleApp(private val consoleInput: ConsoleInput) {
+        fun processInput(): String {
+            val input = consoleInput.readLine()
+            return "Procesando: $input"
+        }
+    }
+
 //    @Test
 //    fun testReadInput() {
 //        // Statement: a = readInput("Enter a number: ");
 //
+//        val node0 = VariableDeclarationNode("a", "string")
 //        val node8 = AssignmentNode(
 //            "a",
 //            ReadInputExp(
@@ -163,9 +176,12 @@ class InterpreterTest {
 //            0
 //        )
 //
-//        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+//        val interpreter = Interpreter.InterpreterConstructor.create(V2())
+//        interpreter.interpret(node0)
 //        interpreter.interpret(node8)
-//        assert()
+//        var result: Any? = interpreter.getValue("a")
+//        println(result)
+//        assert(result == "") //lo que vaya a ingresar en el readLine
 //    }
 
 //    @Test
@@ -189,72 +205,88 @@ class InterpreterTest {
 //
 //        val interpreter = Interpreter.InterpreterConstructor.create(V2())
 //        interpreter.interpret(node9)
-//        assert()
 //    }
 
-//    @Test
-//    fun testSimpleIfBlock() {
-//        // Statement: let a: string = readInput(a+b);
-//
-//        val node10 = IfNode(
-//            Variable("true", PrototypeType.BOOLEAN, 0),
-//            0,
-//            ParentNode(
-//                PrintNode(
-//                    Variable("a is 1", PrototypeType.STRING, 0)
-//                )
-//            )
-//        )
-//        val interpreter = Interpreter.InterpreterConstructor.create(V2())
-//        interpreter.interpret(node10)
-//        assert()
-//    }
+    @Test
+    fun testSimpleIfBlock() {
 
-//    @Test
-//    fun testMultipleBlock() {
-//        // Statement: if (true) { print("a is 1"); print("b is 2"); }
-//        val node11 = IfNode(
-//            Variable("true", PrototypeType.BOOLEAN, 0),
-//            0,
-//            ParentNode(
-//                listOf(
-//                    PrintNode(
-//                        Variable("a is 1", PrototypeType.STRING, 0),
-//                        0
-//                    ),
-//                    PrintNode(
-//                        Variable("b is 2", PrototypeType.STRING, 0),
-//                        0
-//                    )
-//                )
-//            )
-//        )
-//        val interpreter = Interpreter.InterpreterConstructor.create(V2())
-//        interpreter.interpret(node11)
-//        assert()
-//    }
+        val node0 = VariableDeclarationNode("a", "string",Variable("a is 1", PrototypeType.STRING, 0))
+        val node10 = IfNode(
+            Variable("true", PrototypeType.BOOLEAN, 0),
+            0,
+            ParentNode(
+                PrintNode(
+                    Variable("a", PrototypeType.IDENTIFIER,0)
+                )
+            )
+        )
+        val interpreter = Interpreter.InterpreterConstructor.create(V2())
+        interpreter.interpret(node0)
+        interpreter.interpret(node10)
+        var result = interpreter.getValue("a")
+        println(result)
+        assert(result == "a is 1")
+    }
 
-//    @Test
-//    fun testSimpleIfElseBlock() {
-//        // Statement: if (true) { print("a is 1"); } else { print("a is not 1"); }
-//
-//        val node12 = IfNode(
-//            Variable("a", PrototypeType.IDENTIFIER, 0),
-//            0,
-//            ParentNode(
-//                PrintNode(
-//                    Variable("a is 1", PrototypeType.STRING, 0)
-//                )
-//            ),
-//            ParentNode(
-//                PrintNode(
-//                    Variable("a is not 1", PrototypeType.STRING, 0)
-//                )
-//            )
-//        )
-//        val interpreter = Interpreter.InterpreterConstructor.create(V2())
-//        interpreter.interpret(node12)
-//        assert()
-//    }
+    @Test
+    fun testMultipleBlock() {
+        // Statement: if (true) { print("a is 1"); print("b is 2"); }
+        val node0 = VariableDeclarationNode("a", "string",Variable("a is 1", PrototypeType.STRING, 0))
+        val node1 = VariableDeclarationNode("b", "string",Variable("b is 2", PrototypeType.STRING, 0))
+        val node11 = IfNode(
+            Variable("true", PrototypeType.BOOLEAN, 0),
+            0,
+            ParentNode(
+                listOf(
+                    PrintNode(
+                        Variable("a", PrototypeType.IDENTIFIER,0),
+                        0
+                    ),
+                    PrintNode(
+                        Variable("b", PrototypeType.IDENTIFIER,0),
+                        0
+                    )
+                )
+            )
+        )
+        val interpreter = Interpreter.InterpreterConstructor.create(V2())
+        interpreter.interpret(node0)
+        interpreter.interpret(node1)
+        interpreter.interpret(node11)
+        var resultA = interpreter.getValue("a")
+        println(resultA)
+        var resultB = interpreter.getValue("b")
+        println(resultB)
+        assert(resultA == "a is 1")
+        assert(resultB == "b is 2")
+        //funciona tambien
+    }
+
+    @Test
+    fun testSimpleIfElseBlock() {
+        // Statement: if (true) { print("a is 1"); } else { print("a is not 1"); }
+
+        var node0 = VariableDeclarationNode("a", "boolean")
+        var node1 = AssignmentNode("a", Variable("false", PrototypeType.BOOLEAN))
+        val node12 = IfNode(
+            Variable("a", PrototypeType.IDENTIFIER, 0),
+            0,
+            ParentNode(
+                PrintNode(
+                    Variable("a is 1", PrototypeType.STRING, 0)
+                )
+            ),
+            ParentNode(
+                PrintNode(
+                    Variable("a is not 1", PrototypeType.STRING, 0)
+                )
+            )
+        )
+        val interpreter = Interpreter.InterpreterConstructor.create(V2())
+        interpreter.interpret(node0)
+        interpreter.interpret(node1)
+        interpreter.interpret(node12)
+    }
+
 }
 

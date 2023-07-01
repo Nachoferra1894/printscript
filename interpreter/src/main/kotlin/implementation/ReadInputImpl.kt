@@ -4,7 +4,7 @@ import interfaces.ReadInput
 
 class ReadInputImpl : ReadInput {
     override fun read(message: String): String {
-        print(message)
+        println(message)
         return readLine() ?: ""
     }
 
