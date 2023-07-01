@@ -5,6 +5,7 @@ import implementation.Interpreter
 import org.junit.jupiter.api.Test
 import types.*
 import version.V1
+import version.V2
 
 class InterpreterTest {
 
@@ -50,99 +51,104 @@ class InterpreterTest {
         assert(result === "Hello, world!")
     }
 
-//    @Test
-//    fun testDeclarationForIntAndExpression() {
-//        // Statement: let c: number = 3 + 4 * 5;
-//        val node3 = VariableDeclarationNode(
-//            "c",
-//            "number",
-//            Operation(
-//                Variable("3", PrototypeType.NUMBER, 0),
-//                Operator.SUM,
-//                Operation(Variable("4", PrototypeType.NUMBER, 0), Operator.MUL, Variable("5", PrototypeType.NUMBER, 0), 0),
-//                0
-//            ),
-//            0
-//        )
-//
-//        val interpreter = Interpreter.InterpreterConstructor.create(V1())
-//        interpreter.interpret(node3)
-//        var result = interpreter.getValue("c")
-//        assert(result === 23F)
-//    }
-////
-////    @Test
-////    fun testPrint() {
-////        // Statement: print("Hello, world!");
-////        val node4 = PrintNode(Variable("Hello, world!", PrototypeType.STRING, 0), 0)
-////
-////        val interpreter = Interpreter.InterpreterConstructor.create(V1())
-////        interpreter.interpret(node4)
-////        assert()
-////    }
-//
-//    @Test
-//    fun testMultipleLines() {
-//        // Statement: let a: number = 1 - 2 - 3;
-//        // Statement: let b: number;
-//        // Statement: b = a + 1;
-//        // Statement: print(a + b);
-//        val node5 = ParentNode(
-//            listOf(
-//                VariableDeclarationNode(
-//                    "a",
-//                    "number",
-//                    Operation(
-//                        Variable("1", PrototypeType.NUMBER, 0),
-//                        Operator.SUB,
-//                        Operation(
-//                            Variable("2", PrototypeType.NUMBER, 0),
-//                            Operator.SUB,
-//                            Variable("3", PrototypeType.NUMBER, 0),
-//                            0
-//                        ),
-//                        0
-//                    ),
-//                    0
-//                ),
-//                VariableDeclarationNode("b", "number", 1),
-//                AssignmentNode(
-//                    "b",
-//                    Operation(
-//                        Variable("a", PrototypeType.IDENTIFIER, 2),
-//                        Operator.SUM,
-//                        Variable("1", PrototypeType.NUMBER, 2),
-//                        2
-//                    ),
-//                    2
-//                ),
-//                PrintNode(
-//                    Operation(
-//                        Variable("a", PrototypeType.IDENTIFIER, 3),
-//                        Operator.SUM,
-//                        Variable("b", PrototypeType.IDENTIFIER, 3),
-//                        3
-//                    ),
-//                    3
-//                )
-//            )
-//        )
-//
-//        val interpreter = Interpreter.InterpreterConstructor.create(V1())
-//        interpreter.interpret(node5)
-//        assert(interpreter.getMemory().getValue("a").value == ValueAndType("0","number",true))
-//        assert(interpreter.getMemory().getValue("b").value == ValueAndType("1","number",true))
-//    }
-//
-//    @Test
-//    fun testConstAndBoolean() {
-//        // Statement: const b: boolean = true;
-//        val node6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN, 0), 0, false)
-//
-//        val interpreter = Interpreter.InterpreterConstructor.create(V2())
-//        interpreter.interpret(node6)
-//        assert(interpreter.getMemory().getValue("b").value == ValueAndType("true","boolean",false))
-//    }
+    @Test
+    fun testDeclarationForIntAndExpression() {
+        // Statement: let c: number = 3 + 4 * 5;
+        val node3 = VariableDeclarationNode(
+            "c",
+            "number",
+            Operation(
+                Variable("3", PrototypeType.NUMBER, 0),
+                Operator.SUM,
+                Operation(Variable("4", PrototypeType.NUMBER, 0), Operator.MUL, Variable("5", PrototypeType.NUMBER, 0), 0),
+                0
+            ),
+            0
+        )
+        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        interpreter.interpret(node3)
+        var result : Any? = interpreter.getValue("c")
+        println(result)
+        assert(result == 23.0F)
+    }
+
+    @Test
+    fun testPrint() {
+        // Statement: print("Hello, world!");
+        val node4 = PrintNode(Variable("Hello, world!", PrototypeType.STRING, 0), 0)
+
+        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        interpreter.interpret(node4)
+    }
+
+    @Test
+    fun testMultipleLines() {
+        // Statement: let a: number = 1 - (2 - 3); // 2
+        // Statement: let b: number;
+        // Statement: b = a + 1; // 3
+        // Statement: print(a + b); // 5
+        val node5 = ParentNode(
+            listOf(
+                VariableDeclarationNode(
+                    "a",
+                    "number",
+                    Operation(
+                        Variable("1", PrototypeType.NUMBER, 0),
+                        Operator.SUB,
+                        Operation(
+                            Variable("2", PrototypeType.NUMBER, 0),
+                            Operator.SUB,
+                            Variable("3", PrototypeType.NUMBER, 0),
+                            0
+                        ),
+                        0
+                    ),
+                    0
+                ),
+                VariableDeclarationNode("b", "number", 1),
+                AssignmentNode(
+                    "b",
+                    Operation(
+                        Variable("a", PrototypeType.IDENTIFIER, 2),
+                        Operator.SUM,
+                        Variable("1", PrototypeType.NUMBER, 2),
+                        2
+                    ),
+                    2
+                ),
+                PrintNode(
+                    Operation(
+                        Variable("a", PrototypeType.IDENTIFIER, 3),
+                        Operator.SUM,
+                        Variable("b", PrototypeType.IDENTIFIER, 3),
+                        3
+                    ),
+                    3
+                )
+            )
+        )
+
+        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        interpreter.interpret(node5)
+        var resultA: Any? = interpreter.getValue("a")
+        var resultB: Any? = interpreter.getValue("b")
+        println("a: $resultA")
+        println("b: $resultB")
+        assert(resultA == 2.0F)
+        assert(resultB == 3.0F)
+        // y se printea 5
+    }
+
+    @Test
+    fun testConstAndBoolean() {
+        // Statement: const b: boolean = true;
+        val node6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN, 0), 0, false)
+
+        val interpreter = Interpreter.InterpreterConstructor.create(V2())
+        interpreter.interpret(node6)
+        var result: Any? = interpreter.getValue("b")
+        assert(result == true)
+    }
 
 //    @Test
 //    fun testReadInput() {

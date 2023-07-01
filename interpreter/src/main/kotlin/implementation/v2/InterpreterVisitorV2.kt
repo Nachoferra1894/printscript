@@ -6,6 +6,7 @@ import expresions.Operator
 import expresions.types.Operation
 import expresions.types.ReadInputExp
 import expresions.types.Variable
+import implementation.v1.ValueAndTypeV1
 import interfaces.ASTNodeVisitorV2
 import interfaces.Printer
 import interfaces.ReadInput
@@ -27,11 +28,13 @@ class InterpreterVisitorV2(
         val type = variableDeclaration.getType()
         val isMutable = variableDeclaration.isMutable()
 
+        if (!map.exist(name)) {
+            map.put(name, ValueAndTypeV2(null, type, isMutable))
+        }
+
         if (variableDeclaration.getValue() != null) {
             val literal = visitExpressionNode(variableDeclaration.getValue()!!)
             map.put(name, ValueAndTypeV2(literal.getValue(), type, isMutable))
-        }else {
-            map.put(name, ValueAndTypeV2(null, type, isMutable))
         }
     }
 
@@ -40,7 +43,10 @@ class InterpreterVisitorV2(
         if (map.exist(variableName)){
             if (map.getValue(variableName).isMutable){
                 val variableType: String = map.getValue(variableName).type
-                val literal = assignmentNode.value.accept(this)
+                var literal: Expression = assignmentNode.value
+                if (literal is Operation){
+                    literal = visitExpressionNode(assignmentNode.value)
+                }
                 if (literal is Variable && variableType == getTypeFromPrototype(literal.getType())) {
                     map.put(variableName, ValueAndTypeV2(literal.getValue(), variableType, true))
                 }else{
@@ -165,17 +171,34 @@ class InterpreterVisitorV2(
         }
     }
 
+    private fun setValue(variable: Variable): String{
+        var value = variable.getValue()
+        if (variable.getType() == PrototypeType.IDENTIFIER) {
+            value = map.getValue(value).value.toString()
+        }
+        return value
+    }
+
+    private fun setType(variable: Variable): PrototypeType{
+        var type = variable.getType()
+        if (variable.getType() == PrototypeType.IDENTIFIER) {
+            var variableMap = map.getValue(variable.getValue())
+            if (variableMap.type == "string"){
+                type = PrototypeType.STRING
+            }else if(variableMap.type == "number"){
+                type = PrototypeType.NUMBER
+            }else if (variableMap.type == "boolean"){
+                type = PrototypeType.BOOLEAN
+            }
+        }
+        return type
+    }
+
     private fun sumValues(left: Variable, right: Variable): Variable {
-        var lValue = left.getValue()
-        var rValue = right.getValue()
-        val lType = left.getType()
-        val rType = right.getType()
-        if (lType == PrototypeType.IDENTIFIER) {
-            lValue = map.getValue(lValue).toString()
-        }
-        if (rType == PrototypeType.IDENTIFIER) {
-            rValue = map.getValue(rValue).toString()
-        }
+        val lValue = setValue(left)
+        val rValue = setValue(right)
+        val lType = setType(left)
+        val rType = setType(right)
         return when {
             lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() + rValue.toDouble()).toString(),
@@ -206,16 +229,12 @@ class InterpreterVisitorV2(
     }
 
     private fun subtractValues(left: Variable, right: Variable): Variable {
-        var lValue = left.getValue()
-        var rValue = right.getValue()
-        if (left.getType() == PrototypeType.IDENTIFIER) {
-            lValue = map.getValue(lValue).toString()
-        }
-        if (right.getType() == PrototypeType.IDENTIFIER) {
-            rValue = map.getValue(rValue).toString()
-        }
+        val lValue = setValue(left)
+        val rValue = setValue(right)
+        val lType = setType(left)
+        val rType = setType(right)
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable(
+            lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() - rValue.toDouble()).toString(),
                 PrototypeType.NUMBER,
                 left.getLine(),
@@ -226,16 +245,12 @@ class InterpreterVisitorV2(
     }
 
     private fun multiplyValues(left: Variable, right: Variable): Variable {
-        var lValue = left.getValue()
-        var rValue = right.getValue()
-        if (left.getType() == PrototypeType.IDENTIFIER) {
-            lValue = map.getValue(lValue).toString()
-        }
-        if (right.getType() == PrototypeType.IDENTIFIER) {
-            rValue = map.getValue(rValue).toString()
-        }
+        val lValue = setValue(left)
+        val rValue = setValue(right)
+        val lType = setType(left)
+        val rType = setType(right)
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable(
+            lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() * rValue.toDouble()).toString(),
                 PrototypeType.NUMBER,
                 left.getLine(),
@@ -246,16 +261,12 @@ class InterpreterVisitorV2(
     }
 
     private fun divideValues(left: Variable, right: Variable): Variable {
-        var lValue = left.getValue()
-        var rValue = right.getValue()
-        if (left.getType() == PrototypeType.IDENTIFIER) {
-            lValue = map.getValue(lValue).toString()
-        }
-        if (right.getType() == PrototypeType.IDENTIFIER) {
-            rValue = map.getValue(rValue).toString()
-        }
+        val lValue = setValue(left)
+        val rValue = setValue(right)
+        val lType = setType(left)
+        val rType = setType(right)
         return when {
-            left.getType() == PrototypeType.NUMBER && right.getType() == PrototypeType.NUMBER -> Variable(
+            lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() / rValue.toDouble()).toString(),
                 PrototypeType.NUMBER,
                 right.getLine(),
