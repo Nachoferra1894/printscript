@@ -1,6 +1,7 @@
 package printscript
 
 import CommonParser
+import errorHandler.ErrorHandler
 import fromatter.Formatter
 import implementation.Interpreter
 import interfaces.ASTNode
@@ -19,20 +20,30 @@ class CommonPrintScriptRunner(private val version: Version = getLatestVersion())
     private val formatter = Formatter()
     private val linter = Linter()
 
-    override fun runValidation(source: Flow<String>) {
-        val tokens = lexer.getTokens(source, version)
-        val ast = parser.parseTokens(tokens, version)
-        interpreter.interpret(ast)
+    override fun runValidation(source: Flow<String>): Boolean {
+        return try {
+            val tokens = lexer.getTokens(source, version)
+            val ast = parser.parseTokens(tokens, version)
+            interpreter.interpret(ast)
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 
     override suspend fun runExecution(
         source: Flow<String>,
         printFunction: (output: String) -> Unit,
-        readFunction: (output: String) -> String
+        readFunction: (output: String) -> String,
+        errorHandler: ErrorHandler
     ) {
-        val tokens = lexer.getTokens(source, V1())
-        val ast = parser.parseTokens(tokens, version)
-        interpreter.interpret(ast)
+        try {
+            val tokens = lexer.getTokens(source, V1())
+            val ast = parser.parseTokens(tokens, version)
+            interpreter.interpret(ast)
+        } catch (e: Exception) {
+            errorHandler.reportError(e.message)
+        }
     }
 
     override fun runFormatting(source: Flow<String>, configFile: File): String {
