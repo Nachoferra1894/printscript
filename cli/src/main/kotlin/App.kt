@@ -7,7 +7,6 @@ import input.LexerFileInput
 import kotlinx.coroutines.runBlocking
 import printscript.CommonPrintScriptRunner
 import printscript.PrintscriptRunner
-import version.getVersionFromString
 import java.io.File
 
 class App : CliktCommand() {

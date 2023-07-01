@@ -1,8 +1,4 @@
 
-import printscript.CommonPrintScriptRunner
-import printscript.PrintscriptRunner
-import version.V1
-import version.V2
 
 class PrintscriptRunnerTest {
     private val sourceCode = """

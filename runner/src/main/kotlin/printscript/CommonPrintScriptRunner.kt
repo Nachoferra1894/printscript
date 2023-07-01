@@ -8,11 +8,9 @@ import kotlinx.coroutines.flow.Flow
 import lexer.lexer.Lexer
 import linter.Linter
 import version.V1
-import version.Version
-import version.getLatestVersion
 import java.io.File
 
-class CommonPrintScriptRunner: PrintscriptRunner {
+class CommonPrintScriptRunner : PrintscriptRunner {
     private val version = V1()
     private val lexer = Lexer()
     private val parser = CommonParser()
