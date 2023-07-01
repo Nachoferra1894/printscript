@@ -16,7 +16,7 @@ import kotlin.Error
 
 class InterpreterVisitorV1(
     val map: InterpreterMapV1,
-    private val printer: Printer,
+    private val printer: Printer
 ) : ASTNodeVisitorV1 {
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
@@ -38,7 +38,7 @@ class InterpreterVisitorV1(
         if (map.exist(variableName)) {
             val variableType: String = map.getValue(variableName).type
             var literal: Expression = assignmentNode.value
-            if (literal is Operation){
+            if (literal is Operation) {
                 literal = visitExpressionNode(assignmentNode.value)
             }
             if (literal is Variable && variableType == getTypeFromPrototype(literal.getType())) {
@@ -106,7 +106,7 @@ class InterpreterVisitorV1(
         throw Error("Invalid Expression!")
     }
 
-    private fun setValue(variable: Variable): String{
+    private fun setValue(variable: Variable): String {
         var value = variable.getValue()
         if (variable.getType() == PrototypeType.IDENTIFIER) {
             value = map.getValue(value).value.toString()
@@ -114,13 +114,13 @@ class InterpreterVisitorV1(
         return value
     }
 
-    private fun setType(variable: Variable): PrototypeType{
+    private fun setType(variable: Variable): PrototypeType {
         var type = variable.getType()
         if (variable.getType() == PrototypeType.IDENTIFIER) {
             var variableMap = map.getValue(variable.getValue())
-            if (variableMap.type == "string"){
+            if (variableMap.type == "string") {
                 type = PrototypeType.STRING
-            }else if(variableMap.type == "number"){
+            } else if (variableMap.type == "number") {
                 type = PrototypeType.NUMBER
             }
         }

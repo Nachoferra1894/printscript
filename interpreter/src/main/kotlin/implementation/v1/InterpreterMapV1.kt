@@ -10,5 +10,4 @@ class InterpreterMapV1(val map: MutableMap<String, ValueAndTypeV1>) {
     fun exist(key: String): Boolean {
         return map.containsKey(key)
     }
-
 }

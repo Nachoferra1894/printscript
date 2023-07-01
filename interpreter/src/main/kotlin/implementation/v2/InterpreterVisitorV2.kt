@@ -6,7 +6,6 @@ import expresions.Operator
 import expresions.types.Operation
 import expresions.types.ReadInputExp
 import expresions.types.Variable
-import implementation.v1.ValueAndTypeV1
 import interfaces.ASTNodeVisitorV2
 import interfaces.Printer
 import interfaces.ReadInput
@@ -20,7 +19,7 @@ import kotlin.Error
 class InterpreterVisitorV2(
     val map: InterpreterMapV2,
     private val printer: Printer,
-    private val readInput: ReadInput,
+    private val readInput: ReadInput
 ) : ASTNodeVisitorV2 {
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
@@ -40,22 +39,22 @@ class InterpreterVisitorV2(
 
     override fun visitAssignment(assignmentNode: AssignmentNode) {
         val variableName = assignmentNode.name
-        if (map.exist(variableName)){
-            if (map.getValue(variableName).isMutable){
+        if (map.exist(variableName)) {
+            if (map.getValue(variableName).isMutable) {
                 val variableType: String = map.getValue(variableName).type
                 var literal: Expression = assignmentNode.value
-                if (literal is Operation || literal is ReadInputExp){
+                if (literal is Operation || literal is ReadInputExp) {
                     literal = visitExpressionNode(assignmentNode.value)
                 }
                 if (literal is Variable && variableType == getTypeFromPrototype(literal.getType())) {
                     map.put(variableName, ValueAndTypeV2(literal.getValue(), variableType, true))
-                }else{
+                } else {
                     throw Error("Type Error!")
                 }
-            }else{
+            } else {
                 throw Error("$variableName is not mutable")
             }
-        }else{
+        } else {
             throw Error("The variable: $variableName does not exist!")
         }
     }
@@ -91,18 +90,18 @@ class InterpreterVisitorV2(
                 return Variable(
                     variableVT.value.toString(),
                     getPrototypeFromType(variableVT.type),
-                    expressionNode.getLine(),
+                    expressionNode.getLine()
                 )
             }
             return expressionNode
         }
-        if (expressionNode is ReadInputExp){
+        if (expressionNode is ReadInputExp) {
             val expression = expressionNode.expression
-            if (expression is Variable){
+            if (expression is Variable) {
                 if (expression.getType() != PrototypeType.STRING) throw Error("Read input message should be a string")
                 val value = readInput.read(expression.getValue())
-                return Variable(value,PrototypeType.STRING)
-            }else{
+                return Variable(value, PrototypeType.STRING)
+            } else {
                 throw Error("Invalid message for read input")
             }
         }
@@ -133,53 +132,53 @@ class InterpreterVisitorV2(
 
     override fun visitIfNode(ifNode: IfNode) {
         var conditionValue = ifNode.getCondition()
-        if (conditionValue is Variable){
-            if (conditionValue.getType() == PrototypeType.IDENTIFIER){
+        if (conditionValue is Variable) {
+            if (conditionValue.getType() == PrototypeType.IDENTIFIER) {
                 val variableVT: ValueAndTypeV2 = map.getValue(conditionValue.getValue())
-                conditionValue = Variable(variableVT.value.toString(),getPrototypeFromType(variableVT.type))
+                conditionValue = Variable(variableVT.value.toString(), getPrototypeFromType(variableVT.type))
                 if (conditionValue.getType() == PrototypeType.BOOLEAN) {
                     if (ifNode.getFalsyNode() == null) {
                         onlyIf(ifNode, conditionValue)
                     } else {
                         ifElse(ifNode, conditionValue)
                     }
-                }else{
+                } else {
                     throw Error("Invalid if statement condition")
                 }
-            }else if(conditionValue.getType() == PrototypeType.BOOLEAN){
+            } else if (conditionValue.getType() == PrototypeType.BOOLEAN) {
                 if (ifNode.getFalsyNode() == null) {
                     onlyIf(ifNode, conditionValue)
                 } else {
                     ifElse(ifNode, conditionValue)
                 }
-            }else{
+            } else {
                 throw Error("Invalid if statement condition")
             }
-        }else{
+        } else {
             throw Error("Condition must be only true / false / variable: Boolean")
         }
     }
 
-    private fun onlyIf(ifNode: IfNode, conditionValue: Variable){
+    private fun onlyIf(ifNode: IfNode, conditionValue: Variable) {
         val truthyNode = ifNode.getTruthyNode()
         if (conditionValue.getValue() == "true" && truthyNode != null) {
             truthyNode.accept(this)
         }
     }
 
-    private fun ifElse(ifNode: IfNode, conditionValue: Variable){
+    private fun ifElse(ifNode: IfNode, conditionValue: Variable) {
         val truthyNode = ifNode.getTruthyNode()
         val falsyNode = ifNode.getFalsyNode()
         if (conditionValue.getValue() == "true" && truthyNode != null) {
             truthyNode.accept(this)
-        }else if (conditionValue.getValue() == "false" && falsyNode != null){
+        } else if (conditionValue.getValue() == "false" && falsyNode != null) {
             falsyNode.accept(this)
-        }else{
+        } else {
             throw Error("Condition must be only true / false / variable: Boolean")
         }
     }
 
-    private fun setValue(variable: Variable): String{
+    private fun setValue(variable: Variable): String {
         var value = variable.getValue()
         if (variable.getType() == PrototypeType.IDENTIFIER) {
             value = map.getValue(value).value.toString()
@@ -187,15 +186,15 @@ class InterpreterVisitorV2(
         return value
     }
 
-    private fun setType(variable: Variable): PrototypeType{
+    private fun setType(variable: Variable): PrototypeType {
         var type = variable.getType()
         if (variable.getType() == PrototypeType.IDENTIFIER) {
             var variableMap = map.getValue(variable.getValue())
-            if (variableMap.type == "string"){
+            if (variableMap.type == "string") {
                 type = PrototypeType.STRING
-            }else if(variableMap.type == "number"){
+            } else if (variableMap.type == "number") {
                 type = PrototypeType.NUMBER
-            }else if (variableMap.type == "boolean"){
+            } else if (variableMap.type == "boolean") {
                 type = PrototypeType.BOOLEAN
             }
         }
@@ -211,25 +210,25 @@ class InterpreterVisitorV2(
             lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() + rValue.toDouble()).toString(),
                 lType,
-                left.getLine(),
+                left.getLine()
             )
 
             lType == PrototypeType.STRING && rType == PrototypeType.NUMBER -> Variable(
                 lValue + rValue,
                 lType,
-                left.getLine(),
+                left.getLine()
             )
 
             lType == PrototypeType.NUMBER && rType == PrototypeType.STRING -> Variable(
                 lValue + rValue,
                 rType,
-                right.getLine(),
+                right.getLine()
             )
 
             lType == PrototypeType.STRING && rType == PrototypeType.STRING -> Variable(
                 lValue + rValue,
                 lType,
-                left.getLine(),
+                left.getLine()
             )
 
             else -> throw Error("Can not sum values")
@@ -245,7 +244,7 @@ class InterpreterVisitorV2(
             lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() - rValue.toDouble()).toString(),
                 PrototypeType.NUMBER,
-                left.getLine(),
+                left.getLine()
             )
 
             else -> throw Error("Can not subtract values")
@@ -261,7 +260,7 @@ class InterpreterVisitorV2(
             lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() * rValue.toDouble()).toString(),
                 PrototypeType.NUMBER,
-                left.getLine(),
+                left.getLine()
             )
 
             else -> throw Error("Can not multiply values")
@@ -277,7 +276,7 @@ class InterpreterVisitorV2(
             lType == PrototypeType.NUMBER && rType == PrototypeType.NUMBER -> Variable(
                 (lValue.toDouble() / rValue.toDouble()).toString(),
                 PrototypeType.NUMBER,
-                right.getLine(),
+                right.getLine()
             )
 
             else -> throw Error("Can not divide values")

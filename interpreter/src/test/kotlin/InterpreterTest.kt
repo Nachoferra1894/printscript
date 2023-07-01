@@ -1,10 +1,13 @@
 import expresions.Operator
 import expresions.types.Operation
-import expresions.types.ReadInputExp
 import expresions.types.Variable
 import implementation.Interpreter
 import org.junit.jupiter.api.Test
-import types.*
+import types.AssignmentNode
+import types.IfNode
+import types.ParentNode
+import types.PrintNode
+import types.VariableDeclarationNode
 import version.V1
 import version.V2
 
@@ -29,14 +32,19 @@ class InterpreterTest {
         val node0 = VariableDeclarationNode("B", "number")
         val node1 = AssignmentNode(
             "B",
-            Operation(Variable("22.5", PrototypeType.NUMBER, 0), Operator.SUM, Variable("20", PrototypeType.NUMBER, 0), 0),
+            Operation(
+                Variable("22.5", PrototypeType.NUMBER, 0),
+                Operator.SUM,
+                Variable("20", PrototypeType.NUMBER, 0),
+                0
+            ),
             0
         )
 
         val interpreter = Interpreter.InterpreterConstructor.create(V1())
         interpreter.interpret(node0)
         interpreter.interpret(node1)
-        var result : Any? = interpreter.getValue("B")
+        var result: Any? = interpreter.getValue("B")
         println(result)
         assert(result == 42.5F)
     }
@@ -61,14 +69,19 @@ class InterpreterTest {
             Operation(
                 Variable("3", PrototypeType.NUMBER, 0),
                 Operator.SUM,
-                Operation(Variable("4", PrototypeType.NUMBER, 0), Operator.MUL, Variable("5", PrototypeType.NUMBER, 0), 0),
+                Operation(
+                    Variable("4", PrototypeType.NUMBER, 0),
+                    Operator.MUL,
+                    Variable("5", PrototypeType.NUMBER, 0),
+                    0
+                ),
                 0
             ),
             0
         )
         val interpreter = Interpreter.InterpreterConstructor.create(V1())
         interpreter.interpret(node3)
-        var result : Any? = interpreter.getValue("c")
+        var result: Any? = interpreter.getValue("c")
         println(result)
         assert(result == 23.0F)
     }
@@ -211,14 +224,13 @@ class InterpreterTest {
 
     @Test
     fun testSimpleIfBlock() {
-
-        val node0 = VariableDeclarationNode("a", "string",Variable("a is 1", PrototypeType.STRING, 0))
+        val node0 = VariableDeclarationNode("a", "string", Variable("a is 1", PrototypeType.STRING, 0))
         val node10 = IfNode(
             Variable("true", PrototypeType.BOOLEAN, 0),
             0,
             ParentNode(
                 PrintNode(
-                    Variable("a", PrototypeType.IDENTIFIER,0)
+                    Variable("a", PrototypeType.IDENTIFIER, 0)
                 )
             )
         )
@@ -233,19 +245,19 @@ class InterpreterTest {
     @Test
     fun testMultipleBlock() {
         // Statement: if (true) { print("a is 1"); print("b is 2"); }
-        val node0 = VariableDeclarationNode("a", "string",Variable("a is 1", PrototypeType.STRING, 0))
-        val node1 = VariableDeclarationNode("b", "string",Variable("b is 2", PrototypeType.STRING, 0))
+        val node0 = VariableDeclarationNode("a", "string", Variable("a is 1", PrototypeType.STRING, 0))
+        val node1 = VariableDeclarationNode("b", "string", Variable("b is 2", PrototypeType.STRING, 0))
         val node11 = IfNode(
             Variable("true", PrototypeType.BOOLEAN, 0),
             0,
             ParentNode(
                 listOf(
                     PrintNode(
-                        Variable("a", PrototypeType.IDENTIFIER,0),
+                        Variable("a", PrototypeType.IDENTIFIER, 0),
                         0
                     ),
                     PrintNode(
-                        Variable("b", PrototypeType.IDENTIFIER,0),
+                        Variable("b", PrototypeType.IDENTIFIER, 0),
                         0
                     )
                 )
@@ -261,7 +273,7 @@ class InterpreterTest {
         println(resultB)
         assert(resultA == "a is 1")
         assert(resultB == "b is 2")
-        //funciona tambien
+        // funciona tambien
     }
 
     @Test
@@ -289,6 +301,4 @@ class InterpreterTest {
         interpreter.interpret(node1)
         interpreter.interpret(node12)
     }
-
 }
-
