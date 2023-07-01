@@ -83,6 +83,20 @@ class InterpreterVisitorV2(
         }
     }
 
+    private fun setPrototypeType(value: String): PrototypeType {
+        if (value == "true" || value == "false") {
+            return PrototypeType.BOOLEAN
+        }
+        if (isNumber(value)) {
+            return PrototypeType.NUMBER
+        }
+        return PrototypeType.STRING
+    }
+
+    fun isNumber(numero: String): Boolean {
+        val regex = Regex("^[0-9]+([,.][0-9]+)?$")
+        return regex.matches(numero)
+    }
     override fun visitExpressionNode(expressionNode: Expression): Variable {
         if (expressionNode is Variable) {
             if (expressionNode.getType() == PrototypeType.IDENTIFIER) {
@@ -100,7 +114,8 @@ class InterpreterVisitorV2(
             if (expression is Variable) {
                 if (expression.getType() != PrototypeType.STRING) throw Error("Read input message should be a string")
                 val value = readInput.read(expression.getValue())
-                return Variable(value, PrototypeType.STRING)
+                val valueType = setPrototypeType(value)
+                return Variable(value, valueType)
             } else {
                 throw Error("Invalid message for read input")
             }
