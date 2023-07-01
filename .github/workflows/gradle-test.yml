@@ -10,10 +10,12 @@ name: Gradle Build and test
 on:
   push:
     branches:
-      - '*'
+      - master
+      - v1.0
   pull_request:
-    types:
-      - opened
+    branches:
+      - master
+      - v1.0
 
 jobs:
   build:
