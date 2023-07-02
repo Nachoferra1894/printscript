@@ -1,6 +1,4 @@
-package implementation
-
-import interfaces.Printer
+package interpreterUtils
 
 class PrinterImpl : Printer {
     override fun print(value: String) {

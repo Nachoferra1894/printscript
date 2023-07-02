@@ -5,6 +5,8 @@ import com.github.ajalt.clikt.parameters.types.enum
 import com.github.ajalt.clikt.parameters.types.file
 import errorHandler.ErrorHandler
 import input.LexerFileInput
+import interpreterUtils.PrinterImpl
+import interpreterUtils.ReadInputImpl
 import printscript.CommonPrintScriptRunner
 import printscript.PrintscriptRunner
 import version.getVersionFromString
@@ -28,7 +30,7 @@ class App : CliktCommand() {
 
         arguments?.let { echo("Arguments: $it") }
         val v = getVersionFromString(version ?: "1.0")
-        val runner = CommonPrintScriptRunner(v)
+        val runner = CommonPrintScriptRunner(PrinterImpl(), v, ReadInputImpl())
         when (operation) {
             Operation.VALI -> validate(sourceFile.absolutePath, runner)
             Operation.EXEC -> execute(sourceFile.absolutePath, runner)
@@ -64,19 +66,9 @@ class App : CliktCommand() {
             }
         }
 
-        echo("exec")
-        fun printFunction(output: String) {
-            echo(output)
-        }
-
-        fun inputFunction(input: String): String {
-            echo(input)
-            return readln()
-        }
-
         val lexerInput = LexerFileInput(File(absolutePath))
         val errorHandler = CliErrorHandler()
-        runner.runExecution(lexerInput.getFlow(), ::printFunction, ::inputFunction, errorHandler)
+        runner.runExecution(lexerInput.getFlow(), errorHandler)
     }
 
     private fun validate(absolutePath: String, runner: PrintscriptRunner) {

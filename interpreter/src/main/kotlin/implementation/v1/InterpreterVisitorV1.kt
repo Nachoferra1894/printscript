@@ -7,7 +7,7 @@ import expresions.types.Operation
 import expresions.types.Variable
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitorV1
-import interfaces.Printer
+import interpreterUtils.Printer
 import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
