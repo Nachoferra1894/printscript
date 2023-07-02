@@ -12,10 +12,12 @@ import version.Version
 class Lexer : LexerI {
 
     override fun getTokens(codeFlow: Flow<String>, version: Version): Flow<Token> = flow {
-        codeFlow.withIndex().collect { (index, line) ->
+        var index = 0;
+        codeFlow.collect { line ->
             defineTokens(line, index, version).forEach { token ->
                 emit(token)
             }
+            index += 1
         }
     }
 

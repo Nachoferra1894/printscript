@@ -31,7 +31,7 @@ class CommonPrintScriptRunner(private val version: Version = getLatestVersion())
         }
     }
 
-    override suspend fun runExecution(
+    override fun runExecution(
         source: Flow<String>,
         printFunction: (output: String) -> Unit,
         readFunction: (output: String) -> String,

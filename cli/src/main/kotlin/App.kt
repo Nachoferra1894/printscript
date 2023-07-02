@@ -1,4 +1,3 @@
-
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.optional
@@ -75,11 +74,10 @@ class App : CliktCommand() {
             echo(input)
             return readln()
         }
-        runBlocking {
-            val lexerInput = LexerFileInput(File(absolutePath))
-            val errorHandler = CliErrorHandler()
-            runner.runExecution(lexerInput.getFlow(), ::printFunction, ::inputFunction, errorHandler)
-        }
+
+        val lexerInput = LexerFileInput(File(absolutePath))
+        val errorHandler = CliErrorHandler()
+        runner.runExecution(lexerInput.getFlow(), ::printFunction, ::inputFunction, errorHandler)
     }
 
     private fun validate(absolutePath: String, runner: PrintscriptRunner) {
