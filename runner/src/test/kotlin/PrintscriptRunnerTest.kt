@@ -1,61 +1,59 @@
-
+import input.InputStreamInput
+import input.LexerFileInput
+import org.junit.jupiter.api.Test
+import printscript.CommonPrintScriptRunner
+import printscript.PrintscriptRunner
+import java.io.File
+import java.io.FileNotFoundException
+import java.util.*
 
 class PrintscriptRunnerTest {
-    private val sourceCode = """
-            let a : string = "hello world!";
-            let b : string = "hello world!";
-            b = "5" + "5";
-    """.trimIndent()
-    private val sourceString =
-        "[let a : string = \"hello world!\", let b : string = \"hello world!\", b = \"5\" + \"5\"]" // TODO replace when interpreter is ready
 
-    // TODO: ESTE TEST NO ANDA @CHONA
-   /* @Test
-    fun `should run a simple program`() {
-        // Create a temporary file
-        val sourceFile = File.createTempFile("test", ".kt")
+    private var numberOfLines = 0
+    private lateinit var lineBytes: IntArray
 
-        try {
-            // Write the source code to the file
-            sourceFile.writeText(sourceCode)
+    fun data(): Collection<Array<String>> {
+        return listOf(
+            arrayOf("1.0", "arithmetic-operations"),
+            arrayOf("1.0", "arithmetic-operations-decimal"),
+            arrayOf("1.0", "simple-declare-assign"),
+            arrayOf("1.0", "string-and-number-concat")
+        )
+    }
 
-            fun foo(input: String) {
-                println("message: $input")
-            }
+    @Test
+    fun testWithCounter() {
+        val input = MockInputStream("println('hello world');\n", 32 * 1024)
+        val inputStreamInput = InputStreamInput(input)
+        val runner: PrintscriptRunner = CommonPrintScriptRunner()
+        val flow = inputStreamInput.getFlow()
+        runner.runExecution(flow, { println(it) }, { "" }, CommonErrorHandler())
+    }
 
-            val ast = runBlocking {
-                v1Runner.runExecution(sourceFile, ::foo)
-            }
+    @Test
+    @Throws(FileNotFoundException::class)
+    fun testPrintStatement() {
+        val runner: PrintscriptRunner = CommonPrintScriptRunner()
 
-            assertEquals(sourceString, ast)
-        } finally {
-            // Delete the temporary file
-            sourceFile.delete()
+        val testFile = "src/test/kotlin/print-statement.ps"
+        val srcFile = File(testFile)
+        val fileInput = LexerFileInput(srcFile)
+        runner.runExecution(fileInput.getFlow(), { println(it) }, { "" }, CommonErrorHandler())
+    }
+
+    @Test
+    @Throws(FileNotFoundException::class)
+    fun testWholePrintStatement() {
+        data().forEach { (_, directory) ->
+            val runner: PrintscriptRunner = CommonPrintScriptRunner()
+
+            val testDirectory = "src/test/kotlin/resources/1.0/$directory/"
+            val srcFile = File(testDirectory + "main.ps")
+            val fileInput = LexerFileInput(srcFile)
+
+            runner.runExecution(fileInput.getFlow(), { println(it) }, { "" }, CommonErrorHandler())
+
+            println("\n Tested 1.0/$directory \n")
         }
-    }*/
-
-//    @Test
-//    fun `should format a simple program`() { CONFIG FILE IS NOT WORKING
-//        val sourceCode = """
-//            let a : string = "hello world!";
-//            let b : string = "hello world!";
-//            b = "5" + "5";
-//        """.trimIndent()
-//
-//        // Create a temporary file
-//        val sourceFile = File.createTempFile("test", ".kt")
-//        val configFile = File("config.json")
-//
-//        try {
-//            // Write the source code to the file
-//            sourceFile.writeText(sourceCode)
-//
-//            val ast = v1Runner.runFormatting(sourceFile, configFile) // TODO add args
-//
-//            assertEquals(sourceString, sourceString) // TODO fix
-//        } finally {
-//            // Delete the temporary file
-//            sourceFile.delete()
-//        }
-//    }
+    }
 }

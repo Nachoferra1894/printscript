@@ -1,9 +1,9 @@
 package strategies
 
-import configuration.CamelCase
-import configuration.ConfigClasses
-import configuration.SnakeCase
-import configuration.TextCase
+import configurationLinter.CamelCase
+import configurationLinter.ConfigClasses
+import configurationLinter.SnakeCase
+import configurationLinter.TextCase
 import types.VariableDeclarationNode
 
 class LinterVariableStrategy {

@@ -28,6 +28,10 @@ class ParentNode : ASTNode {
         return children[0]
     }
 
+    fun getLastChild(): ASTNode {
+        return children[children.size - 1]
+    }
+
     override fun getLine(): Int {
         return 0
     }

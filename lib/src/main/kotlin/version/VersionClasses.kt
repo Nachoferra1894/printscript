@@ -9,6 +9,8 @@ fun getVersionFromString(version: String): Version {
     return when (version) {
         "v1" -> V1()
         "v2" -> V2()
+        "1.0" -> V1()
+        "1.1" -> V2()
         else -> throw IllegalArgumentException("Unknown version: $version")
     }
 }
