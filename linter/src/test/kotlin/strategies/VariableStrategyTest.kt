@@ -1,8 +1,8 @@
 package strategies
 
-import configuration.CamelCase
-import configuration.ConfigClasses
-import configuration.SnakeCase
+import configurationLinter.CamelCase
+import configurationLinter.ConfigClasses
+import configurationLinter.SnakeCase
 import expresions.types.Variable
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse

@@ -1,7 +1,7 @@
 package linter
 
-import configuration.ConfigClasses
-import configuration.ReadConfig
+import configurationLinter.ConfigClasses
+import configurationLinter.ReadConfigLinter
 import generators.LinterVisitorV1
 import generators.LinterVisitorV2
 import interfaces.ASTNode
@@ -13,8 +13,9 @@ import version.Version
 import java.io.File
 
 class Linter : LinterI {
-    override fun getLintedCodeCorrection(node: ASTNode, configFile: File, version: Version): String {
-        val readConfig = ReadConfig()
+    private val version = V1()
+    override fun getLintedCodeCorrection(node: ASTNode, configFile: File): String {
+        val readConfig = ReadConfigLinter()
         val configClasses = readConfig.getJsonDataFromAsset(configFile)
         if (configClasses != null) {
             return defineLine(configClasses, node, version)
@@ -33,13 +34,13 @@ class Linter : LinterI {
         }
     }
 
-    private fun defineLineV1(configClasses: java.util.ArrayList<ConfigClasses>, node: ASTNode): String {
+    private fun defineLineV1(configClasses: ArrayList<ConfigClasses>, node: ASTNode): String {
         val formatterVisitor = LinterVisitorV1(configClasses)
         node.accept(formatterVisitor)
         return formatterVisitor.getLines()
     }
 
-    private fun defineLineV2(configClasses: java.util.ArrayList<ConfigClasses>, node: ASTNode): String {
+    private fun defineLineV2(configClasses: ArrayList<ConfigClasses>, node: ASTNode): String {
         val formatterVisitor = LinterVisitorV2(configClasses)
         node.accept(formatterVisitor)
         return formatterVisitor.getLines()

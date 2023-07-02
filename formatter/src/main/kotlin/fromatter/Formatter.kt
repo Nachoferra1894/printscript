@@ -14,10 +14,14 @@ import java.io.File
 import java.util.ArrayList
 
 class Formatter : FormatterI {
-    override fun getFormattedCode(node: ASTNode, configFile: File, version: Version): String {
+    private val version = V1()
+    override fun getFormattedCode(node: ASTNode, configFile: File): String {
         val readConfig = ReadConfig()
         val configClasses = readConfig.getJsonDataFromAsset(configFile)
         if (configClasses != null) {
+            for (config in configClasses) {
+                println("CONFIG $config")
+            }
             return defineLines(node, configClasses, version)
         }
         throw NoConfigFile("No config file defined, please define it to use the Linter")

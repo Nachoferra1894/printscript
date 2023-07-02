@@ -2,9 +2,8 @@ package implementation.v1
 
 import implementation.Interpreter
 import interfaces.ASTNode
-import version.V1
 
-class InterpreterV1(private val visitor: InterpreterVisitorV1) : Interpreter(V1()) {
+class InterpreterV1(private val visitor: InterpreterVisitorV1) : Interpreter() {
 
     override fun interpret(ast: ASTNode) {
         ast.accept(this.visitor)

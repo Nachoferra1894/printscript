@@ -3,14 +3,24 @@ package lexer.languageDefinitions
 class LanguageDefinitions {
     companion object {
         fun isTypeNumber(line: String, index: Int): Boolean {
-            return line.length > (index + 6) && line.subSequence(index, index + 6) == "number"
+            return checkTypeSubsequence(line, index, 6, "number")
         }
 
         fun isTypeString(line: String, index: Int): Boolean {
-            return line.length > (index + 6) && line.subSequence(index, index + 6) == "string"
+            return checkTypeSubsequence(line, index, 6, "string")
         }
+
         fun isTypeBoolean(line: String, index: Int): Boolean {
-            return line.length > (index + 7) && line.subSequence(index, index + 7) == "boolean"
+            return checkTypeSubsequence(line, index, 7, "boolean")
+        }
+
+        private fun checkTypeSubsequence(line: String, index: Int, maxIndex: Int, type: String): Boolean {
+            val max = index + maxIndex
+            return line.length > (index + maxIndex) && line.subSequence(
+                index,
+                max
+            ) == type && line.length > max && !line.subSequence(max, max + 1)[0].isLetter()
+            // Because it should always finish in a ; and if the next char is a letter, means is a variable
         }
 
         fun isPrintString(line: String, index: Int): Boolean {

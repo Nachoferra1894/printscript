@@ -7,13 +7,15 @@ import kotlinx.coroutines.runBlocking
 import subParsers.CodeParser
 import types.IfNode
 import types.ParentNode
+import version.V1
 import version.Version
 import java.util.LinkedList
 import java.util.Queue
 
 class CommonParser : Parser {
+    private val version = V1()
 
-    override fun parseTokens(tokens: Flow<Token>, version: Version): ASTNode = runBlocking {
+    override fun parseTokens(tokens: Flow<Token>): ASTNode = runBlocking {
         val tokenQueue: Queue<Token> = LinkedList()
         val parentNode = ParentNode()
         var isInIf = false
@@ -41,7 +43,7 @@ class CommonParser : Parser {
                 isInElse = false
             } else if (token.isElseBlock()) {
                 isInElse = true
-            } else {
+            } else if (!token.isSpace()) {
                 tokenQueue.add(token)
             }
         }
@@ -56,8 +58,14 @@ class CommonParser : Parser {
         }
     }
 
-    private fun openIf(tokenQueue: Queue<Token>, token: Token, version: Version, parentNode: ParentNode, isInElse: Boolean) {
-        val ifNode = parentNode.getFirstChild()
+    private fun openIf(
+        tokenQueue: Queue<Token>,
+        token: Token,
+        version: Version,
+        parentNode: ParentNode,
+        isInElse: Boolean
+    ) {
+        val ifNode = parentNode.getLastChild()
         if (ifNode is IfNode) {
             val codeParser = CodeParser(tokenQueue, version)
             if (!isInElse) {
@@ -69,6 +77,7 @@ class CommonParser : Parser {
             throw WrongTokenException(token)
         }
     }
+
     private fun closeIf(tokenQueue: Queue<Token>, token: Token, version: Version, parentNode: ParentNode) {
         tokenQueue.add(token)
         val codeParser = CodeParser(tokenQueue, version)
