@@ -30,14 +30,14 @@ class CommonPrintScriptRunner : PrintscriptRunner {
         }
     }
 
-    override suspend fun runExecution(
+    override fun runExecution(
         source: Flow<String>,
         printFunction: (output: String) -> Unit,
         readFunction: (output: String) -> String,
         errorHandler: ErrorHandler
     ) {
         try {
-            val tokens = lexer.getTokens(source, V1())
+            val tokens = lexer.getTokens(source, version)
             val ast = parser.parseTokens(tokens, version)
             interpreter.interpret(ast)
         } catch (e: Exception) {
@@ -59,6 +59,8 @@ class CommonPrintScriptRunner : PrintscriptRunner {
 
     override fun runAnalyzing(source: Flow<String>, configFile: File): String {
         val ast = getNode(source)
-        return linter.getLintedCodeCorrection(ast, configFile, version)
+        val linted = linter.getLintedCodeCorrection(ast, configFile, version)
+        println(linted)
+        return linted
     }
 }

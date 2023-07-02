@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test
 import version.V1
 
 class LexerTestVersion1 {
-    private val numberLine = "let a: number = 12,1;"
+    private val numberLine = "let a: number = 12.1;"
     private val numberLine2 = "let a: number = 121;"
     private val stringLine = "let aS12 : string = \"HI!\";"
     private val stringLine2 = "let aS12 : string = 'HI!';"
@@ -28,7 +28,7 @@ class LexerTestVersion1 {
         expectedTokens.add(Token(PrototypeType.SPACE, null, 13, 14, 1))
         expectedTokens.add(Token(PrototypeType.EQUALS, null, 14, 15, 1))
         expectedTokens.add(Token(PrototypeType.SPACE, null, 15, 16, 1))
-        expectedTokens.add(Token(PrototypeType.NUMBER, "12,1", 16, 20, 1))
+        expectedTokens.add(Token(PrototypeType.NUMBER, "12.1", 16, 20, 1))
         expectedTokens.add(Token(PrototypeType.SEMICOLON, null, 20, 21, 1))
         assertEquals(expectedTokens, actualTokens)
     }

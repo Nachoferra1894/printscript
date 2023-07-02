@@ -1,6 +1,6 @@
 package generators
 
-import configuration.ConfigClasses
+import configurationLinter.ConfigClasses
 import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitorV2
@@ -27,6 +27,7 @@ class LinterVisitorV2(private val configClasses: ArrayList<ConfigClasses>) : AST
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {
         val strategy = LinterVariableStrategy()
+
         if (!strategy.checkIdentifierCondition(variableDeclaration, configClasses)) {
             lines.add(strategy.getIncorrectLine(variableDeclaration))
         }

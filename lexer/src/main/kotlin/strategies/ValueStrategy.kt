@@ -28,7 +28,7 @@ class ValueStrategy : Strategy {
     private fun valueNumber(line: String, index: Int, lineIndex: Int): Token {
         var number: String = line[index].toString()
         var actualIndex: Int = index + 1
-        while (actualIndex < line.length - 1 && (line[actualIndex].isDigit() || line[actualIndex] == ',') && !TokenStrategy.finalStrategy(line, index)) {
+        while (actualIndex < line.length - 1 && (line[actualIndex].isDigit() || line[actualIndex] == '.') && !TokenStrategy.finalStrategy(line, index)) {
             number.plus(line[actualIndex].toString()).also { number = it }
             actualIndex = actualIndex.plus(1)
         }

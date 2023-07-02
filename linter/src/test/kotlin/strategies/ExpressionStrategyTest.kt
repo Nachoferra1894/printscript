@@ -1,8 +1,8 @@
 package strategies
 
-import configuration.ConfigClasses
-import configuration.ReadInputNormal
-import configuration.ReadInputOperations
+import configurationLinter.ConfigClasses
+import configurationLinter.ReadInputNormal
+import configurationLinter.ReadInputOperations
 import expresions.Operator
 import expresions.types.Operation
 import expresions.types.ReadInputExp
