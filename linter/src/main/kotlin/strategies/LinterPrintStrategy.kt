@@ -1,9 +1,9 @@
 package strategies
 
-import configuration.ConfigClasses
-import configuration.PrintCase
-import configuration.PrintNormal
-import configuration.PrintOperations
+import configurationLinter.ConfigClasses
+import configurationLinter.PrintCase
+import configurationLinter.PrintNormal
+import configurationLinter.PrintOperations
 import expresions.Expression
 import expresions.types.Operation
 import types.PrintNode

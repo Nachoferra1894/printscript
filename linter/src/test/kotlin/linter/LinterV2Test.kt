@@ -1,8 +1,8 @@
 package linter
 
-import configuration.ConfigClasses
-import configuration.PrintNormal
-import configuration.SnakeCase
+import configurationLinter.ConfigClasses
+import configurationLinter.PrintNormal
+import configurationLinter.SnakeCase
 import expresions.Operator
 import expresions.types.Operation
 import expresions.types.Variable

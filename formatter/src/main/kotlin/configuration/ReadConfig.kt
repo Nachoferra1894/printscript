@@ -34,9 +34,6 @@ class ReadConfig {
                 configClasses.add(SpaceBeforeAssignation())
             }
             if (key == "spaceAfterAssignation" && value == "true") {
-                configClasses.add(SpaceBeforeAssignation())
-            }
-            if (key == "spaceAfterAssignation" && value == "true") {
                 configClasses.add(SpaceAfterAssignation())
             }
             if (key == "lineBreakBeforePrintln") {
