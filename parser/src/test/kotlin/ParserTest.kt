@@ -112,6 +112,10 @@ class ParserTest {
         assertEquals(node.toString(), astNode.toString())
     }
 
+    private fun buildErrorMessage(token: Token, prototypeType: PrototypeType): String {
+        return "Token: $prototypeType not compatible with node at line ${token.line}, from column ${token.from} to ${token.to}"
+    }
+
     @Test
     fun testConstForV1ShouldBreak() {
         // Statement: const b: boolean = true;
@@ -123,7 +127,7 @@ class ParserTest {
         } catch (e: Exception) {
             println(e)
             assertTrue(e is WrongTokenException)
-            assertEquals("Token: ${PrototypeType.CONST} not compatible with node at line ${tokenList[0].line}", e.message)
+            assertEquals(buildErrorMessage(tokenList[0], PrototypeType.CONST), e.message)
         }
     }
 
@@ -137,7 +141,8 @@ class ParserTest {
         } catch (e: Exception) {
             println(e)
             assertTrue(e is WrongTokenException)
-            assertEquals("Token: ${PrototypeType.BOOLEAN_TYPE} not compatible with node at line ${tokenList[0].line}", e.message)
+            val token = tokenList.find { it.prototypeType === PrototypeType.BOOLEAN_TYPE }
+            assertEquals(buildErrorMessage(token!!, PrototypeType.BOOLEAN_TYPE), e.message)
         }
     }
 
@@ -187,7 +192,8 @@ class ParserTest {
         } catch (e: Exception) {
             println(e)
             assertTrue(e is WrongTokenException)
-            assertEquals("Token: ${PrototypeType.METHOD_READ_INPUT} not compatible with node at line ${tokenList[0].line}", e.message)
+            val token = tokenList.find { it.prototypeType === PrototypeType.METHOD_READ_INPUT }
+            assertEquals(buildErrorMessage(token!!, PrototypeType.METHOD_READ_INPUT), e.message)
         }
     }
 
