@@ -1,5 +1,7 @@
 import input.InputStreamInput
 import input.LexerFileInput
+import interpreterUtils.PrinterImpl
+import interpreterUtils.ReadInputImpl
 import org.junit.jupiter.api.Test
 import printscript.CommonPrintScriptRunner
 import printscript.PrintscriptRunner
@@ -32,20 +34,20 @@ class PrintscriptRunnerTest {
     fun testWithCounter() {
         val input = MockInputStream("println('hello world');\n", 32 * 1024)
         val inputStreamInput = InputStreamInput(input)
-        val runner: PrintscriptRunner = CommonPrintScriptRunner()
+        val runner: PrintscriptRunner = CommonPrintScriptRunner(PrinterImpl())
         val flow = inputStreamInput.getFlow()
-        runner.runExecution(flow, { println(it) }, { "" }, CommonErrorHandler())
+        runner.runExecution(flow, CommonErrorHandler())
     }
 
     @Test
     @Throws(FileNotFoundException::class)
     fun testPrintStatement() {
-        val runner: PrintscriptRunner = CommonPrintScriptRunner(V1())
+        val runner: PrintscriptRunner = CommonPrintScriptRunner(PrinterImpl(), V1())
 
         val testFile = "src/test/kotlin/print-statement.ps"
         val srcFile = File(testFile)
         val fileInput = LexerFileInput(srcFile)
-        runner.runExecution(fileInput.getFlow(), { println(it) }, { "" }, CommonErrorHandler())
+        runner.runExecution(fileInput.getFlow(), CommonErrorHandler())
     }
 
     @Test
@@ -53,13 +55,13 @@ class PrintscriptRunnerTest {
     fun testWholePrintStatement() {
         data().forEach { (version, directory) ->
             val v = getVersionFromString(version)
-            val runner: PrintscriptRunner = CommonPrintScriptRunner(v)
+            val runner: PrintscriptRunner = CommonPrintScriptRunner(PrinterImpl(), v, ReadInputImpl())
 
             val testDirectory = "src/test/kotlin/resources/$version/$directory/"
             val srcFile = File(testDirectory + "main.ps")
             val fileInput = LexerFileInput(srcFile)
 
-            runner.runExecution(fileInput.getFlow(), { println(it) }, { "" }, CommonErrorHandler())
+            runner.runExecution(fileInput.getFlow(), CommonErrorHandler())
 
             println("\n Tested $version/$directory \n")
         }

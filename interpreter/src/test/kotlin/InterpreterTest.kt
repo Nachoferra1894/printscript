@@ -2,6 +2,8 @@ import expresions.Operator
 import expresions.types.Operation
 import expresions.types.Variable
 import implementation.Interpreter
+import interpreterUtils.PrinterImpl
+import interpreterUtils.ReadInputImpl
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import types.AssignmentNode
@@ -20,7 +22,7 @@ class InterpreterTest {
         val node0 = VariableDeclarationNode("a", "number")
         val node1 = AssignmentNode("a", Variable("42", PrototypeType.NUMBER, 0), 1)
 
-        val interpreter = Interpreter.create(V1())
+        val interpreter = Interpreter.create(V1(), PrinterImpl())
         interpreter.interpret(node0)
         interpreter.interpret(node1)
         var result: Any? = interpreter.getValue("a")
@@ -42,7 +44,7 @@ class InterpreterTest {
             0
         )
 
-        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        val interpreter = Interpreter.InterpreterConstructor.create(V1(), PrinterImpl())
         interpreter.interpret(node0)
         interpreter.interpret(node1)
         var result: Any? = interpreter.getValue("B")
@@ -55,7 +57,7 @@ class InterpreterTest {
         // Statement: let b: string = "Hello, world!";
         val node2 = VariableDeclarationNode("b", "string", Variable("Hello, world!", PrototypeType.STRING, 0), 0)
 
-        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        val interpreter = Interpreter.InterpreterConstructor.create(V1(), PrinterImpl())
         interpreter.interpret(node2)
         var result = interpreter.getValue("b")
         assert(result === "Hello, world!")
@@ -80,7 +82,7 @@ class InterpreterTest {
             ),
             0
         )
-        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        val interpreter = Interpreter.InterpreterConstructor.create(V1(), PrinterImpl())
         interpreter.interpret(node3)
         var result: Any? = interpreter.getValue("c")
         println(result)
@@ -92,7 +94,7 @@ class InterpreterTest {
         // Statement: print("Hello, world!");
         val node4 = PrintNode(Variable("Hello, world!", PrototypeType.STRING, 0), 0)
 
-        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        val interpreter = Interpreter.InterpreterConstructor.create(V1(), PrinterImpl())
         interpreter.interpret(node4)
     }
 
@@ -143,7 +145,7 @@ class InterpreterTest {
             )
         )
 
-        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        val interpreter = Interpreter.InterpreterConstructor.create(V1(), PrinterImpl())
         interpreter.interpret(node5)
         var resultA: Any? = interpreter.getValue("a")
         var resultB: Any? = interpreter.getValue("b")
@@ -159,7 +161,7 @@ class InterpreterTest {
         // Statement: const b: boolean = true;
         val node6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN, 0), 0, false)
 
-        val interpreter = Interpreter.InterpreterConstructor.create(V2())
+        val interpreter = Interpreter.InterpreterConstructor.create(V2(), PrinterImpl(), ReadInputImpl())
         interpreter.interpret(node6)
         var result: Any? = interpreter.getValue("b")
         assert(result == true)
@@ -192,7 +194,7 @@ class InterpreterTest {
 //            0
 //        )
 //
-//        val interpreter = Interpreter.InterpreterConstructor.create(V2())
+//        val interpreter = Interpreter.InterpreterConstructor.create(V2(),PrinterImpl(),ReadInputImpl())
 //        interpreter.interpret(node0)
 //        interpreter.interpret(node8)
 //        var result: Any? = interpreter.getValue("a")
@@ -219,7 +221,7 @@ class InterpreterTest {
 //            0
 //        )
 //
-//        val interpreter = Interpreter.InterpreterConstructor.create(V2())
+//        val interpreter = Interpreter.InterpreterConstructor.create(V2(),PrinterImpl(),ReadInputImpl())
 //        interpreter.interpret(node9)
 //    }
 
@@ -235,7 +237,7 @@ class InterpreterTest {
                 )
             )
         )
-        val interpreter = Interpreter.InterpreterConstructor.create(V2())
+        val interpreter = Interpreter.InterpreterConstructor.create(V2(), PrinterImpl(), ReadInputImpl())
         interpreter.interpret(node0)
         interpreter.interpret(node10)
         var result = interpreter.getValue("a")
@@ -264,7 +266,7 @@ class InterpreterTest {
                 )
             )
         )
-        val interpreter = Interpreter.InterpreterConstructor.create(V2())
+        val interpreter = Interpreter.InterpreterConstructor.create(V2(), PrinterImpl(), ReadInputImpl())
         interpreter.interpret(node0)
         interpreter.interpret(node1)
         interpreter.interpret(node11)
@@ -297,7 +299,7 @@ class InterpreterTest {
                 )
             )
         )
-        val interpreter = Interpreter.InterpreterConstructor.create(V2())
+        val interpreter = Interpreter.InterpreterConstructor.create(V2(), PrinterImpl(), ReadInputImpl())
         interpreter.interpret(node0)
         interpreter.interpret(node1)
         interpreter.interpret(node12)
@@ -307,7 +309,7 @@ class InterpreterTest {
     fun testConst() {
         var node0 = VariableDeclarationNode("a", "boolean", Variable("2.0", PrototypeType.NUMBER), isMutable = false)
         var node1 = AssignmentNode("a", Variable("4.0", PrototypeType.BOOLEAN))
-        val interpreter = Interpreter.InterpreterConstructor.create(V2())
+        val interpreter = Interpreter.InterpreterConstructor.create(V2(), PrinterImpl(), ReadInputImpl())
         interpreter.interpret(node0)
         assert(!node0.isMutable())
         var error = assertThrows<Error> {

@@ -7,8 +7,8 @@ import expresions.types.Operation
 import expresions.types.ReadInputExp
 import expresions.types.Variable
 import interfaces.ASTNodeVisitorV2
-import interfaces.Printer
-import interfaces.ReadInput
+import interpreterUtils.Printer
+import interpreterUtils.ReadInput
 import types.AssignmentNode
 import types.IfNode
 import types.ParentNode

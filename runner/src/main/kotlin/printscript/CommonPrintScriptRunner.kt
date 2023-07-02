@@ -5,6 +5,9 @@ import errorHandler.ErrorHandler
 import fromatter.Formatter
 import implementation.Interpreter
 import interfaces.ASTNode
+import interpreterUtils.Printer
+import interpreterUtils.ReadInput
+import interpreterUtils.ReadInputImpl
 import kotlinx.coroutines.flow.Flow
 import lexer.lexer.Lexer
 import linter.Linter
@@ -12,10 +15,10 @@ import version.Version
 import version.getLatestVersion
 import java.io.File
 
-class CommonPrintScriptRunner(private val version: Version = getLatestVersion()) : PrintscriptRunner {
+class CommonPrintScriptRunner(printer: Printer, private val version: Version = getLatestVersion(), readInput: ReadInput = ReadInputImpl()) : PrintscriptRunner {
     private val lexer = Lexer()
     private val parser = CommonParser()
-    private val interpreter = Interpreter.InterpreterConstructor.create(version)
+    private val interpreter = Interpreter.InterpreterConstructor.create(version, printer, readInput)
     private val formatter = Formatter()
     private val linter = Linter()
 
@@ -32,8 +35,6 @@ class CommonPrintScriptRunner(private val version: Version = getLatestVersion())
 
     override fun runExecution(
         source: Flow<String>,
-        printFunction: (output: String) -> Unit,
-        readFunction: (output: String) -> String,
         errorHandler: ErrorHandler
     ) {
         try {
