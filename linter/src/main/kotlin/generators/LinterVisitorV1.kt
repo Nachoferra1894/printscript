@@ -1,6 +1,6 @@
 package generators
 
-import configuration.ConfigClasses
+import configurationLinter.ConfigClasses
 import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitorV1
