@@ -1,14 +1,16 @@
 package configuration
 
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import java.io.File
 
 class TestReadConfig {
     @Test
     fun testRead() {
-//        val readConfig = ReadConfig()
-//        readConfig.getJsonDataFromAsset()
-//        val configs = readConfig.getConfigClasses()
-//        assertEquals(3, configs.size)
+        val readConfig = ReadConfig()
+        readConfig.getJsonDataFromAsset(File("/Users/micaeladominguez/faculty/ing-sis/snippet/printscript/linter/src/main/kotlin/configuration/configLinter.json"))
+        val configs = readConfig.getConfigClasses()
+        assertEquals(3, configs.size)
     }
 
     @Test
