@@ -1,4 +1,3 @@
-
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.arguments.argument
 import com.github.ajalt.clikt.parameters.arguments.optional
@@ -6,7 +5,6 @@ import com.github.ajalt.clikt.parameters.types.enum
 import com.github.ajalt.clikt.parameters.types.file
 import errorHandler.ErrorHandler
 import input.LexerFileInput
-import kotlinx.coroutines.runBlocking
 import printscript.CommonPrintScriptRunner
 import printscript.PrintscriptRunner
 import version.getVersionFromString
@@ -75,11 +73,10 @@ class App : CliktCommand() {
             echo(input)
             return readln()
         }
-        runBlocking {
-            val lexerInput = LexerFileInput(File(absolutePath))
-            val errorHandler = CliErrorHandler()
-            runner.runExecution(lexerInput.getFlow(), ::printFunction, ::inputFunction, errorHandler)
-        }
+
+        val lexerInput = LexerFileInput(File(absolutePath))
+        val errorHandler = CliErrorHandler()
+        runner.runExecution(lexerInput.getFlow(), ::printFunction, ::inputFunction, errorHandler)
     }
 
     private fun validate(absolutePath: String, runner: PrintscriptRunner) {

@@ -8,7 +8,6 @@ import interfaces.ASTNode
 import kotlinx.coroutines.flow.Flow
 import lexer.lexer.Lexer
 import linter.Linter
-import version.V1
 import version.Version
 import version.getLatestVersion
 import java.io.File
@@ -31,14 +30,14 @@ class CommonPrintScriptRunner(private val version: Version = getLatestVersion())
         }
     }
 
-    override suspend fun runExecution(
+    override fun runExecution(
         source: Flow<String>,
         printFunction: (output: String) -> Unit,
         readFunction: (output: String) -> String,
         errorHandler: ErrorHandler
     ) {
         try {
-            val tokens = lexer.getTokens(source, V1())
+            val tokens = lexer.getTokens(source, version)
             val ast = parser.parseTokens(tokens, version)
             interpreter.interpret(ast)
         } catch (e: Exception) {
@@ -60,7 +59,7 @@ class CommonPrintScriptRunner(private val version: Version = getLatestVersion())
 
     override fun runAnalyzing(source: Flow<String>, configFile: File): String {
         val ast = getNode(source)
-        val linted =  linter.getLintedCodeCorrection(ast, configFile, version)
+        val linted = linter.getLintedCodeCorrection(ast, configFile, version)
         println(linted)
         return linted
     }
