@@ -38,7 +38,7 @@ class CommonPrintScriptRunner(private val version: Version = getLatestVersion())
         errorHandler: ErrorHandler
     ) {
         try {
-            val tokens = lexer.getTokens(source, V1())
+            val tokens = lexer.getTokens(source, version)
             val ast = parser.parseTokens(tokens, version)
             interpreter.interpret(ast)
         } catch (e: Exception) {

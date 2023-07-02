@@ -26,6 +26,10 @@ data class Token(val prototypeType: PrototypeType, val value: String?, val from:
     fun isElseBlock(): Boolean {
         return this.prototypeType === PrototypeType.ELSE
     }
+
+    fun isSpace(): Boolean {
+        return this.prototypeType === PrototypeType.SPACE
+    }
 }
 
 enum class PrototypeType(private val s: String) {

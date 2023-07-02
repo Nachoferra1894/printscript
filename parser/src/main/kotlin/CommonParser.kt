@@ -23,7 +23,6 @@ class CommonParser : Parser {
         tokens.collect { token ->
             if (token.isEOL() && !isInIf && !isInIfCondition) {
                 tokenQueue.add(token)
-                println("tokenQueue: $tokenQueue")
                 val codeParser = CodeParser(tokenQueue, version)
                 parentNode.addChild(
                     getParentOrFirstChild(codeParser.getAstNode())
@@ -42,7 +41,7 @@ class CommonParser : Parser {
                 isInElse = false
             } else if (token.isElseBlock()) {
                 isInElse = true
-            } else {
+            } else if (!token.isSpace()) {
                 tokenQueue.add(token)
             }
         }
@@ -58,7 +57,7 @@ class CommonParser : Parser {
     }
 
     private fun openIf(tokenQueue: Queue<Token>, token: Token, version: Version, parentNode: ParentNode, isInElse: Boolean) {
-        val ifNode = parentNode.getFirstChild()
+        val ifNode = parentNode.getLastChild()
         if (ifNode is IfNode) {
             val codeParser = CodeParser(tokenQueue, version)
             if (!isInElse) {
