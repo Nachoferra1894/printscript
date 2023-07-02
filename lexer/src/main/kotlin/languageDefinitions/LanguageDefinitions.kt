@@ -20,7 +20,7 @@ class LanguageDefinitions {
                 index,
                 max
             ) == type && line.length > max && !line.subSequence(max, max + 1)[0].isLetter()
-        // Because it should always finish in a ; and if the next char is a letter, means is a variable
+            // Because it should always finish in a ; and if the next char is a letter, means is a variable
         }
 
         fun isPrintString(line: String, index: Int): Boolean {

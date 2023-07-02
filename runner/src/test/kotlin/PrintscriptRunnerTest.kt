@@ -6,10 +6,8 @@ import printscript.PrintscriptRunner
 import version.V1
 import version.getVersionFromString
 import java.io.File
-import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.util.*
-
 
 class PrintscriptRunnerTest {
 
@@ -48,7 +46,6 @@ class PrintscriptRunnerTest {
         val srcFile = File(testFile)
         val fileInput = LexerFileInput(srcFile)
         runner.runExecution(fileInput.getFlow(), { println(it) }, { "" }, CommonErrorHandler())
-
     }
 
     @Test
@@ -64,9 +61,6 @@ class PrintscriptRunnerTest {
             runner.runExecution(fileInput.getFlow(), { println(it) }, { "" }, CommonErrorHandler())
 
             println("\n Tested $version/$directory \n")
-
         }
-
     }
-
 }
