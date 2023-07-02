@@ -17,6 +17,7 @@ class PrintscriptRunnerTest {
     fun data(): Collection<Array<String>> {
         return listOf(
             arrayOf("1.0", "arithmetic-operations"),
+            arrayOf("1.0", "arithmetic-operations-decimal"),
             arrayOf("1.0", "simple-declare-assign"),
             arrayOf("1.0", "string-and-number-concat"),
             arrayOf("1.1", "if-statement-true"),

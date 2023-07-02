@@ -8,7 +8,6 @@ import interfaces.ASTNode
 import kotlinx.coroutines.flow.Flow
 import lexer.lexer.Lexer
 import linter.Linter
-import version.V1
 import version.Version
 import version.getLatestVersion
 import java.io.File
