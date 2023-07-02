@@ -5,7 +5,6 @@ import com.github.ajalt.clikt.parameters.types.enum
 import com.github.ajalt.clikt.parameters.types.file
 import errorHandler.ErrorHandler
 import input.LexerFileInput
-import kotlinx.coroutines.runBlocking
 import printscript.CommonPrintScriptRunner
 import printscript.PrintscriptRunner
 import version.getVersionFromString

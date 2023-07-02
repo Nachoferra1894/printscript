@@ -23,6 +23,7 @@ class CommonParser : Parser {
         tokens.collect { token ->
             if (token.isEOL() && !isInIf && !isInIfCondition) {
                 tokenQueue.add(token)
+                println("tokenQueue: $tokenQueue")
                 val codeParser = CodeParser(tokenQueue, version)
                 parentNode.addChild(
                     getParentOrFirstChild(codeParser.getAstNode())
