@@ -1,8 +1,8 @@
 package strategies
 
-import configuration.ConfigClasses
-import configuration.PrintNormal
-import configuration.PrintOperations
+import configurationLinter.ConfigClasses
+import configurationLinter.PrintNormal
+import configurationLinter.PrintOperations
 import expresions.Operator
 import expresions.types.Operation
 import expresions.types.Variable

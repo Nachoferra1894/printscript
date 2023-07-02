@@ -18,6 +18,9 @@ class Formatter : FormatterI {
         val readConfig = ReadConfig()
         val configClasses = readConfig.getJsonDataFromAsset(configFile)
         if (configClasses != null) {
+            for (config in configClasses) {
+                println("CONFIG $config")
+            }
             return defineLines(node, configClasses, version)
         }
         throw NoConfigFile("No config file defined, please define it to use the Linter")
