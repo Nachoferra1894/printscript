@@ -13,7 +13,8 @@ import version.Version
 import java.io.File
 
 class Linter : LinterI {
-    override fun getLintedCodeCorrection(node: ASTNode, configFile: File, version: Version): String {
+    private val version = V1()
+    override fun getLintedCodeCorrection(node: ASTNode, configFile: File): String {
         val readConfig = ReadConfigLinter()
         val configClasses = readConfig.getJsonDataFromAsset(configFile)
         if (configClasses != null) {

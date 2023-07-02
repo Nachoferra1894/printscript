@@ -3,14 +3,10 @@ import expresions.types.Operation
 import expresions.types.Variable
 import implementation.Interpreter
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertThrows
 import types.AssignmentNode
-import types.IfNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
-import version.V1
-import version.V2
 
 class InterpreterTest {
 
@@ -20,7 +16,7 @@ class InterpreterTest {
         val node0 = VariableDeclarationNode("a", "number")
         val node1 = AssignmentNode("a", Variable("42", PrototypeType.NUMBER, 0), 1)
 
-        val interpreter = Interpreter.create(V1())
+        val interpreter = Interpreter.create()
         interpreter.interpret(node0)
         interpreter.interpret(node1)
         var result: Any? = interpreter.getValue("a")
@@ -42,7 +38,7 @@ class InterpreterTest {
             0
         )
 
-        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        val interpreter = Interpreter.InterpreterConstructor.create()
         interpreter.interpret(node0)
         interpreter.interpret(node1)
         var result: Any? = interpreter.getValue("B")
@@ -55,7 +51,7 @@ class InterpreterTest {
         // Statement: let b: string = "Hello, world!";
         val node2 = VariableDeclarationNode("b", "string", Variable("Hello, world!", PrototypeType.STRING, 0), 0)
 
-        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        val interpreter = Interpreter.InterpreterConstructor.create()
         interpreter.interpret(node2)
         var result = interpreter.getValue("b")
         assert(result === "Hello, world!")
@@ -80,7 +76,7 @@ class InterpreterTest {
             ),
             0
         )
-        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        val interpreter = Interpreter.InterpreterConstructor.create()
         interpreter.interpret(node3)
         var result: Any? = interpreter.getValue("c")
         println(result)
@@ -92,7 +88,7 @@ class InterpreterTest {
         // Statement: print("Hello, world!");
         val node4 = PrintNode(Variable("Hello, world!", PrototypeType.STRING, 0), 0)
 
-        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        val interpreter = Interpreter.InterpreterConstructor.create()
         interpreter.interpret(node4)
     }
 
@@ -143,7 +139,7 @@ class InterpreterTest {
             )
         )
 
-        val interpreter = Interpreter.InterpreterConstructor.create(V1())
+        val interpreter = Interpreter.InterpreterConstructor.create()
         interpreter.interpret(node5)
         var resultA: Any? = interpreter.getValue("a")
         var resultB: Any? = interpreter.getValue("b")
@@ -152,17 +148,6 @@ class InterpreterTest {
         assert(resultA == 2.0F)
         assert(resultB == 3.0F)
         // y se printea 5
-    }
-
-    @Test
-    fun testConstAndBoolean() {
-        // Statement: const b: boolean = true;
-        val node6 = VariableDeclarationNode("b", "boolean", Variable("true", PrototypeType.BOOLEAN, 0), 0, false)
-
-        val interpreter = Interpreter.InterpreterConstructor.create(V2())
-        interpreter.interpret(node6)
-        var result: Any? = interpreter.getValue("b")
-        assert(result == true)
     }
 
     interface ConsoleInput {
@@ -192,14 +177,6 @@ class InterpreterTest {
 //            0
 //        )
 //
-//        val interpreter = Interpreter.InterpreterConstructor.create(V2())
-//        interpreter.interpret(node0)
-//        interpreter.interpret(node8)
-//        var result: Any? = interpreter.getValue("a")
-//        println(result)
-//        assert(result == "") //lo que vaya a ingresar en el readLine
-//    }
-
 //    @Test
 //    fun testReadInputWithAssignationAndExpression() {
 //        // Statement: let a: string = readInput(a+b);
@@ -219,100 +196,5 @@ class InterpreterTest {
 //            0
 //        )
 //
-//        val interpreter = Interpreter.InterpreterConstructor.create(V2())
-//        interpreter.interpret(node9)
 //    }
-
-    @Test
-    fun testSimpleIfBlock() {
-        val node0 = VariableDeclarationNode("a", "string", Variable("a is 1", PrototypeType.STRING, 0))
-        val node10 = IfNode(
-            Variable("true", PrototypeType.BOOLEAN, 0),
-            0,
-            ParentNode(
-                PrintNode(
-                    Variable("a", PrototypeType.IDENTIFIER, 0)
-                )
-            )
-        )
-        val interpreter = Interpreter.InterpreterConstructor.create(V2())
-        interpreter.interpret(node0)
-        interpreter.interpret(node10)
-        var result = interpreter.getValue("a")
-        println(result)
-        assert(result == "a is 1")
-    }
-
-    @Test
-    fun testMultipleBlock() {
-        // Statement: if (true) { print("a is 1"); print("b is 2"); }
-        val node0 = VariableDeclarationNode("a", "string", Variable("a is 1", PrototypeType.STRING, 0))
-        val node1 = VariableDeclarationNode("b", "string", Variable("b is 2", PrototypeType.STRING, 0))
-        val node11 = IfNode(
-            Variable("true", PrototypeType.BOOLEAN, 0),
-            0,
-            ParentNode(
-                listOf(
-                    PrintNode(
-                        Variable("a", PrototypeType.IDENTIFIER, 0),
-                        0
-                    ),
-                    PrintNode(
-                        Variable("b", PrototypeType.IDENTIFIER, 0),
-                        0
-                    )
-                )
-            )
-        )
-        val interpreter = Interpreter.InterpreterConstructor.create(V2())
-        interpreter.interpret(node0)
-        interpreter.interpret(node1)
-        interpreter.interpret(node11)
-        var resultA = interpreter.getValue("a")
-        println(resultA)
-        var resultB = interpreter.getValue("b")
-        println(resultB)
-        assert(resultA == "a is 1")
-        assert(resultB == "b is 2")
-        // funciona tambien
-    }
-
-    @Test
-    fun testSimpleIfElseBlock() {
-        // Statement: if (true) { print("a is 1"); } else { print("a is not 1"); }
-
-        var node0 = VariableDeclarationNode("a", "boolean")
-        var node1 = AssignmentNode("a", Variable("false", PrototypeType.BOOLEAN))
-        val node12 = IfNode(
-            Variable("a", PrototypeType.IDENTIFIER, 0),
-            0,
-            ParentNode(
-                PrintNode(
-                    Variable("a is 1", PrototypeType.STRING, 0)
-                )
-            ),
-            ParentNode(
-                PrintNode(
-                    Variable("a is not 1", PrototypeType.STRING, 0)
-                )
-            )
-        )
-        val interpreter = Interpreter.InterpreterConstructor.create(V2())
-        interpreter.interpret(node0)
-        interpreter.interpret(node1)
-        interpreter.interpret(node12)
-    }
-
-    @Test
-    fun testConst() {
-        var node0 = VariableDeclarationNode("a", "boolean", Variable("2.0", PrototypeType.NUMBER), isMutable = false)
-        var node1 = AssignmentNode("a", Variable("4.0", PrototypeType.BOOLEAN))
-        val interpreter = Interpreter.InterpreterConstructor.create(V2())
-        interpreter.interpret(node0)
-        assert(!node0.isMutable())
-        var error = assertThrows<Error> {
-            interpreter.interpret(node1)
-        }
-        assert(error.message == "a is not mutable")
-    }
 }

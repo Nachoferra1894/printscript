@@ -6,11 +6,13 @@ import kotlinx.coroutines.flow.flow
 import languageDefinitions.Strategies
 import lexer.generators.IndexGenerator.Companion.defineIndex
 import lexer.interfaces.LexerI
+import version.V1
 import version.Version
 
 class Lexer : LexerI {
+    private val version = V1()
 
-    override fun getTokens(codeFlow: Flow<String>, version: Version): Flow<Token> = flow {
+    override fun getTokens(codeFlow: Flow<String>): Flow<Token> = flow {
         var index = 0
         codeFlow.collect { line ->
             defineTokens(line, index, version).forEach { token ->
