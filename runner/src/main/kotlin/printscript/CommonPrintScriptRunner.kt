@@ -60,7 +60,7 @@ class CommonPrintScriptRunner(private val version: Version = getLatestVersion())
 
     override fun runAnalyzing(source: Flow<String>, configFile: File): String {
         val ast = getNode(source)
-        val linted =  linter.getLintedCodeCorrection(ast, configFile, version)
+        val linted = linter.getLintedCodeCorrection(ast, configFile, version)
         println(linted)
         return linted
     }
