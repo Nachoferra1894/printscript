@@ -1,6 +1,6 @@
 package linter
 
-import configurationLinter.ConfigClasses
+import configurationLinter.ConfigClassesLinter
 import configurationLinter.ReadConfigLinter
 import generators.LinterVisitorV1
 import generators.LinterVisitorV2
@@ -22,8 +22,16 @@ class Linter : LinterI {
         throw NoConfigFile("No config file defined, please define it to use the Linter")
     }
 
+    override fun getLintedCodeCorrection(
+        node: ASTNode,
+        configClasses: ArrayList<ConfigClassesLinter>,
+        version: Version
+    ): String {
+        return defineLine(configClasses, node, version)
+    }
+
     private fun defineLine(
-        configClasses: ArrayList<ConfigClasses>,
+        configClasses: ArrayList<ConfigClassesLinter>,
         node: ASTNode,
         version: Version
     ): String {
@@ -33,13 +41,13 @@ class Linter : LinterI {
         }
     }
 
-    private fun defineLineV1(configClasses: ArrayList<ConfigClasses>, node: ASTNode): String {
+    private fun defineLineV1(configClasses: ArrayList<ConfigClassesLinter>, node: ASTNode): String {
         val formatterVisitor = LinterVisitorV1(configClasses)
         node.accept(formatterVisitor)
         return formatterVisitor.getLines()
     }
 
-    private fun defineLineV2(configClasses: ArrayList<ConfigClasses>, node: ASTNode): String {
+    private fun defineLineV2(configClasses: ArrayList<ConfigClassesLinter>, node: ASTNode): String {
         val formatterVisitor = LinterVisitorV2(configClasses)
         node.accept(formatterVisitor)
         return formatterVisitor.getLines()

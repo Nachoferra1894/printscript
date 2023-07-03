@@ -1,10 +1,10 @@
 package configurationLinter
 
-interface ConfigClasses
+interface ConfigClassesLinter
 
-sealed interface PrintCase : ConfigClasses
-sealed interface ReadInputCase : ConfigClasses
-sealed interface TextCase : ConfigClasses
+sealed interface PrintCase : ConfigClassesLinter
+sealed interface ReadInputCase : ConfigClassesLinter
+sealed interface TextCase : ConfigClassesLinter
 
 open class CamelCase : TextCase
 open class SnakeCase : TextCase

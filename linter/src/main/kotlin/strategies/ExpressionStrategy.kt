@@ -1,6 +1,6 @@
 package strategies
 
-import configurationLinter.ConfigClasses
+import configurationLinter.ConfigClassesLinter
 import configurationLinter.ReadInputCase
 import configurationLinter.ReadInputNormal
 import configurationLinter.ReadInputOperations
@@ -10,7 +10,7 @@ import expresions.types.ReadInputExp
 
 class ExpressionStrategy {
 
-    fun checkContent(node: Expression, configClasses: ArrayList<ConfigClasses>): Boolean {
+    fun checkContent(node: Expression, configClasses: ArrayList<ConfigClassesLinter>): Boolean {
         if (node is ReadInputExp) {
             return when (configClasses.find { it is ReadInputCase } as ReadInputCase) {
                 is ReadInputNormal -> isNormal(node.expression)

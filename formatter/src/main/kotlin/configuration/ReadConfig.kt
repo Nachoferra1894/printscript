@@ -8,6 +8,9 @@ class ReadConfig {
     private val configClasses: ArrayList<ConfigClasses> = ArrayList()
     fun getJsonDataFromAsset(configFile: File): ArrayList<ConfigClasses>? {
         return try {
+            if(!configFile.exists()){
+                return getDefaultArray()
+            }
             val jsonString: String = configFile.bufferedReader().use { it.readText() }
             val gson = Gson()
             val config = gson.fromJson(jsonString, Config::class.java)
@@ -22,6 +25,15 @@ class ReadConfig {
         }
     }
 
+    private fun getDefaultArray(): ArrayList<ConfigClasses>{
+        configClasses.add(SpaceBeforeColon())
+        configClasses.add(SpaceAfterColon())
+        configClasses.add(SpaceBeforeAssignation())
+        configClasses.add(SpaceAfterAssignation())
+        configClasses.add(LineBrakeForPrintln(1))
+        configClasses.add(SpaceIndexedForIf(1))
+        return configClasses
+    }
     private fun defineSpaceColon(config: Config) {
         if (config.v1["spaceBeforeColon"] == "true") {
             configClasses.add(SpaceBeforeColon())
@@ -48,11 +60,8 @@ class ReadConfig {
 
     private fun spaceIndexedForIf(config: Config) {
         if (config.v1["spaceIndexedForIf"] != null) {
-            configClasses.add(LineBrakeForPrintln(config.v1["spaceIndexedForIf"]!!.toInt()))
+            configClasses.add(SpaceIndexedForIf(config.v1["spaceIndexedForIf"]!!.toInt()))
         }
     }
 
-    fun getConfigClasses(): ArrayList<ConfigClasses> {
-        return configClasses
-    }
 }

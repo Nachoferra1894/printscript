@@ -1,13 +1,13 @@
 package strategies
 
 import configurationLinter.CamelCase
-import configurationLinter.ConfigClasses
+import configurationLinter.ConfigClassesLinter
 import configurationLinter.SnakeCase
 import configurationLinter.TextCase
 import types.VariableDeclarationNode
 
 class LinterVariableStrategy {
-    fun checkIdentifierCondition(node: VariableDeclarationNode, configClasses: ArrayList<ConfigClasses>): Boolean {
+    fun checkIdentifierCondition(node: VariableDeclarationNode, configClasses: ArrayList<ConfigClassesLinter>): Boolean {
         val case: TextCase = configClasses.find { it is TextCase } as TextCase
         val name = node.getName()
         return when (case) {

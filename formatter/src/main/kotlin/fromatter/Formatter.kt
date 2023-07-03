@@ -11,7 +11,7 @@ import version.V1
 import version.V2
 import version.Version
 import java.io.File
-import java.util.ArrayList
+import kotlin.collections.ArrayList
 
 class Formatter : FormatterI {
     override fun getFormattedCode(node: ASTNode, configFile: File, version: Version): String {
@@ -24,6 +24,10 @@ class Formatter : FormatterI {
             return defineLines(node, configClasses, version)
         }
         throw NoConfigFile("No config file defined, please define it to use the Linter")
+    }
+
+    override fun getFormattedCode(node: ASTNode, configClasses: ArrayList<ConfigClasses>, version: Version): String {
+        return defineLines(node, configClasses, version)
     }
 
     private fun defineLines(astNode: ASTNode, configClasses: ArrayList<ConfigClasses>, version: Version): String {
