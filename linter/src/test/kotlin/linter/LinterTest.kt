@@ -1,7 +1,7 @@
 package linter
 
 import configurationLinter.CamelCase
-import configurationLinter.ConfigClasses
+import configurationLinter.ConfigClassesLinter
 import configurationLinter.PrintNormal
 import configurationLinter.PrintOperations
 import configurationLinter.SnakeCase
@@ -21,7 +21,7 @@ class LinterTest {
     // VariableDeclarationNode("b", "number", 2),
     @Test
     fun testLinterWithNormalPrintAndCamelCase() {
-        val configs: ArrayList<ConfigClasses> = ArrayList()
+        val configs: ArrayList<ConfigClassesLinter> = ArrayList()
         configs.add(PrintNormal())
         configs.add((CamelCase()))
         val linter = LinterVisitorV1(configs)
@@ -79,7 +79,7 @@ class LinterTest {
 
     @Test
     fun testLinterWithOperationPrintAndCamelCase() {
-        val configs: ArrayList<ConfigClasses> = ArrayList()
+        val configs: ArrayList<ConfigClassesLinter> = ArrayList()
         configs.add(PrintOperations())
         configs.add((CamelCase()))
         val linter = LinterVisitorV1(configs)
@@ -137,7 +137,7 @@ class LinterTest {
 
     @Test
     fun testLinterWithNormalPrintAndSnakeCase() {
-        val configs: ArrayList<ConfigClasses> = ArrayList()
+        val configs: ArrayList<ConfigClassesLinter> = ArrayList()
         configs.add(PrintNormal())
         configs.add((SnakeCase()))
         val linter = LinterVisitorV1(configs)
@@ -195,7 +195,7 @@ class LinterTest {
 
     @Test
     fun testLinterWithOperationPrintAndSnakeCase() {
-        val configs: ArrayList<ConfigClasses> = ArrayList()
+        val configs: ArrayList<ConfigClassesLinter> = ArrayList()
         configs.add(PrintOperations())
         configs.add((SnakeCase()))
         val linter = LinterVisitorV1(configs)

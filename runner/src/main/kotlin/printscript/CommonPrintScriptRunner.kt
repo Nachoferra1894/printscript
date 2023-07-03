@@ -1,6 +1,8 @@
 package printscript
 
 import CommonParser
+import configuration.ConfigClasses
+import configurationLinter.ConfigClassesLinter
 import errorHandler.ErrorHandler
 import fromatter.Formatter
 import implementation.Interpreter
@@ -48,7 +50,14 @@ class CommonPrintScriptRunner(printer: Printer, private val version: Version = g
 
     override fun runFormatting(source: Flow<String>, configFile: File): String {
         val ast = getNode(source)
-        val formatted = formatter.getFormattedCode(ast, configFile, version)
+        val formatted = formatter.getFormattedCode(ast, version, configFile)
+        println(formatted)
+        return formatted
+    }
+
+    override fun runFormatting(source: Flow<String>, configClasses: ArrayList<ConfigClasses>): String {
+        val ast = getNode(source)
+        val formatted = formatter.getFormattedCode(ast, version, configClasses)
         println(formatted)
         return formatted
     }
@@ -60,7 +69,14 @@ class CommonPrintScriptRunner(printer: Printer, private val version: Version = g
 
     override fun runAnalyzing(source: Flow<String>, configFile: File): String {
         val ast = getNode(source)
-        val linted = linter.getLintedCodeCorrection(ast, configFile, version)
+        val linted = linter.getLintedCodeCorrection(ast, version, configFile)
+        println(linted)
+        return linted
+    }
+
+    override fun runAnalyzing(source: Flow<String>, configClasses: ArrayList<ConfigClassesLinter>): String {
+        val ast = getNode(source)
+        val linted = linter.getLintedCodeCorrection(ast, version, configClasses)
         println(linted)
         return linted
     }

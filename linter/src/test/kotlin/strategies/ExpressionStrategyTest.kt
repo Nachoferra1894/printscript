@@ -1,6 +1,6 @@
 package strategies
 
-import configurationLinter.ConfigClasses
+import configurationLinter.ConfigClassesLinter
 import configurationLinter.ReadInputNormal
 import configurationLinter.ReadInputOperations
 import expresions.Operator
@@ -45,7 +45,7 @@ class ExpressionStrategyTest {
 
     @Test
     fun testIsOperationExpression() {
-        val configs: ArrayList<ConfigClasses> = ArrayList()
+        val configs: ArrayList<ConfigClassesLinter> = ArrayList()
         configs.add(ReadInputOperations())
         Assertions.assertTrue(readConfig.checkContent(nodeOperation.getValue()!!, configs))
         Assertions.assertFalse(readConfig.checkContent(nodeNormal.getValue()!!, configs))
@@ -53,7 +53,7 @@ class ExpressionStrategyTest {
 
     @Test
     fun testIsOperationNormal() {
-        val configs: ArrayList<ConfigClasses> = ArrayList()
+        val configs: ArrayList<ConfigClassesLinter> = ArrayList()
         configs.add(ReadInputNormal())
         Assertions.assertFalse(readConfig.checkContent(nodeOperation.getValue()!!, configs))
         Assertions.assertTrue(readConfig.checkContent(nodeNormal.getValue()!!, configs))

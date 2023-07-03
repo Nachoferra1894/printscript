@@ -1,6 +1,6 @@
 package generators
 
-import configurationLinter.ConfigClasses
+import configurationLinter.ConfigClassesLinter
 import expresions.Expression
 import interfaces.ASTNode
 import interfaces.ASTNodeVisitorV1
@@ -11,7 +11,7 @@ import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
 
-class LinterVisitorV1(private val configClasses: ArrayList<ConfigClasses>) : ASTNodeVisitorV1 {
+class LinterVisitorV1(private val configClasses: ArrayList<ConfigClassesLinter>) : ASTNodeVisitorV1 {
     private val lines: ArrayList<String> = ArrayList()
 
     override fun visitDeclaration(variableDeclaration: VariableDeclarationNode) {

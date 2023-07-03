@@ -1,6 +1,6 @@
 package strategies
 
-import configurationLinter.ConfigClasses
+import configurationLinter.ConfigClassesLinter
 import configurationLinter.PrintCase
 import configurationLinter.PrintNormal
 import configurationLinter.PrintOperations
@@ -10,7 +10,7 @@ import types.PrintNode
 
 class LinterPrintStrategy {
 
-    fun checkContent(node: PrintNode, configClasses: ArrayList<ConfigClasses>): Boolean {
+    fun checkContent(node: PrintNode, configClasses: ArrayList<ConfigClassesLinter>): Boolean {
         val case: PrintCase = configClasses.find { it is PrintCase } as PrintCase
         val content = node.content
         return when (case) {

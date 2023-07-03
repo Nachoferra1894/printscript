@@ -11,19 +11,20 @@ import version.V1
 import version.V2
 import version.Version
 import java.io.File
-import java.util.ArrayList
+import kotlin.collections.ArrayList
 
 class Formatter : FormatterI {
-    override fun getFormattedCode(node: ASTNode, configFile: File, version: Version): String {
+    override fun getFormattedCode(node: ASTNode, version: Version, configFile: File?): String {
         val readConfig = ReadConfig()
         val configClasses = readConfig.getJsonDataFromAsset(configFile)
         if (configClasses != null) {
-            for (config in configClasses) {
-                println("CONFIG $config")
-            }
             return defineLines(node, configClasses, version)
         }
         throw NoConfigFile("No config file defined, please define it to use the Linter")
+    }
+
+    override fun getFormattedCode(node: ASTNode, version: Version, configClasses: ArrayList<ConfigClasses>): String {
+        return defineLines(node, configClasses, version)
     }
 
     private fun defineLines(astNode: ASTNode, configClasses: ArrayList<ConfigClasses>, version: Version): String {

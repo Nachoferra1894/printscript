@@ -1,6 +1,6 @@
 package strategies
 
-import configurationLinter.ConfigClasses
+import configurationLinter.ConfigClassesLinter
 import configurationLinter.PrintNormal
 import configurationLinter.PrintOperations
 import expresions.Operator
@@ -24,7 +24,7 @@ class PrintStrategyTest {
     @Test
     fun testIsNormalPrint() {
         val readConfig = LinterPrintStrategy()
-        val configs: ArrayList<ConfigClasses> = ArrayList()
+        val configs: ArrayList<ConfigClassesLinter> = ArrayList()
         configs.add(PrintNormal())
         val node = PrintNode(Operation(Variable("3", PrototypeType.NUMBER, 1), Operator.SUM, Operation(Variable("4", PrototypeType.NUMBER, 1), Operator.MUL, Variable("5", PrototypeType.NUMBER, 1), 1), 1), 1)
         val node1 = PrintNode(Variable("Hello, world!", PrototypeType.STRING, 1), 1)
@@ -35,7 +35,7 @@ class PrintStrategyTest {
     @Test
     fun testIsOperationPrint() {
         val readConfig = LinterPrintStrategy()
-        val configs: ArrayList<ConfigClasses> = ArrayList()
+        val configs: ArrayList<ConfigClassesLinter> = ArrayList()
         configs.add(PrintOperations())
         val node = PrintNode(Operation(Variable("3", PrototypeType.NUMBER, 1), Operator.SUM, Operation(Variable("4", PrototypeType.NUMBER, 1), Operator.MUL, Variable("5", PrototypeType.NUMBER, 1), 1), 1), 1)
         val node1 = PrintNode(Variable("Hello, world!", PrototypeType.STRING, 1), 1)

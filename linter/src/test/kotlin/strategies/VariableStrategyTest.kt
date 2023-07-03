@@ -1,7 +1,7 @@
 package strategies
 
 import configurationLinter.CamelCase
-import configurationLinter.ConfigClasses
+import configurationLinter.ConfigClassesLinter
 import configurationLinter.SnakeCase
 import expresions.types.Variable
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -21,7 +21,7 @@ class VariableStrategyTest {
     @Test
     fun testIsCamelCase() {
         val readConfig = LinterVariableStrategy()
-        val configs: ArrayList<ConfigClasses> = ArrayList()
+        val configs: ArrayList<ConfigClassesLinter> = ArrayList()
         configs.add((CamelCase()))
         val node = VariableDeclarationNode("bAa", "string", Variable("Hello, world!", PrototypeType.STRING, 1), 1)
         assertTrue(readConfig.checkIdentifierCondition(node, configs))
@@ -32,7 +32,7 @@ class VariableStrategyTest {
     @Test
     fun testIsSnakeCase() {
         val readConfig = LinterVariableStrategy()
-        val configs: ArrayList<ConfigClasses> = ArrayList()
+        val configs: ArrayList<ConfigClassesLinter> = ArrayList()
         configs.add((SnakeCase()))
         val node = VariableDeclarationNode("bAa", "string", Variable("Hello, world!", PrototypeType.STRING, 1), 1)
         val node1 = VariableDeclarationNode("b_a", "string", Variable("Hello, world!", PrototypeType.STRING, 1), 1)
