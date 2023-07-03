@@ -1,6 +1,6 @@
 package linter
 
-import configurationLinter.ConfigClasses
+import configurationLinter.ConfigClassesLinter
 import configurationLinter.PrintNormal
 import configurationLinter.SnakeCase
 import expresions.Operator
@@ -18,7 +18,7 @@ import types.VariableDeclarationNode
 class LinterV2Test {
     @Test
     fun testLinterWithNormalPrintAndSnakeCase() {
-        val configs: ArrayList<ConfigClasses> = ArrayList()
+        val configs: ArrayList<ConfigClassesLinter> = ArrayList()
         configs.add(PrintNormal())
         configs.add(SnakeCase())
         val linter = LinterVisitorV2(configs)
