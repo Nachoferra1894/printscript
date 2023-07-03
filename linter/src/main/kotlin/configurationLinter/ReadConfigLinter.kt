@@ -7,7 +7,7 @@ class ReadConfigLinter {
     private val configClasses: ArrayList<ConfigClassesLinter> = ArrayList()
     fun getJsonDataFromAsset(configFile: File): ArrayList<ConfigClassesLinter>? {
         return try {
-            if(!configFile.exists()){
+            if (!configFile.exists()) {
                 return getDefaultArray()
             }
             val jsonString: String = configFile.bufferedReader().use { it.readText() }
@@ -23,7 +23,7 @@ class ReadConfigLinter {
         }
     }
 
-    private fun getDefaultArray() : ArrayList<ConfigClassesLinter> {
+    private fun getDefaultArray(): ArrayList<ConfigClassesLinter> {
         configClasses.add(PrintOperations())
         configClasses.add(ReadInputOperations())
         configClasses.add(CamelCase())
@@ -49,5 +49,4 @@ class ReadConfigLinter {
         }
         return SnakeCase()
     }
-
 }

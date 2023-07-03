@@ -8,7 +8,7 @@ class ReadConfig {
     private val configClasses: ArrayList<ConfigClasses> = ArrayList()
     fun getJsonDataFromAsset(configFile: File): ArrayList<ConfigClasses>? {
         return try {
-            if(!configFile.exists()){
+            if (!configFile.exists()) {
                 return getDefaultArray()
             }
             val jsonString: String = configFile.bufferedReader().use { it.readText() }
@@ -25,7 +25,7 @@ class ReadConfig {
         }
     }
 
-    private fun getDefaultArray(): ArrayList<ConfigClasses>{
+    private fun getDefaultArray(): ArrayList<ConfigClasses> {
         configClasses.add(SpaceBeforeColon())
         configClasses.add(SpaceAfterColon())
         configClasses.add(SpaceBeforeAssignation())
@@ -63,5 +63,4 @@ class ReadConfig {
             configClasses.add(SpaceIndexedForIf(config.v1["spaceIndexedForIf"]!!.toInt()))
         }
     }
-
 }
