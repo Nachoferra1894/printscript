@@ -14,7 +14,7 @@ import java.io.File
 import kotlin.collections.ArrayList
 
 class Formatter : FormatterI {
-    override fun getFormattedCode(node: ASTNode, configFile: File, version: Version): String {
+    override fun getFormattedCode(node: ASTNode, version: Version, configFile: File?): String {
         val readConfig = ReadConfig()
         val configClasses = readConfig.getJsonDataFromAsset(configFile)
         if (configClasses != null) {
@@ -23,7 +23,7 @@ class Formatter : FormatterI {
         throw NoConfigFile("No config file defined, please define it to use the Linter")
     }
 
-    override fun getFormattedCode(node: ASTNode, configClasses: ArrayList<ConfigClasses>, version: Version): String {
+    override fun getFormattedCode(node: ASTNode, version: Version, configClasses: ArrayList<ConfigClasses>): String {
         return defineLines(node, configClasses, version)
     }
 

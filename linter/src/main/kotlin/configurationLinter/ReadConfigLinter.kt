@@ -5,9 +5,9 @@ import java.io.File
 
 class ReadConfigLinter {
     private val configClasses: ArrayList<ConfigClassesLinter> = ArrayList()
-    fun getJsonDataFromAsset(configFile: File): ArrayList<ConfigClassesLinter>? {
+    fun getJsonDataFromAsset(configFile: File?): ArrayList<ConfigClassesLinter>? {
         return try {
-            if (!configFile.exists()) {
+            if (configFile == null || !configFile.exists()) {
                 return getDefaultArray()
             }
             val jsonString: String = configFile.bufferedReader().use { it.readText() }

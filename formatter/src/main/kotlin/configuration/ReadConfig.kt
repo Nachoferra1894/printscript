@@ -6,9 +6,9 @@ import java.io.IOException
 
 class ReadConfig {
     private val configClasses: ArrayList<ConfigClasses> = ArrayList()
-    fun getJsonDataFromAsset(configFile: File): ArrayList<ConfigClasses>? {
+    fun getJsonDataFromAsset(configFile: File?): ArrayList<ConfigClasses>? {
         return try {
-            if (!configFile.exists()) {
+            if (configFile == null || !configFile.exists()) {
                 return getDefaultArray()
             }
             val jsonString: String = configFile.bufferedReader().use { it.readText() }
