@@ -1,11 +1,9 @@
 package strategies
 
-import configurationLinter.ConfigClassesLinter
-import configurationLinter.PrintCase
-import configurationLinter.PrintNormal
-import configurationLinter.PrintOperations
+import configurationLinter.*
 import expresions.Expression
 import expresions.types.Operation
+import expresions.types.Variable
 import types.PrintNode
 
 class LinterPrintStrategy {
@@ -20,16 +18,10 @@ class LinterPrintStrategy {
     }
 
     private fun isPrint(exp: Expression): Boolean {
-        if (exp is Operation) {
-            return false
-        }
-        return true
+        return exp !is Operation
     }
     private fun isOperation(exp: Expression): Boolean {
-        if (exp is Operation) {
-            return true
-        }
-        return false
+        return exp is Operation || exp is Variable || exp is ReadInputOperations
     }
     fun getIncorrectLine(node: PrintNode): String {
         return "Incorrect println format [line: " + node.getLine() + " ]"
