@@ -23,33 +23,31 @@ class ReadConfig {
     }
 
     private fun defineSpaceColon(config: Config) {
-        if(config.v1["spaceBeforeColon"] == "true"){
+        if (config.v1["spaceBeforeColon"] == "true") {
             configClasses.add(SpaceBeforeColon())
         }
-        if(config.v1["spaceAfterColon"] == "true"){
+        if (config.v1["spaceAfterColon"] == "true") {
             configClasses.add(SpaceAfterColon())
-
         }
     }
 
     private fun defineSpaceAssignation(config: Config) {
-        if(config.v1["spaceBeforeAssignation"] == "true"){
+        if (config.v1["spaceBeforeAssignation"] == "true") {
             configClasses.add(SpaceBeforeAssignation())
         }
-        if(config.v1["spaceAfterAssignation"] == "true"){
+        if (config.v1["spaceAfterAssignation"] == "true") {
             configClasses.add(SpaceAfterAssignation())
         }
     }
 
-
     private fun defineLineBreakBeforePrintln(config: Config) {
-        if(config.v1["lineBreakBeforePrintln"] != null){
+        if (config.v1["lineBreakBeforePrintln"] != null) {
             configClasses.add(LineBrakeForPrintln(config.v1["lineBreakBeforePrintln"]!!.toInt()))
         }
     }
 
     private fun spaceIndexedForIf(config: Config) {
-        if(config.v1["spaceIndexedForIf"] != null){
+        if (config.v1["spaceIndexedForIf"] != null) {
             configClasses.add(LineBrakeForPrintln(config.v1["spaceIndexedForIf"]!!.toInt()))
         }
     }
