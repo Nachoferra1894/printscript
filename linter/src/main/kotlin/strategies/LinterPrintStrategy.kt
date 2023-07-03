@@ -1,6 +1,10 @@
 package strategies
 
-import configurationLinter.*
+import configurationLinter.ConfigClassesLinter
+import configurationLinter.PrintCase
+import configurationLinter.PrintNormal
+import configurationLinter.PrintOperations
+import configurationLinter.ReadInputOperations
 import expresions.Expression
 import expresions.types.Operation
 import expresions.types.Variable
