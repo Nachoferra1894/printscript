@@ -11,7 +11,10 @@ class ReadConfig {
             val jsonString: String = configFile.bufferedReader().use { it.readText() }
             val gson = Gson()
             val config = gson.fromJson(jsonString, Config::class.java)
-            defineConfigClass(config)
+            defineSpaceColon(config)
+            defineSpaceAssignation(config)
+            defineLineBreakBeforePrintln(config)
+            spaceIndexedForIf(config)
             configClasses
         } catch (ioException: IOException) {
             ioException.printStackTrace()
@@ -19,29 +22,35 @@ class ReadConfig {
         }
     }
 
-    // TODO: acomodar esto
-    private fun defineConfigClass(config: Config) {
-        val map = config.v1
-        map.forEach {
-                key, value ->
-            if (key == "spaceBeforeColon" && value == "true") {
-                configClasses.add(SpaceBeforeColon())
-            }
-            if (key == "spaceAfterColon" && value == "true") {
-                configClasses.add(SpaceAfterColon())
-            }
-            if (key == "spaceBeforeAssignation" && value == "true") {
-                configClasses.add(SpaceBeforeAssignation())
-            }
-            if (key == "spaceAfterAssignation" && value == "true") {
-                configClasses.add(SpaceAfterAssignation())
-            }
-            if (key == "lineBreakBeforePrintln") {
-                configClasses.add(LineBrakeForPrintln(value.toInt()))
-            }
-            if (key == "spaceIndexedForIf") {
-                configClasses.add(SpaceIndexedForIf(value.toInt()))
-            }
+    private fun defineSpaceColon(config: Config) {
+        if(config.v1["spaceBeforeColon"] == "true"){
+            configClasses.add(SpaceBeforeColon())
+        }
+        if(config.v1["spaceAfterColon"] == "true"){
+            configClasses.add(SpaceAfterColon())
+
+        }
+    }
+
+    private fun defineSpaceAssignation(config: Config) {
+        if(config.v1["spaceBeforeAssignation"] == "true"){
+            configClasses.add(SpaceBeforeAssignation())
+        }
+        if(config.v1["spaceAfterAssignation"] == "true"){
+            configClasses.add(SpaceAfterAssignation())
+        }
+    }
+
+
+    private fun defineLineBreakBeforePrintln(config: Config) {
+        if(config.v1["lineBreakBeforePrintln"] != null){
+            configClasses.add(LineBrakeForPrintln(config.v1["lineBreakBeforePrintln"]!!.toInt()))
+        }
+    }
+
+    private fun spaceIndexedForIf(config: Config) {
+        if(config.v1["spaceIndexedForIf"] != null){
+            configClasses.add(LineBrakeForPrintln(config.v1["spaceIndexedForIf"]!!.toInt()))
         }
     }
 
