@@ -214,7 +214,13 @@ class InterpreterVisitorV1(
     }
 
     override fun visitPrint(printNode: PrintNode) {
-        val stringValue: String = visitExpressionNode(printNode.content).toString()
+        var stringValue: String = visitExpressionNode(printNode.content).toString()
+        if (stringValue[0] == '"') {
+            stringValue = stringValue.substring(1, stringValue.length - 1)
+        }
+        if (stringValue[stringValue.length - 1] == '"') {
+            stringValue = stringValue.substring(0, stringValue.length - 2)
+        }
         printer.print(stringValue.replace(".0", ""))
     }
 
