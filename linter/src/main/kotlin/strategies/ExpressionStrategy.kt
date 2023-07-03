@@ -7,6 +7,7 @@ import configurationLinter.ReadInputOperations
 import expresions.Expression
 import expresions.types.Operation
 import expresions.types.ReadInputExp
+import expresions.types.Variable
 
 class ExpressionStrategy {
 
@@ -21,16 +22,10 @@ class ExpressionStrategy {
     }
 
     private fun isNormal(exp: Expression): Boolean {
-        if (exp is Operation) {
-            return false
-        }
-        return true
+        return exp !is Operation
     }
     private fun isOperation(exp: Expression): Boolean {
-        if (exp is Operation) {
-            return true
-        }
-        return false
+        return exp is Operation || exp is Variable
     }
 
     fun getIncorrectLine(node: Expression): String {

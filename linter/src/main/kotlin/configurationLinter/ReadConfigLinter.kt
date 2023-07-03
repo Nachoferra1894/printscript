@@ -14,8 +14,8 @@ class ReadConfigLinter {
             val gson = Gson()
             val config = gson.fromJson(jsonString, ConfigLinter::class.java)
             configClasses.add(defineCaseClass(config))
-            configClasses.add(definePrintClass(config))
-            configClasses.add(defineReadInputClass(config))
+            configClasses.addAll(definePrintClass(config))
+            configClasses.addAll(defineReadInputClass(config))
             configClasses
         } catch (ioException: Exception) {
             ioException.printStackTrace()
@@ -29,18 +29,26 @@ class ReadConfigLinter {
         configClasses.add(CamelCase())
         return configClasses
     }
-    private fun definePrintClass(config: ConfigLinter): PrintCase {
+    private fun definePrintClass(config: ConfigLinter): ArrayList<ConfigClassesLinter> {
+        val array = ArrayList<ConfigClassesLinter>()
         if (config.v1["printWithOperation"] == true) {
-            return PrintOperations()
+            array.add(PrintOperations())
+            array.add(PrintNormal())
+        } else {
+            array.add(PrintNormal())
         }
-        return PrintNormal()
+        return array
     }
 
-    private fun defineReadInputClass(config: ConfigLinter): ReadInputCase {
+    private fun defineReadInputClass(config: ConfigLinter): ArrayList<ConfigClassesLinter> {
+        val array = ArrayList<ConfigClassesLinter>()
         if (config.v1["readInputWithOperation"] == true) {
-            return ReadInputOperations()
+            array.add(ReadInputOperations())
+            array.add(ReadInputNormal())
+        } else {
+            array.add(ReadInputNormal())
         }
-        return ReadInputNormal()
+        return array
     }
 
     private fun defineCaseClass(config: ConfigLinter): TextCase {

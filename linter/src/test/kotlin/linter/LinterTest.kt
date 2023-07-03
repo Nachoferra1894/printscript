@@ -132,7 +132,7 @@ class LinterTest {
             )
         )
         linter.visitParentNode(incorrectNode)
-        assertEquals("Incorrect identifier format [line: 1 ]\nIncorrect println format [line: 4 ]", linter.getLines())
+        assertEquals("Incorrect identifier format [line: 1 ]", linter.getLines())
     }
 
     @Test
@@ -248,6 +248,6 @@ class LinterTest {
             )
         )
         linter.visitParentNode(incorrectNode)
-        assertEquals("Incorrect identifier format [line: 1 ]\nIncorrect println format [line: 4 ]", linter.getLines())
+        assertEquals("Incorrect identifier format [line: 1 ]", linter.getLines())
     }
 }
