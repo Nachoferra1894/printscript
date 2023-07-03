@@ -4,9 +4,12 @@ import com.google.gson.Gson
 import java.io.File
 
 class ReadConfigLinter {
-    private val configClasses: ArrayList<ConfigClasses> = ArrayList()
-    fun getJsonDataFromAsset(configFile: File): ArrayList<ConfigClasses>? {
+    private val configClasses: ArrayList<ConfigClassesLinter> = ArrayList()
+    fun getJsonDataFromAsset(configFile: File): ArrayList<ConfigClassesLinter>? {
         return try {
+            if (!configFile.exists()) {
+                return getDefaultArray()
+            }
             val jsonString: String = configFile.bufferedReader().use { it.readText() }
             val gson = Gson()
             val config = gson.fromJson(jsonString, ConfigLinter::class.java)
@@ -20,6 +23,12 @@ class ReadConfigLinter {
         }
     }
 
+    private fun getDefaultArray(): ArrayList<ConfigClassesLinter> {
+        configClasses.add(PrintOperations())
+        configClasses.add(ReadInputOperations())
+        configClasses.add(CamelCase())
+        return configClasses
+    }
     private fun definePrintClass(config: ConfigLinter): PrintCase {
         if (config.v1["printWithOperation"] == true) {
             return PrintOperations()
@@ -39,8 +48,5 @@ class ReadConfigLinter {
             return CamelCase()
         }
         return SnakeCase()
-    }
-    fun getConfigClasses(): ArrayList<ConfigClasses> {
-        return configClasses
     }
 }
