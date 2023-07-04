@@ -177,8 +177,11 @@ class InterpreterVisitorV2(
 
     private fun onlyIf(ifNode: IfNode, conditionValue: Variable) {
         val truthyNode = ifNode.getTruthyNode()
-        if (conditionValue.getValue() == "true" && truthyNode != null) {
-            truthyNode.accept(this)
+        val value = conditionValue.getValue()
+        if (value === "true" || value === "false"){
+            if (conditionValue.getValue() == "true" && truthyNode != null) {
+                truthyNode.accept(this)
+            }
         }else{
             throw Exception("If: Condition must be only true / false / variable: Boolean")
         }
