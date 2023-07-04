@@ -38,7 +38,7 @@ class CommonPrintScriptRunner(printer: Printer, private val version: Version = g
     override fun runExecution(
         source: Flow<String>,
         errorHandler: ErrorHandler
-    ) {
+    ): HashMap<String, Any?> {
         try {
             val tokens = lexer.getTokens(source, version)
             val ast = parser.parseTokens(tokens, version)
@@ -46,6 +46,7 @@ class CommonPrintScriptRunner(printer: Printer, private val version: Version = g
         } catch (e: Exception) {
             errorHandler.reportError(e.message)
         }
+        return interpreter.getVariableValues()
     }
 
     override fun runFormatting(source: Flow<String>, configFile: File): String {
