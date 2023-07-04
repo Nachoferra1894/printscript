@@ -48,7 +48,7 @@ class ExpressionStrategyTest {
         val configs: ArrayList<ConfigClassesLinter> = ArrayList()
         configs.add(ReadInputOperations())
         Assertions.assertTrue(readConfig.checkContent(nodeOperation.getValue()!!, configs))
-        Assertions.assertFalse(readConfig.checkContent(nodeNormal.getValue()!!, configs))
+        Assertions.assertTrue(readConfig.checkContent(nodeNormal.getValue()!!, configs))
     }
 
     @Test

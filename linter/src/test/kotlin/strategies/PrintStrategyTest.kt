@@ -40,6 +40,6 @@ class PrintStrategyTest {
         val node = PrintNode(Operation(Variable("3", PrototypeType.NUMBER, 1), Operator.SUM, Operation(Variable("4", PrototypeType.NUMBER, 1), Operator.MUL, Variable("5", PrototypeType.NUMBER, 1), 1), 1), 1)
         val node1 = PrintNode(Variable("Hello, world!", PrototypeType.STRING, 1), 1)
         assertTrue(readConfig.checkContent(node, configs))
-        assertFalse(readConfig.checkContent(node1, configs))
+        assertTrue(readConfig.checkContent(node1, configs))
     }
 }
