@@ -25,6 +25,8 @@ class InterpreterVisitorV1(
 
         if (!map.exist(name)) {
             map.put(name, ValueAndTypeV1(null, type))
+        }else{
+            throw Exception("Variable $name already declared! Can't declare the same variable 2 times!")
         }
 
         if (variableDeclaration.getValue() != null) {
@@ -45,7 +47,7 @@ class InterpreterVisitorV1(
                 map.put(variableName, ValueAndTypeV1(literal.getValue(), variableType))
             }
         } else {
-            throw Error("The variable: $variableName does not exist!")
+            throw Exception("The variable: $variableName does not exist!")
         }
     }
 
@@ -64,7 +66,7 @@ class InterpreterVisitorV1(
             }
 
             else -> {
-                throw Error("Type not exists!")
+                throw Exception("Type: $type not exists!")
             }
         }
     }
@@ -98,12 +100,12 @@ class InterpreterVisitorV1(
                         Operator.SUB -> subtractValues(l, r)
                         Operator.MUL -> multiplyValues(l, r)
                         Operator.DIV -> divideValues(l, r)
-                        else -> throw Error("Invalid Operation")
+                        else -> throw Exception("Invalid Operation")
                     }
                 }
             }
         }
-        throw Error("Invalid Expression!")
+        throw Exception("Invalid Expression!")
     }
 
     private fun setValue(variable: Variable): String {
@@ -160,7 +162,7 @@ class InterpreterVisitorV1(
                 left.getLine()
             )
 
-            else -> throw Error("Can not sum values")
+            else -> throw Exception("Can not sum values: $lValue and $rValue")
         }
     }
 
@@ -176,7 +178,7 @@ class InterpreterVisitorV1(
                 left.getLine()
             )
 
-            else -> throw Error("Can not subtract values")
+            else -> throw Exception("Can not subtract values: $lValue and $rValue")
         }
     }
 
@@ -192,7 +194,7 @@ class InterpreterVisitorV1(
                 left.getLine()
             )
 
-            else -> throw Error("Can not multiply values")
+            else -> throw Exception("Can not multiply values: $lValue and $rValue")
         }
     }
 
@@ -209,7 +211,7 @@ class InterpreterVisitorV1(
 
             )
 
-            else -> throw Error("Can not divide values")
+            else -> throw Exception("Can not divide values: $lValue and $rValue")
         }
     }
 
