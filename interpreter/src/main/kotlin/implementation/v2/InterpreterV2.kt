@@ -28,6 +28,14 @@ class InterpreterV2(private val visitor: InterpreterVisitorV2) : Interpreter(V2(
 
         return value.value
     }
+    override fun getVariableValues(): HashMap<String, Any?>{
+        val variableValue = HashMap<String, Any?>()
+        val memory = getMemory().getMap()
+        for (variable in memory){
+            variableValue.put(variable.key, getValue(variable.key))
+        }
+        return variableValue
+    }
 
     private fun getMemory(): InterpreterMapV2 {
         return (this.visitor).map
