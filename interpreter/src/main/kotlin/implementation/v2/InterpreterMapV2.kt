@@ -8,6 +8,10 @@ class InterpreterMapV2(private val map: MutableMap<String, ValueAndTypeV2>) {
         return map[key] ?: throw Error(key + "not found")
     }
 
+    fun getMap(): MutableMap<String, ValueAndTypeV2>{
+        return map;
+    }
+
     fun exist(key: String): Boolean {
         return map.containsKey(key)
     }
