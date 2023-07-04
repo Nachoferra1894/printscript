@@ -49,55 +49,35 @@ class CommonPrintScriptRunner(printer: Printer, private val version: Version = g
     }
 
     override fun runFormatting(source: Flow<String>, configFile: File): String {
-        try{
-            val ast = getNode(source)
-            val formatted = formatter.getFormattedCode(ast, version, configFile)
-            println(formatted)
-            return formatted
-        } catch (e: Error){
-            throw Error(e.message)
-        }
+        val ast = getNode(source)
+        val formatted = formatter.getFormattedCode(ast, version, configFile)
+        println(formatted)
+        return formatted
     }
 
     override fun runFormatting(source: Flow<String>, configClasses: ArrayList<ConfigClasses>): String {
-        try {
-            val ast = getNode(source)
-            val formatted = formatter.getFormattedCode(ast, version, configClasses)
-            println(formatted)
-            return formatted
-        } catch (e: Error){
-            throw Error(e.message)
-        }
+        val ast = getNode(source)
+        val formatted = formatter.getFormattedCode(ast, version, configClasses)
+        println(formatted)
+        return formatted
     }
 
     private fun getNode(source: Flow<String>): ASTNode {
-        try {
-            val tokens = lexer.getTokens(source, version)
-            return parser.parseTokens(tokens, version)
-        }catch (e: Error){
-            throw Error(e.message)
-        }
+        val tokens = lexer.getTokens(source, version)
+        return parser.parseTokens(tokens, version)
     }
 
     override fun runAnalyzing(source: Flow<String>, configFile: File): String {
-        try {
-            val ast = getNode(source)
-            val linted = linter.getLintedCodeCorrection(ast, version, configFile)
-            println(linted)
-            return linted
-        } catch (e: Error){
-            throw Error(e.message)
-        }
+        val ast = getNode(source)
+        val linted = linter.getLintedCodeCorrection(ast, version, configFile)
+        println(linted)
+        return linted
     }
 
     override fun runAnalyzing(source: Flow<String>, configClasses: ArrayList<ConfigClassesLinter>): String {
-        try {
-            val ast = getNode(source)
-            val linted = linter.getLintedCodeCorrection(ast, version, configClasses)
-            println(linted)
-            return linted
-        } catch (e: Error){
-            throw Error(e.message)
-        }
+        val ast = getNode(source)
+        val linted = linter.getLintedCodeCorrection(ast, version, configClasses)
+        println(linted)
+        return linted
     }
 }

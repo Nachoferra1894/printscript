@@ -14,7 +14,6 @@ import types.IfNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
-import kotlin.Error
 
 class InterpreterVisitorV2(
     val map: InterpreterMapV2,
@@ -29,6 +28,8 @@ class InterpreterVisitorV2(
 
         if (!map.exist(name)) {
             map.put(name, ValueAndTypeV2(null, type, isMutable))
+        }else{
+            throw Exception("Variable $name already declared! Can't declare the same variable 2 times!")
         }
 
         if (variableDeclaration.getValue() != null) {
@@ -49,13 +50,13 @@ class InterpreterVisitorV2(
                 if (literal is Variable && variableType == getTypeFromPrototype(literal.getType())) {
                     map.put(variableName, ValueAndTypeV2(literal.getValue(), variableType, true))
                 } else {
-                    throw Error("Type Error!")
+                    throw Exception("Type Error!")
                 }
             } else {
-                throw Error("$variableName is not mutable")
+                throw Exception("$variableName is not mutable")
             }
         } else {
-            throw Error("The variable: $variableName does not exist!")
+            throw Exception("The variable: $variableName does not exist!")
         }
     }
 
@@ -78,7 +79,7 @@ class InterpreterVisitorV2(
             }
 
             else -> {
-                throw Error("Type not exists!")
+                throw Exception("Type not exists!")
             }
         }
     }
@@ -112,12 +113,12 @@ class InterpreterVisitorV2(
         if (expressionNode is ReadInputExp) {
             val expression = expressionNode.expression
             if (expression is Variable) {
-                if (expression.getType() != PrototypeType.STRING) throw Error("Read input message should be a string")
+                if (expression.getType() != PrototypeType.STRING) throw Exception("Read input message should be a string")
                 val value = readInput.read(expression.getValue())
                 val valueType = setPrototypeType(value)
                 return Variable(value, valueType)
             } else {
-                throw Error("Invalid message for read input")
+                throw Exception("Invalid message for read input")
             }
         }
         if (expressionNode is Operation) {
@@ -137,12 +138,12 @@ class InterpreterVisitorV2(
                         Operator.SUB -> subtractValues(l, r)
                         Operator.MUL -> multiplyValues(l, r)
                         Operator.DIV -> divideValues(l, r)
-                        else -> throw Error("Invalid Operation")
+                        else -> throw Exception("Invalid Operation")
                     }
                 }
             }
         }
-        throw Error("Invalid Expression!")
+        throw Exception("Invalid Expression!")
     }
 
     override fun visitIfNode(ifNode: IfNode) {
@@ -158,7 +159,7 @@ class InterpreterVisitorV2(
                         ifElse(ifNode, conditionValue)
                     }
                 } else {
-                    throw Error("Invalid if statement condition")
+                    throw Exception("Invalid if statement condition")
                 }
             } else if (conditionValue.getType() == PrototypeType.BOOLEAN) {
                 if (ifNode.getFalsyNode() == null) {
@@ -167,10 +168,10 @@ class InterpreterVisitorV2(
                     ifElse(ifNode, conditionValue)
                 }
             } else {
-                throw Error("Invalid if statement condition")
+                throw Exception("Invalid if statement condition")
             }
         } else {
-            throw Error("Condition must be only true / false / variable: Boolean")
+            throw Exception("If: Condition must be only true / false / variable: Boolean")
         }
     }
 
@@ -178,6 +179,8 @@ class InterpreterVisitorV2(
         val truthyNode = ifNode.getTruthyNode()
         if (conditionValue.getValue() == "true" && truthyNode != null) {
             truthyNode.accept(this)
+        }else{
+            throw Exception("If: Condition must be only true / false / variable: Boolean")
         }
     }
 
@@ -189,7 +192,7 @@ class InterpreterVisitorV2(
         } else if (conditionValue.getValue() == "false" && falsyNode != null) {
             falsyNode.accept(this)
         } else {
-            throw Error("Condition must be only true / false / variable: Boolean")
+            throw Exception("IfElse: Condition must be only true / false / variable: Boolean")
         }
     }
 
@@ -246,7 +249,7 @@ class InterpreterVisitorV2(
                 left.getLine()
             )
 
-            else -> throw Error("Can not sum values")
+            else -> throw Exception("Can not sum values $lValue and $rValue")
         }
     }
 
@@ -262,7 +265,7 @@ class InterpreterVisitorV2(
                 left.getLine()
             )
 
-            else -> throw Error("Can not subtract values")
+            else -> throw Exception("Can not subtract values: $lValue and $rValue")
         }
     }
 
@@ -278,7 +281,7 @@ class InterpreterVisitorV2(
                 left.getLine()
             )
 
-            else -> throw Error("Can not multiply values")
+            else -> throw Exception("Can not multiply values: $lValue anda $rValue")
         }
     }
 
@@ -294,7 +297,7 @@ class InterpreterVisitorV2(
                 right.getLine()
             )
 
-            else -> throw Error("Can not divide values")
+            else -> throw Exception("Can not divide values: $lValue and $rValue")
         }
     }
 
