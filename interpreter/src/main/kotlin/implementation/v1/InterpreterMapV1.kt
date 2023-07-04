@@ -1,7 +1,5 @@
 package implementation.v1
 
-import implementation.v2.ValueAndTypeV2
-
 class InterpreterMapV1(private val map: MutableMap<String, ValueAndTypeV1>) {
     fun put(key: String, valueType: ValueAndTypeV1) = run { map[key] = valueType }
 

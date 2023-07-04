@@ -14,7 +14,6 @@ import types.IfNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
-import kotlin.Error
 
 class InterpreterVisitorV2(
     val map: InterpreterMapV2,

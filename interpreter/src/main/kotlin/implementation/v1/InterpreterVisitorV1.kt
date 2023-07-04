@@ -12,7 +12,6 @@ import types.AssignmentNode
 import types.ParentNode
 import types.PrintNode
 import types.VariableDeclarationNode
-import kotlin.Error
 
 class InterpreterVisitorV1(
     val map: InterpreterMapV1,
