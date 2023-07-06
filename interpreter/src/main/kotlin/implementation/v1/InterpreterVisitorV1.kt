@@ -24,7 +24,7 @@ class InterpreterVisitorV1(
 
         if (!map.exist(name)) {
             map.put(name, ValueAndTypeV1(null, type))
-        }else{
+        } else {
             throw Exception("Variable $name already declared! Can't declare the same variable 2 times!")
         }
 
@@ -42,8 +42,12 @@ class InterpreterVisitorV1(
             if (literal is Operation) {
                 literal = visitExpressionNode(assignmentNode.value)
             }
-            if (literal is Variable && variableType == getTypeFromPrototype(literal.getType())) {
-                map.put(variableName, ValueAndTypeV1(literal.getValue(), variableType))
+            if (literal is Variable) {
+                if (variableType == getTypeFromPrototype(literal.getType())) {
+                    map.put(variableName, ValueAndTypeV1(literal.getValue(), variableType))
+                } else {
+                    throw Exception("The variable: $variableName is not of type: $variableType")
+                }
             }
         } else {
             throw Exception("The variable: $variableName does not exist!")

@@ -7,8 +7,8 @@ class InterpreterMapV1(private val map: MutableMap<String, ValueAndTypeV1>) {
         return map[key] ?: throw Exception("Variable $key not found")
     }
 
-    fun getMap(): MutableMap<String, ValueAndTypeV1>{
-        return map;
+    fun getMap(): MutableMap<String, ValueAndTypeV1> {
+        return map
     }
 
     fun exist(key: String): Boolean {

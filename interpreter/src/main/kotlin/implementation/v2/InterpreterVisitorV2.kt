@@ -28,7 +28,7 @@ class InterpreterVisitorV2(
 
         if (!map.exist(name)) {
             map.put(name, ValueAndTypeV2(null, type, isMutable))
-        }else{
+        } else {
             throw Exception("Variable $name already declared! Can't declare the same variable 2 times!")
         }
 
@@ -47,10 +47,12 @@ class InterpreterVisitorV2(
                 if (literal is Operation || literal is ReadInputExp) {
                     literal = visitExpressionNode(assignmentNode.value)
                 }
-                if (literal is Variable && variableType == getTypeFromPrototype(literal.getType())) {
-                    map.put(variableName, ValueAndTypeV2(literal.getValue(), variableType, true))
-                } else {
-                    throw Exception("Type Error!")
+                if (literal is Variable) {
+                    if (variableType == getTypeFromPrototype(literal.getType())) {
+                        map.put(variableName, ValueAndTypeV2(literal.getValue(), variableType, true))
+                    } else {
+                        throw Exception("The variable: $variableName is not of type: $variableType")
+                    }
                 }
             } else {
                 throw Exception("$variableName is not mutable")
@@ -98,6 +100,7 @@ class InterpreterVisitorV2(
         val regex = Regex("^[0-9]+([,.][0-9]+)?$")
         return regex.matches(numero)
     }
+
     override fun visitExpressionNode(expressionNode: Expression): Variable {
         if (expressionNode is Variable) {
             if (expressionNode.getType() == PrototypeType.IDENTIFIER) {
@@ -114,6 +117,7 @@ class InterpreterVisitorV2(
             val expression = expressionNode.expression
             if (expression is Variable) {
                 if (expression.getType() != PrototypeType.STRING) throw Exception("Read input message should be a string")
+                printer.print(expression.getValue())
                 val value = readInput.read(expression.getValue())
                 val valueType = setPrototypeType(value)
                 return Variable(value, valueType)
@@ -178,11 +182,11 @@ class InterpreterVisitorV2(
     private fun onlyIf(ifNode: IfNode, conditionValue: Variable) {
         val truthyNode = ifNode.getTruthyNode()
         val value = conditionValue.getValue()
-        if (value === "true" || value === "false"){
+        if (value === "true" || value === "false") {
             if (conditionValue.getValue() == "true" && truthyNode != null) {
                 truthyNode.accept(this)
             }
-        }else{
+        } else {
             throw Exception("If: Condition must be only true / false / variable: Boolean")
         }
     }

@@ -14,6 +14,9 @@ class InterpreterV2(private val visitor: InterpreterVisitorV2) : Interpreter(V2(
         val map: InterpreterMapV2 = this.getMemory()
         val value: ValueAndTypeV2 = map.getValue(variable)
 
+        if (value.value === null) {
+            return null
+        }
         if (value.type === "string") {
             return value.value
         } else if (value.type === "number") {
@@ -28,10 +31,10 @@ class InterpreterV2(private val visitor: InterpreterVisitorV2) : Interpreter(V2(
 
         return value.value
     }
-    override fun getVariableValues(): HashMap<String, Any?>{
+    override fun getVariableValues(): HashMap<String, Any?> {
         val variableValue = HashMap<String, Any?>()
         val memory = getMemory().getMap()
-        for (variable in memory){
+        for (variable in memory) {
             variableValue.put(variable.key, getValue(variable.key))
         }
         return variableValue

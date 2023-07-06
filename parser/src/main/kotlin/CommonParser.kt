@@ -45,6 +45,7 @@ class CommonParser : Parser {
                 tokenQueue.add(token)
             }
         }
+        if (parentNode.getChildren().isEmpty()) throw Exception("Can't find end of line at line" + tokenQueue.peek().line)
         getParentOrFirstChild(parentNode)
     }
 
