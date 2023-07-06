@@ -5,6 +5,7 @@ import interpreterUtils.ReadInputImpl
 import org.junit.jupiter.api.Test
 import printscript.CommonPrintScriptRunner
 import printscript.PrintscriptRunner
+import util.CommonErrorHandler
 import version.V1
 import version.getVersionFromString
 import java.io.File
@@ -43,11 +44,13 @@ class PrintscriptRunnerTest {
     @Throws(FileNotFoundException::class)
     fun testPrintStatement() {
         val runner: PrintscriptRunner = CommonPrintScriptRunner(PrinterImpl(), V1())
+        val errorHandler = CommonErrorHandler()
 
         val testFile = "src/test/kotlin/print-statement.ps"
         val srcFile = File(testFile)
         val fileInput = LexerFileInput(srcFile)
-        runner.runExecution(fileInput.getFlow(), CommonErrorHandler())
+        runner.runExecution(fileInput.getFlow(), errorHandler)
+        assert(errorHandler.getErrors().isNotEmpty())
     }
 
     @Test
